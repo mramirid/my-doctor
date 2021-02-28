@@ -1,8 +1,15 @@
 {
   "expo": {
-    "name": "MyDoctor",
-    "slug": "MyDoctor",
+    "name": "My Doctor",
+    "slug": "my-doctor",
+    "description": "Aplikasi untuk melakukan konsultasi online dengan dokter serta pencarian rumah sakit terdekat",
     "version": "1.0.0",
+    "owner": "mramirid",
+    "githubUrl": "https://github.com/mramirid/my-doctor",
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -17,16 +24,18 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.mramirid.my-doctor",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.mramirid.my_doctor",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
+      },
+      "permissions": []
     }
   }
 }
