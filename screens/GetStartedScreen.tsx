@@ -1,0 +1,43 @@
+import { StatusBar } from 'expo-status-bar';
+import * as React from 'react';
+import { ImageBackground, StyleSheet, View, Text } from 'react-native';
+
+import AppLogo from '../components/atoms/AppLogo';
+import Gap from '../components/atoms/Gap';
+import AppButton from '../components/atoms/clickables/AppButton';
+import Fonts from '../constants/fonts';
+
+const GetStarted: React.FC = () => (
+  <>
+    <StatusBar style="light" />
+    <ImageBackground
+      style={styles.screen}
+      source={require('../assets/illustrations/get-started-bg.png')}>
+      <View>
+        <AppLogo />
+        <Text style={styles.text}>Konsultasi dengan dokter jadi lebih mudah &amp; fleksibel</Text>
+      </View>
+      <View>
+        <AppButton title="Get Started" type="primary" onPress={() => null} />
+        <Gap height={16} />
+        <AppButton title="Sign In" type="secondary" onPress={() => null} />
+      </View>
+    </ImageBackground>
+  </>
+);
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    padding: 40,
+    justifyContent: 'space-between',
+  },
+  text: {
+    fontFamily: Fonts.NunitoSemiBold,
+    fontSize: 28,
+    color: 'white',
+    marginTop: 90,
+  },
+});
+
+export default GetStarted;
