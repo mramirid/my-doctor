@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
@@ -5,7 +6,7 @@ import * as React from 'react';
 import { enableScreens } from 'react-native-screens';
 
 import Fonts from './constants/fonts';
-import GetStartedScreen from './screens/GetStartedScreen';
+import AppNavigator from './navigation/AppNavigator';
 
 enableScreens();
 
@@ -27,7 +28,7 @@ const App: React.FC = () => {
   return (
     <>
       <StatusBar style="auto" />
-      <GetStartedScreen />
+      <AppNavigator />
     </>
   );
 };
