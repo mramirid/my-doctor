@@ -6,6 +6,7 @@ import { ImageBackground, StyleSheet, View, Text } from 'react-native';
 import AppGap from '../components/atoms/AppGap';
 import AppLogo from '../components/atoms/AppLogo';
 import AppButton from '../components/atoms/clickables/AppButton';
+import Colors from '../constants/colors';
 import Fonts from '../constants/fonts';
 import { GetStartedScreenNavProp } from '../navigation/GetStartedStack/types';
 
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: Fonts.NunitoSemiBold,
     fontSize: 28,
-    color: 'white',
+    color: Colors.White,
     marginTop: 90,
   },
 });

@@ -19,16 +19,16 @@ const AppLogo: React.FC<SvgProps> = (props) => (
       height={23.887}
       rx={3.01}
       transform="matrix(-1 0 0 1 46.01 21.291)"
-      fill="#fff"
+      fill={Colors.White}
     />
     <Rect
       width={5.972}
       height={24.08}
       rx={2.986}
       transform="matrix(0 -1 -1 0 55.04 35.794)"
-      fill="#fff"
+      fill={Colors.White}
     />
   </Svg>
 );
 
-export default AppLogo;
+export default React.memo(AppLogo);

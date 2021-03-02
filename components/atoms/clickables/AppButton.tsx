@@ -26,7 +26,7 @@ const AppButton: React.FC<AppButtonProps> = (props) => {
       buttonStyle['backgroundColor'] = Colors.Dark1;
       break;
     case 'flat':
-      buttonStyle['backgroundColor'] = 'white';
+      buttonStyle['backgroundColor'] = Colors.White;
       break;
     case 'accent':
       buttonStyle['backgroundColor'] = Colors.Green1;
@@ -36,13 +36,13 @@ const AppButton: React.FC<AppButtonProps> = (props) => {
   const textStyle: TextStyle = { fontFamily: Fonts.NunitoSemiBold };
   switch (props.color) {
     case 'primary':
-      textStyle['color'] = 'white';
+      textStyle['color'] = Colors.White;
       break;
     case 'flat':
       textStyle['color'] = Colors.Dark1;
       break;
     case 'accent':
-      textStyle['color'] = 'white';
+      textStyle['color'] = Colors.White;
       break;
   }
 
