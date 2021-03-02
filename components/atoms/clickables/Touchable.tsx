@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Platform, TouchableNativeFeedback, TouchableOpacity, View, ViewStyle } from 'react-native';
 
-interface AppTouchableProps {
+interface TouchableProps {
   contentContainerStyle?: ViewStyle;
   onPress(): void;
 }
 
-const AppTouchable: React.FC<AppTouchableProps> = (props) => {
+const Touchable: React.FC<TouchableProps> = (props) => {
   if (Platform.OS === 'android' && Platform.Version >= 21) {
     return (
       <TouchableNativeFeedback onPress={props.onPress} useForeground>
@@ -22,4 +22,4 @@ const AppTouchable: React.FC<AppTouchableProps> = (props) => {
   }
 };
 
-export default AppTouchable;
+export default Touchable;

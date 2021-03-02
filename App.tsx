@@ -1,8 +1,7 @@
-import 'react-native-gesture-handler';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
-import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
+import 'react-native-gesture-handler';
 import { enableScreens } from 'react-native-screens';
 
 import Fonts from './constants/fonts';
@@ -25,12 +24,7 @@ const App: React.FC = () => {
     return <AppLoading />;
   }
 
-  return (
-    <>
-      <StatusBar style="auto" />
-      <AppNavigator />
-    </>
-  );
+  return <AppNavigator />;
 };
 
 export default App;

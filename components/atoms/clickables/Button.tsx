@@ -3,17 +3,18 @@ import { TextStyle, ViewStyle, Text } from 'react-native';
 
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
-import AppTouchable from './AppTouchable';
+import Touchable from './Touchable';
 
-interface AppButtonProps {
+interface ButtonProps {
   title: string;
   type: 'primary' | 'secondary';
   style?: ViewStyle;
   onPress(): void;
 }
 
-const AppButton: React.FC<AppButtonProps> = (props) => {
+const Button: React.FC<ButtonProps> = (props) => {
   const buttonStyle: ViewStyle = {
+    height: 45,
     paddingVertical: 10,
     borderRadius: 10,
     overflow: 'hidden',
@@ -27,10 +28,10 @@ const AppButton: React.FC<AppButtonProps> = (props) => {
   };
 
   return (
-    <AppTouchable contentContainerStyle={buttonStyle} onPress={props.onPress}>
+    <Touchable contentContainerStyle={buttonStyle} onPress={props.onPress}>
       <Text style={textStyle}>{props.title}</Text>
-    </AppTouchable>
+    </Touchable>
   );
 };
 
-export default AppButton;
+export default Button;
