@@ -7,7 +7,7 @@ import AppTouchable from './AppTouchable';
 
 interface AppButtonProps {
   title: string;
-  type: 'primary' | 'secondary';
+  color: 'primary' | 'flat' | 'accent';
   style?: ViewStyle;
   onPress(): void;
 }
@@ -19,13 +19,32 @@ const AppButton: React.FC<AppButtonProps> = (props) => {
     borderRadius: 10,
     overflow: 'hidden',
     alignItems: 'center',
-    backgroundColor: props.type === 'primary' ? Colors.Secondary : 'white',
     ...(props.style ?? {}),
   };
-  const textStyle: TextStyle = {
-    fontFamily: Fonts.NunitoSemiBold,
-    color: props.type === 'primary' ? 'white' : Colors.Primary,
-  };
+  switch (props.color) {
+    case 'primary':
+      buttonStyle['backgroundColor'] = Colors.Dark1;
+      break;
+    case 'flat':
+      buttonStyle['backgroundColor'] = 'white';
+      break;
+    case 'accent':
+      buttonStyle['backgroundColor'] = Colors.Green1;
+      break;
+  }
+
+  const textStyle: TextStyle = { fontFamily: Fonts.NunitoSemiBold };
+  switch (props.color) {
+    case 'primary':
+      textStyle['color'] = 'white';
+      break;
+    case 'flat':
+      textStyle['color'] = Colors.Dark1;
+      break;
+    case 'accent':
+      textStyle['color'] = 'white';
+      break;
+  }
 
   return (
     <AppTouchable contentContainerStyle={buttonStyle} onPress={props.onPress}>

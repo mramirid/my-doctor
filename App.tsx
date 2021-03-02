@@ -1,7 +1,7 @@
+import 'react-native-gesture-handler';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 import * as React from 'react';
-import 'react-native-gesture-handler';
 import { enableScreens } from 'react-native-screens';
 
 import Fonts from './constants/fonts';

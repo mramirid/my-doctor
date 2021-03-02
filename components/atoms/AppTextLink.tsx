@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, TextStyle } from 'react-native';
+import { TextStyle, Text, StyleSheet } from 'react-native';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   textLink: {
     fontSize: 12,
     fontFamily: Fonts.NunitoRegular,
-    color: Colors.Light,
+    color: Colors.Grey1,
     textDecorationLine: 'underline',
   },
 });

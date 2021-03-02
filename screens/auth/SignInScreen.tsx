@@ -1,7 +1,8 @@
+import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text } from 'react-native';
 
 import AppGap from '../../components/atoms/AppGap';
 import AppLogo from '../../components/atoms/AppLogo';
@@ -72,7 +73,7 @@ const SignInScreen: React.FC = () => {
         <AppButton
           style={styles.signInButton}
           title="Sign In"
-          type="primary"
+          color="accent"
           onPress={() => null}
         />
         <AppTextLink style={styles.signUpLink}>Create New Account</AppTextLink>
@@ -85,6 +86,7 @@ const SignInScreen: React.FC = () => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    marginTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight,
   },
   screenContent: {
     paddingTop: 40,
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
     maxWidth: 155,
     fontSize: 20,
     fontFamily: Fonts.NunitoSemiBold,
-    color: Colors.Primary,
+    color: Colors.Dark1,
   },
   signInButton: {
     marginTop: 40,

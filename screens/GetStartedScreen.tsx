@@ -24,13 +24,13 @@ const GetStartedScreen: React.FC = () => {
         <View>
           <AppButton
             title="Get Started"
-            type="primary"
+            color="accent"
             onPress={() => navigation.navigate('SignUpScreen')}
           />
           <AppGap height={16} />
           <AppButton
             title="Sign In"
-            type="secondary"
+            color="flat"
             onPress={() => navigation.navigate('SignInScreen')}
           />
         </View>
