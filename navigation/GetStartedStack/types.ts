@@ -4,9 +4,12 @@ export type GetStartedStackParamList = {
   GetStartedScreen: undefined;
   SignInScreen: undefined;
   SignUpScreen: undefined;
+  UploadPhotoScreen: undefined;
 };
 
-export type GetStartedScreenNavProp = StackNavigationProp<
+export type GettingStartedScreenNavProp = StackNavigationProp<
   GetStartedStackParamList,
   'GetStartedScreen'
 >;
+
+export type SignUpScreenNavProp = StackNavigationProp<GetStartedStackParamList, 'SignUpScreen'>;

@@ -3,7 +3,8 @@ import * as React from 'react';
 
 import GetStartedScreen from '../../screens/GetStartedScreen';
 import SignInScreen from '../../screens/auth/SignInScreen';
-import SignUpScreen from '../../screens/auth/SignUpScreen';
+import SignUpScreen from '../../screens/auth/sign-up/SignUpScreen';
+import UploadPhotoScreen from '../../screens/auth/sign-up/UploadPhotoScreen';
 import { defaultStackScreenOptions } from '../constants';
 import { GetStartedStackParamList } from './types';
 
@@ -14,6 +15,7 @@ const GetStartedStack: React.FC = () => (
     <Stack.Screen name="GetStartedScreen" component={GetStartedScreen} />
     <Stack.Screen name="SignInScreen" component={SignInScreen} />
     <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+    <Stack.Screen name="UploadPhotoScreen" component={UploadPhotoScreen} />
   </Stack.Navigator>
 );
 
