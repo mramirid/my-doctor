@@ -3,15 +3,14 @@ import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { ImageBackground, StyleSheet, View, Text } from 'react-native';
 
+import AppGap from '../components/atoms/AppGap';
 import AppLogo from '../components/atoms/AppLogo';
-import Gap from '../components/atoms/Gap';
-import Button from '../components/atoms/clickables/Button';
+import AppButton from '../components/atoms/clickables/AppButton';
 import Fonts from '../constants/fonts';
 import { GetStartedScreenNavProp } from '../navigation/GetStartedStack/types';
 
 const GetStartedScreen: React.FC = () => {
   const navigation = useNavigation<GetStartedScreenNavProp>();
-
   return (
     <>
       <StatusBar style="light" />
@@ -23,13 +22,13 @@ const GetStartedScreen: React.FC = () => {
           <Text style={styles.text}>Konsultasi dengan dokter jadi lebih mudah &amp; fleksibel</Text>
         </View>
         <View>
-          <Button
+          <AppButton
             title="Get Started"
             type="primary"
             onPress={() => navigation.navigate('SignUpScreen')}
           />
-          <Gap height={16} />
-          <Button
+          <AppGap height={16} />
+          <AppButton
             title="Sign In"
             type="secondary"
             onPress={() => navigation.navigate('SignInScreen')}
