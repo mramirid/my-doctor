@@ -1,38 +1,43 @@
+import Constants from 'expo-constants';
 import * as React from 'react';
-import { View, StyleSheet, ViewStyle, ScrollView } from 'react-native';
+import { Platform, ScrollView, StyleSheet, View, ViewStyle } from 'react-native';
 
 import Colors from '../../../constants/colors';
+import AppGap from '../AppGap';
 
 interface AppTabScreenProps {
-  screenStyle?: ViewStyle;
-  scrollViewStyle?: ViewStyle;
-  contentStyle?: ViewStyle;
+  statusBar?: boolean;
+  style?: ViewStyle;
 }
 
-const AppTabScreen: React.FC<AppTabScreenProps> = (props) => (
-  <View style={{ ...styles.screen, ...(props.screenStyle ?? {}) }}>
-    <ScrollView
-      style={{ ...styles.scrollView, ...(props.scrollViewStyle ?? {}) }}
-      contentContainerStyle={{ ...styles.scrollViewContent, ...(props.contentStyle ?? {}) }}
-      showsVerticalScrollIndicator={false}>
-      {props.children}
-    </ScrollView>
-  </View>
-);
+const AppTabScreen: React.FC<AppTabScreenProps> = (props) => {
+  let statusBarHeight = 0;
+  if (props.statusBar && Platform.OS === 'android') {
+    statusBarHeight = Constants.statusBarHeight;
+  }
+  return (
+    <View style={styles.background}>
+      <AppGap height={statusBarHeight} backgroundColor={Colors.White} />
+      <View style={styles.card}>
+        <ScrollView contentContainerStyle={props.style} showsVerticalScrollIndicator={false}>
+          {props.children}
+        </ScrollView>
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-  screen: {
+  background: {
     flex: 1,
     backgroundColor: Colors.Dark,
   },
-  scrollView: {
+  card: {
     flex: 1,
-    backgroundColor: Colors.White,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-  },
-  scrollViewContent: {
-    paddingTop: 30,
+    overflow: 'hidden',
+    backgroundColor: Colors.White,
   },
 });
 

@@ -1,8 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Constants from 'expo-constants';
 import * as React from 'react';
-import { Platform } from 'react-native';
 
 import AppBottomTabBar from '../../components/molecules/AppBottomTabBar';
 import Colors from '../../constants/colors';
@@ -17,7 +15,6 @@ const Tab = createBottomTabNavigator<HomepageBottomTabsParamList>();
 
 const HomepageBottomTabs: React.FC = () => (
   <Tab.Navigator
-    sceneContainerStyle={{ marginTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}
     tabBar={AppBottomTabBar}
     tabBarOptions={{
       activeTintColor: Colors.Green2,

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import AppGap from '../../components/atoms/AppGap';
 import AppTabScreen from '../../components/atoms/bottom-tab/AppTabScreen';
@@ -11,7 +11,7 @@ import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
 const DoctorsOverviewScreenScreen: React.FC = () => (
-  <AppTabScreen>
+  <AppTabScreen style={styles.screen} statusBar>
     <View style={styles.padX16}>
       <HomeProfile />
       <Text style={styles.welcomeText}>Mau konsultasi dengan siapa hari ini?</Text>
@@ -45,6 +45,9 @@ const DoctorsOverviewScreenScreen: React.FC = () => (
 );
 
 const styles = StyleSheet.create({
+  screen: {
+    paddingTop: 30,
+  },
   padX16: {
     paddingHorizontal: 16,
   },

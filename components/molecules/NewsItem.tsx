@@ -3,27 +3,25 @@ import { View, StyleSheet, Text, Image, ViewStyle } from 'react-native';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
+import AppBorderedItem from '../atoms/AppBorderedItem';
 
 interface NewsItemProps {
   style?: ViewStyle;
 }
 
 const NewsItem: React.FC<NewsItemProps> = (props) => (
-  <View style={{ ...styles.container, ...(props.style ?? {}) }}>
+  <AppBorderedItem style={{ ...styles.container, ...(props.style ?? {}) }}>
     <View style={styles.newsHeading}>
       <Text style={styles.title}>Is it safe to stay at home during coronavirus?</Text>
       <Text style={styles.date}>Today</Text>
     </View>
     <Image style={styles.image} source={require('../../assets/dummies/news_building.png')} />
-  </View>
+  </AppBorderedItem>
 );
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
     paddingBottom: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.Grey1,
   },
   newsHeading: {
     flex: 1,

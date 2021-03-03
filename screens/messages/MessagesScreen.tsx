@@ -7,8 +7,15 @@ import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
 const MessagesScreen: React.FC = () => (
-  <AppTabScreen contentStyle={styles.screenScrollViewContent}>
+  <AppTabScreen style={styles.screen} statusBar>
     <Text style={styles.title}>Messages</Text>
+    <DoctorItem />
+    <DoctorItem />
+    <DoctorItem />
+    <DoctorItem />
+    <DoctorItem />
+    <DoctorItem />
+    <DoctorItem />
     <DoctorItem />
     <DoctorItem />
     <DoctorItem />
@@ -16,7 +23,7 @@ const MessagesScreen: React.FC = () => (
 );
 
 const styles = StyleSheet.create({
-  screenScrollViewContent: {
+  screen: {
     paddingTop: 30,
   },
   title: {
