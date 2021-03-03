@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     width: 105,
     height: 130,
     padding: 12,
-    backgroundColor: Colors.Green3,
+    backgroundColor: Colors.Green1,
     alignSelf: 'flex-start',
     marginRight: 10,
   },

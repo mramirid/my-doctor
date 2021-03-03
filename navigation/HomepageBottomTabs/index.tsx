@@ -20,7 +20,7 @@ const HomepageBottomTabs: React.FC = () => (
     sceneContainerStyle={{ marginTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}
     tabBar={AppBottomTabBar}
     tabBarOptions={{
-      activeTintColor: Colors.Green1,
+      activeTintColor: Colors.Green2,
       inactiveTintColor: Colors.Grey3,
       labelStyle: { fontFamily: Fonts.NunitoSemiBold },
     }}>

@@ -29,7 +29,7 @@ const AppButton: React.FC<AppButtonProps> = (props) => {
       buttonStyle['backgroundColor'] = Colors.White;
       break;
     case 'accent':
-      buttonStyle['backgroundColor'] = Colors.Green1;
+      buttonStyle['backgroundColor'] = Colors.Green2;
       break;
   }
 
