@@ -15,13 +15,14 @@ const DoctorsOverviewScreenScreen: React.FC = () => (
       style={styles.screenScrollView}
       contentContainerStyle={styles.screenScrollViewContent}
       showsHorizontalScrollIndicator={false}>
-      <HomeProfile />
-      <Text style={styles.welcomeText}>Mau konsultasi dengan siapa hari ini?</Text>
+      <View style={styles.padX16}>
+        <HomeProfile />
+        <Text style={styles.welcomeText}>Mau konsultasi dengan siapa hari ini?</Text>
+      </View>
       <View>
         <ScrollView
           horizontal
-          style={styles.categoriesContainer}
-          contentContainerStyle={styles.categories}
+          contentContainerStyle={styles.categoriesContent}
           showsHorizontalScrollIndicator={false}>
           <AppGap width={16} />
           <DoctorsCategory />
@@ -31,14 +32,18 @@ const DoctorsOverviewScreenScreen: React.FC = () => (
           <AppGap width={6} />
         </ScrollView>
       </View>
-      <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
-      <RatedDoctor style={styles.ratedDoctor} />
-      <RatedDoctor style={styles.ratedDoctor} />
-      <RatedDoctor style={styles.ratedDoctor} />
-      <Text style={styles.sectionLabel}>Good News</Text>
-      <NewsItem />
-      <NewsItem />
-      <NewsItem />
+      <View style={styles.padX16}>
+        <AppGap height={30} />
+        <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
+        <RatedDoctor style={styles.ratedDoctor} />
+        <RatedDoctor style={styles.ratedDoctor} />
+        <RatedDoctor style={styles.ratedDoctor} />
+        <AppGap height={14} />
+        <Text style={styles.sectionLabel}>Good News</Text>
+        <NewsItem style={styles.newsItem} />
+        <NewsItem style={styles.newsItem} />
+        <NewsItem style={styles.newsItem} />
+      </View>
     </ScrollView>
   </View>
 );
@@ -55,7 +60,9 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
   },
   screenScrollViewContent: {
-    paddingVertical: 30,
+    paddingTop: 30,
+  },
+  padX16: {
     paddingHorizontal: 16,
   },
   welcomeText: {
@@ -66,20 +73,19 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 16,
   },
-  categoriesContainer: {
-    marginHorizontal: -16,
-  },
-  categories: {
+  categoriesContent: {
     flexDirection: 'row',
   },
   sectionLabel: {
     fontSize: 16,
     fontFamily: Fonts.NunitoSemiBold,
     color: Colors.Dark,
-    marginTop: 30,
     marginBottom: 16,
   },
   ratedDoctor: {
+    marginBottom: 16,
+  },
+  newsItem: {
     marginBottom: 16,
   },
 });

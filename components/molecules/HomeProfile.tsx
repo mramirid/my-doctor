@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   occupation: {
     fontSize: 12,
-    color: Colors.Grey1,
+    color: Colors.Grey2,
     fontFamily: Fonts.NunitoSemiBold,
   },
 });

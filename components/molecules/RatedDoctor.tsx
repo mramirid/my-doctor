@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   specialist: {
     fontSize: 12,
     fontFamily: Fonts.NunitoRegular,
-    color: Colors.Grey1,
+    color: Colors.Grey2,
     marginTop: 2,
   },
   rating: {

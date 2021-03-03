@@ -21,13 +21,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 6,
     lineHeight: 22,
-    color: Colors.Grey1,
+    color: Colors.Grey2,
   },
   input: {
     height: 45,
     padding: 12,
     borderWidth: 1,
-    borderColor: Colors.Grey1,
+    borderColor: Colors.Grey2,
     borderRadius: 10,
   },
 });

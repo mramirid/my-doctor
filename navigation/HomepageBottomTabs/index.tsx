@@ -21,7 +21,7 @@ const HomepageBottomTabs: React.FC = () => (
     tabBar={AppBottomTabBar}
     tabBarOptions={{
       activeTintColor: Colors.Green1,
-      inactiveTintColor: Colors.Grey2,
+      inactiveTintColor: Colors.Grey3,
       labelStyle: { fontFamily: Fonts.NunitoSemiBold },
     }}>
     <Tab.Screen

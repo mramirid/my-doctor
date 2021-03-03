@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   textLink: {
     fontSize: 12,
     fontFamily: Fonts.NunitoRegular,
-    color: Colors.Grey1,
+    color: Colors.Grey2,
     textDecorationLine: 'underline',
   },
 });

@@ -19,7 +19,7 @@ const AppBottomTabBar: React.FC<BottomTabBarProps<BottomTabBarOptions>> = (props
         const isFocused = props.state.index === index;
         const { options } = props.descriptors[route.key];
         const tabItemColor =
-          (isFocused ? props.activeTintColor : props.inactiveTintColor) ?? Colors.Grey2;
+          (isFocused ? props.activeTintColor : props.inactiveTintColor) ?? Colors.Grey3;
 
         const label = options.tabBarLabel
           ? options.tabBarLabel

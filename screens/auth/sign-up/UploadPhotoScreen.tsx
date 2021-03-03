@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     width: 130,
     height: 130,
     borderWidth: 1,
-    borderColor: Colors.Grey1,
+    borderColor: Colors.Grey2,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 130 / 2,
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: Fonts.NunitoRegular,
     textAlign: 'center',
-    color: Colors.Grey1,
+    color: Colors.Grey2,
     marginTop: 4,
   },
   skipLink: {
