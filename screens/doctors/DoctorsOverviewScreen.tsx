@@ -40,10 +40,10 @@ const DoctorsOverviewScreenScreen: React.FC = () => (
         <RatedDoctor style={styles.ratedDoctor} />
         <AppGap height={14} />
         <Text style={styles.sectionLabel}>Good News</Text>
-        <NewsItem style={styles.newsItem} />
-        <NewsItem style={styles.newsItem} />
-        <NewsItem style={styles.newsItem} />
       </View>
+      <NewsItem style={styles.newsItem} />
+      <NewsItem style={styles.newsItem} />
+      <NewsItem style={styles.newsItem} />
     </ScrollView>
   </View>
 );
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
   },
   newsItem: {
     marginBottom: 16,
+    paddingHorizontal: 16,
   },
 });
 
