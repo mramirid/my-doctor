@@ -1,5 +1,7 @@
 import * as React from 'react';
-import Svg, { Circle, Ellipse, EMaskUnits, G, Mask, Path, SvgProps } from 'react-native-svg';
+import Svg, { Circle, Ellipse, G, Mask, Path, SvgProps } from 'react-native-svg';
+
+import { EMaskUnits } from './types';
 
 const CatPediatrician: React.FC<SvgProps> = (props) => (
   <Svg width={46} height={46} viewBox="0 0 46 46" fill="none" {...props}>
