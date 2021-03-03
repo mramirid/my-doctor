@@ -19,7 +19,7 @@ const AppHeader: React.FC<AppHeaderProps> = (props) => {
   return (
     <View style={styles.header}>
       <AppTouchable style={styles.backButton} onPress={navigation.goBack}>
-        <Ionicons name="arrow-back" size={icons.size} color={Colors.Dark1} />
+        <Ionicons name="arrow-back" size={icons.size} color={Colors.Dark} />
       </AppTouchable>
       <Text style={styles.title}>{props.title}</Text>
       <AppGap width={icons.size} />
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: Fonts.NunitoSemiBold,
     fontSize: 20,
-    color: Colors.Dark1,
+    color: Colors.Dark,
   },
 });
 

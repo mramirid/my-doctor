@@ -10,52 +10,59 @@ import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
 const DoctorsOverviewScreenScreen: React.FC = () => (
-  <ScrollView style={styles.screen} contentContainerStyle={styles.screenContent}>
-    <HomeProfile />
-    <Text style={styles.welcomeText}>Mau konsultasi dengan siapa hari ini?</Text>
-    <View>
-      <ScrollView
-        horizontal
-        style={styles.categoriesContainer}
-        contentContainerStyle={styles.categories}
-        showsHorizontalScrollIndicator={false}>
-        <AppGap width={16} />
-        <DoctorsCategory />
-        <DoctorsCategory />
-        <DoctorsCategory />
-        <DoctorsCategory />
-        <AppGap width={6} />
-      </ScrollView>
-    </View>
-    <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
-    <RatedDoctor />
-    <RatedDoctor />
-    <RatedDoctor />
-    <Text style={styles.sectionLabel}>Good News</Text>
-    <NewsItem />
-    <NewsItem />
-    <NewsItem />
-  </ScrollView>
+  <View style={styles.screen}>
+    <ScrollView
+      style={styles.screenScrollView}
+      contentContainerStyle={styles.screenScrollViewContent}
+      showsHorizontalScrollIndicator={false}>
+      <HomeProfile />
+      <Text style={styles.welcomeText}>Mau konsultasi dengan siapa hari ini?</Text>
+      <View>
+        <ScrollView
+          horizontal
+          style={styles.categoriesContainer}
+          contentContainerStyle={styles.categories}
+          showsHorizontalScrollIndicator={false}>
+          <AppGap width={16} />
+          <DoctorsCategory />
+          <DoctorsCategory />
+          <DoctorsCategory />
+          <DoctorsCategory />
+          <AppGap width={6} />
+        </ScrollView>
+      </View>
+      <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
+      <RatedDoctor style={styles.ratedDoctor} />
+      <RatedDoctor style={styles.ratedDoctor} />
+      <RatedDoctor style={styles.ratedDoctor} />
+      <Text style={styles.sectionLabel}>Good News</Text>
+      <NewsItem />
+      <NewsItem />
+      <NewsItem />
+    </ScrollView>
+  </View>
 );
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: Colors.Dark1,
+    backgroundColor: Colors.Dark,
   },
-  screenContent: {
+  screenScrollView: {
     flex: 1,
     backgroundColor: Colors.White,
-    paddingTop: 30,
-    paddingHorizontal: 16,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+  },
+  screenScrollViewContent: {
+    paddingVertical: 30,
+    paddingHorizontal: 16,
   },
   welcomeText: {
     maxWidth: 209,
     fontSize: 20,
     fontFamily: Fonts.NunitoSemiBold,
-    color: Colors.Dark1,
+    color: Colors.Dark,
     marginTop: 30,
     marginBottom: 16,
   },
@@ -68,8 +75,11 @@ const styles = StyleSheet.create({
   sectionLabel: {
     fontSize: 16,
     fontFamily: Fonts.NunitoSemiBold,
-    color: Colors.Dark1,
+    color: Colors.Dark,
     marginTop: 30,
+    marginBottom: 16,
+  },
+  ratedDoctor: {
     marginBottom: 16,
   },
 });

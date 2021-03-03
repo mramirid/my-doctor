@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     maxWidth: 155,
     fontSize: 20,
     fontFamily: Fonts.NunitoSemiBold,
-    color: Colors.Dark1,
+    color: Colors.Dark,
   },
   signInButton: {
     marginTop: 40,

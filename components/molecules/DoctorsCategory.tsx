@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 12,
     fontFamily: Fonts.NunitoLight,
-    color: Colors.Dark1,
+    color: Colors.Dark,
   },
   name: {
     fontSize: 12,
     fontFamily: Fonts.NunitoSemiBold,
-    color: Colors.Dark1,
+    color: Colors.Dark,
   },
 });
 

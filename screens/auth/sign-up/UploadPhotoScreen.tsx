@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   fullName: {
     fontSize: 24,
-    color: Colors.Dark1,
+    color: Colors.Dark,
     fontFamily: Fonts.NunitoSemiBold,
     textAlign: 'center',
   },

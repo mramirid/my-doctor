@@ -23,7 +23,7 @@ const AppButton: React.FC<AppButtonProps> = (props) => {
   };
   switch (props.color) {
     case 'primary':
-      buttonStyle['backgroundColor'] = Colors.Dark1;
+      buttonStyle['backgroundColor'] = Colors.Dark;
       break;
     case 'flat':
       buttonStyle['backgroundColor'] = Colors.White;
@@ -39,7 +39,7 @@ const AppButton: React.FC<AppButtonProps> = (props) => {
       textStyle['color'] = Colors.White;
       break;
     case 'flat':
-      textStyle['color'] = Colors.Dark1;
+      textStyle['color'] = Colors.Dark;
       break;
     case 'accent':
       textStyle['color'] = Colors.White;

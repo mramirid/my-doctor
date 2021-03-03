@@ -77,7 +77,7 @@ const AppBottomTabBar: React.FC<BottomTabBarProps<BottomTabBarOptions>> = (props
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: Colors.Dark1,
+    backgroundColor: Colors.Dark,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
