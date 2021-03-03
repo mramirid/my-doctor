@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { AccessibilityRole, AccessibilityState, StyleSheet, Text } from 'react-native';
 
-import AppTouchable from './clickables/AppTouchable';
+import AppTouchable from '../clickables/AppTouchable';
 
 interface AppBottomTabItemProps {
   icon: React.ReactNode;

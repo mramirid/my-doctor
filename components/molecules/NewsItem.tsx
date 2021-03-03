@@ -9,7 +9,7 @@ interface NewsItemProps {
 }
 
 const NewsItem: React.FC<NewsItemProps> = (props) => (
-  <View style={{ ...styles.container, ...props.style }}>
+  <View style={{ ...styles.container, ...(props.style ?? {}) }}>
     <View style={styles.newsHeading}>
       <Text style={styles.title}>Is it safe to stay at home during coronavirus?</Text>
       <Text style={styles.date}>Today</Text>

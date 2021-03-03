@@ -1,16 +1,17 @@
 import * as React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
+
+import AppTabScreen from '../../components/atoms/bottom-tab/AppTabScreen';
 
 const HospitalsScreen: React.FC = () => (
-  <View style={styles.screen}>
+  <AppTabScreen contentStyle={styles.screenScrollViewContent}>
     <Text>Hospitals Screen</Text>
-  </View>
+  </AppTabScreen>
 );
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: 'center',
+  screenScrollViewContent: {
+    paddingTop: 30,
     alignItems: 'center',
   },
 });

@@ -9,7 +9,7 @@ interface AppTextLinkProps {
 }
 
 const AppTextLink: React.FC<AppTextLinkProps> = (props) => (
-  <Text style={{ ...styles.textLink, ...props.style }}>{props.children}</Text>
+  <Text style={{ ...styles.textLink, ...(props.style ?? {}) }}>{props.children}</Text>
 );
 
 const styles = StyleSheet.create({

@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native';
 
 import Colors from '../../constants/colors';
 import Icons from '../../constants/icons';
-import AppBottomTabItem from '../atoms/AppBottomTabItem';
+import AppBottomTabItem from '../atoms/bottom-tab/AppBottomTabItem';
 
 const AppBottomTabBar: React.FC<BottomTabBarProps<BottomTabBarOptions>> = (props) => {
   const focusedOptions = props.descriptors[props.state.routes[props.state.index].key].options;
