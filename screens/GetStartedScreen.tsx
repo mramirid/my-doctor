@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
+import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
-import { ImageBackground, StyleSheet, View, Text } from 'react-native';
+import { ImageBackground, StyleSheet, View, Text, Platform } from 'react-native';
 
 import AppLogo from '../assets/icons/AppLogo';
 import AppGap from '../components/atoms/AppGap';
@@ -42,6 +43,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 40,
+    paddingTop: 40 + (Platform.OS === 'ios' ? 0 : Constants.statusBarHeight),
     justifyContent: 'space-between',
   },
   text: {

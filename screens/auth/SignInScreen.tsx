@@ -79,11 +79,10 @@ const SignInScreen: React.FC = () => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    marginTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight,
   },
   screenContent: {
     flex: 1,
-    paddingTop: 40,
+    paddingTop: 40 + (Platform.OS === 'ios' ? 0 : Constants.statusBarHeight),
     paddingHorizontal: 40,
   },
   title: {
