@@ -17,7 +17,7 @@ const Tab = createBottomTabNavigator<HomepageBottomTabsParamList>();
 
 const HomepageBottomTabs: React.FC = () => (
   <Tab.Navigator
-    sceneContainerStyle={{ paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}
+    sceneContainerStyle={{ marginTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}
     tabBar={AppBottomTabBar}
     tabBarOptions={{
       activeTintColor: Colors.Green1,
