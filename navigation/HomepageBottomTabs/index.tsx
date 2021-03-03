@@ -2,6 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 
+import AppBottomTabBar from '../../components/molecules/AppBottomTabBar';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import icons from '../../constants/icons';
@@ -14,8 +15,10 @@ const Tab = createBottomTabNavigator<HomepageBottomTabsParamList>();
 
 const HomepageBottomTabs: React.FC = () => (
   <Tab.Navigator
+    tabBar={AppBottomTabBar}
     tabBarOptions={{
       activeTintColor: Colors.Green1,
+      inactiveTintColor: Colors.Grey2,
       labelStyle: { fontFamily: Fonts.NunitoSemiBold },
     }}>
     <Tab.Screen

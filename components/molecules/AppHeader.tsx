@@ -18,7 +18,7 @@ const AppHeader: React.FC<AppHeaderProps> = (props) => {
   const navigation = useNavigation();
   return (
     <View style={styles.header}>
-      <AppTouchable contentContainerStyle={styles.backButton} onPress={navigation.goBack}>
+      <AppTouchable style={styles.backButton} onPress={navigation.goBack}>
         <Ionicons name="arrow-back" size={icons.size} color={Colors.Dark1} />
       </AppTouchable>
       <Text style={styles.title}>{props.title}</Text>

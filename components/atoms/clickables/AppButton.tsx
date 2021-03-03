@@ -47,7 +47,7 @@ const AppButton: React.FC<AppButtonProps> = (props) => {
   }
 
   return (
-    <AppTouchable contentContainerStyle={buttonStyle} onPress={props.onPress}>
+    <AppTouchable style={buttonStyle} onPress={props.onPress}>
       <Text style={textStyle}>{props.title}</Text>
     </AppTouchable>
   );
