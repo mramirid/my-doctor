@@ -10,6 +10,26 @@ import RatedDoctor from '../../components/molecules/RatedDoctor';
 import Colors from '../../constants/colors';
 import DoctorSpecialist from '../../constants/doctor-specialist';
 import Fonts from '../../constants/fonts';
+import { DoctorCategory as IDoctorCategory } from '../../global-types/doctor';
+
+const doctorCategories: IDoctorCategory[] = [
+  {
+    id: '1',
+    name: DoctorSpecialist.GeneralPractitioner,
+  },
+  {
+    id: '2',
+    name: DoctorSpecialist.Psychiatrist,
+  },
+  {
+    id: '3',
+    name: DoctorSpecialist.Medicine,
+  },
+  {
+    id: '4',
+    name: DoctorSpecialist.Pediatrician,
+  },
+];
 
 const DoctorsOverviewScreenScreen: React.FC = () => (
   <AppTabScreen style={styles.screen} indentStatusBar withScrollView>
@@ -23,10 +43,9 @@ const DoctorsOverviewScreenScreen: React.FC = () => (
         contentContainerStyle={styles.categoriesContent}
         showsHorizontalScrollIndicator={false}>
         <AppGap width={16} />
-        <DoctorCategory category={DoctorSpecialist.GeneralPractitioner} />
-        <DoctorCategory category={DoctorSpecialist.Psychiatrist} />
-        <DoctorCategory category={DoctorSpecialist.Medicine} />
-        <DoctorCategory category={DoctorSpecialist.Pediatrician} />
+        {doctorCategories.map((category) => (
+          <DoctorCategory category={category.name} />
+        ))}
         <AppGap width={6} />
       </ScrollView>
     </View>
