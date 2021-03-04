@@ -6,14 +6,7 @@ import AppTabScreen from '../../components/atoms/bottom-tab/AppTabScreen';
 import HospitalItem from '../../components/molecules/HospitalItem';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
-
-interface Hospital {
-  id: string;
-  name: string;
-  type: string;
-  address: string;
-  imageUrl: string;
-}
+import Hospital from '../../global-types/hospital';
 
 const hospitals: Hospital[] = [
   {

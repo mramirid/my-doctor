@@ -3,16 +3,11 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
+import Hospital from '../../global-types/hospital';
 import AppBorderedItem from '../atoms/AppBorderedItem';
 
 interface HospitalItemProps {
-  hospital: {
-    id: string;
-    type: string;
-    imageUrl: string;
-    name: string;
-    address: string;
-  };
+  hospital: Hospital;
 }
 
 const HospitalItem: React.FC<HospitalItemProps> = ({ hospital }) => (

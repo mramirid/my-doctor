@@ -8,7 +8,7 @@ import AppGap from '../../../components/atoms/AppGap';
 import AppTextInput from '../../../components/atoms/AppTextInput';
 import AppButton from '../../../components/atoms/clickables/AppButton';
 import AppHeader from '../../../components/molecules/AppHeader';
-import { SignUpScreenNavProp } from '../../../navigation/GetStartedStack/types';
+import { SignUpScreenNavProp } from '../../../global-types/navigation';
 
 interface SignUpData {
   fullName: string;

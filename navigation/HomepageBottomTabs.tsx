@@ -2,14 +2,14 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 
-import AppBottomTabBar from '../../components/molecules/AppBottomTabBar';
-import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
-import icons from '../../constants/icons';
-import HospitalsScreen from '../../screens/hospitals/HospitalsScreen';
-import MessagesScreen from '../../screens/messages/MessagesScreen';
-import DoctorsStack from '../DoctorsStack';
-import { HomepageBottomTabsParamList } from './types';
+import AppBottomTabBar from '../components/molecules/AppBottomTabBar';
+import Colors from '../constants/colors';
+import Fonts from '../constants/fonts';
+import icons from '../constants/icons';
+import { HomepageBottomTabsParamList } from '../global-types/navigation';
+import HospitalsScreen from '../screens/hospitals/HospitalsScreen';
+import MessagesScreen from '../screens/messages/MessagesScreen';
+import DoctorsStack from './DoctorsStack';
 
 const Tab = createBottomTabNavigator<HomepageBottomTabsParamList>();
 

@@ -9,7 +9,7 @@ import AppGap from '../components/atoms/AppGap';
 import AppButton from '../components/atoms/clickables/AppButton';
 import Colors from '../constants/colors';
 import Fonts from '../constants/fonts';
-import { GettingStartedScreenNavProp } from '../navigation/GetStartedStack/types';
+import { GettingStartedScreenNavProp } from '../global-types/navigation';
 
 const GetStartedScreen: React.FC = () => {
   const navigation = useNavigation<GettingStartedScreenNavProp>();

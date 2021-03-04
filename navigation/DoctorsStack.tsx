@@ -1,9 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
-import DoctorsOverviewScreen from '../../screens/doctors/DoctorsOverviewScreen';
-import { defaultStackScreenOptions } from '../constants';
-import { DoctorsStackParamList } from './types';
+import { DoctorsStackParamList } from '../global-types/navigation';
+import DoctorsOverviewScreen from '../screens/doctors/DoctorsOverviewScreen';
+import { defaultStackScreenOptions } from './constants';
 
 const Stack = createStackNavigator<DoctorsStackParamList>();
 
