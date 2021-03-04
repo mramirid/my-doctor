@@ -6,23 +6,32 @@ import Colors from '../../../constants/colors';
 import AppGap from '../AppGap';
 
 interface AppTabScreenProps {
-  statusBar?: boolean;
+  indentStatusBar?: boolean;
+  withScrollView?: boolean;
   style?: ViewStyle;
 }
 
 const AppTabScreen: React.FC<AppTabScreenProps> = (props) => {
   let statusBarHeight = 0;
-  if (props.statusBar && Platform.OS === 'android') {
+  if (props.indentStatusBar && Platform.OS === 'android') {
     statusBarHeight = Constants.statusBarHeight;
   }
+
+  let content: JSX.Element;
+  if (props.withScrollView) {
+    content = (
+      <ScrollView contentContainerStyle={props.style} showsVerticalScrollIndicator={false}>
+        {props.children}
+      </ScrollView>
+    );
+  } else {
+    content = <View style={{ ...props.style, flex: 1 }}>{props.children}</View>;
+  }
+
   return (
     <View style={styles.background}>
       <AppGap height={statusBarHeight} backgroundColor={Colors.White} />
-      <View style={styles.card}>
-        <ScrollView contentContainerStyle={props.style} showsVerticalScrollIndicator={false}>
-          {props.children}
-        </ScrollView>
-      </View>
+      <View style={styles.card}>{content}</View>
     </View>
   );
 };
@@ -38,6 +47,9 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     overflow: 'hidden',
     backgroundColor: Colors.White,
+  },
+  content: {
+    flex: 1,
   },
 });
 

@@ -7,7 +7,7 @@ import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
 const MessagesScreen: React.FC = () => (
-  <AppTabScreen style={styles.screen} statusBar>
+  <AppTabScreen style={styles.screen} indentStatusBar withScrollView>
     <Text style={styles.title}>Messages</Text>
     <DoctorItem />
     <DoctorItem />

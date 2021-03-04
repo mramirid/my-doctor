@@ -15,7 +15,7 @@ const NewsItem: React.FC<NewsItemProps> = (props) => (
       <Text style={styles.title}>Is it safe to stay at home during coronavirus?</Text>
       <Text style={styles.date}>Today</Text>
     </View>
-    <Image style={styles.image} source={require('../../assets/dummies/news_building.png')} />
+    <Image style={styles.image} source={require('../../assets/dummies/news-building.png')} />
   </AppBorderedItem>
 );
 

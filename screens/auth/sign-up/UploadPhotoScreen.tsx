@@ -16,7 +16,7 @@ const UploadPhotoScreen: React.FC = () => (
       <View style={styles.profile}>
         <View style={styles.avatarContainer}>
           <Image
-            source={require('../../../assets/illustrations/user_photo_null.png')}
+            source={require('../../../assets/illustrations/user-photo-null.png')}
             style={styles.avatar}
           />
           <AddPhoto style={styles.addPhotoIcon} />

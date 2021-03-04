@@ -11,7 +11,7 @@ const DoctorItem: React.FC<DoctorItemProps> = (props) => (
   <AppBorderedItem style={styles.container}>
     <Image
       style={styles.avatar}
-      source={require('../../assets/dummies/doctor_alexander_jannie.png')}
+      source={require('../../assets/dummies/doctor-alexander-jannie.png')}
     />
     <View>
       <Text style={styles.title}>List Doctor</Text>

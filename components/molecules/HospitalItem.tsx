@@ -5,14 +5,23 @@ import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import AppBorderedItem from '../atoms/AppBorderedItem';
 
-interface HospitalItemProps {}
+interface HospitalItemProps {
+  hospital: {
+    id: string;
+    type: string;
+    imageUrl: string;
+    name: string;
+    address: string;
+  };
+}
 
-const HospitalItem: React.FC<HospitalItemProps> = (props) => (
+const HospitalItem: React.FC<HospitalItemProps> = ({ hospital }) => (
   <AppBorderedItem style={styles.container}>
-    <Image style={styles.image} source={require('../../assets/dummies/hospital_citra_bunga.png')} />
+    <Image style={styles.image} source={{ uri: hospital.imageUrl }} />
     <View>
-      <Text style={styles.name}>Rumah Sakit Citra Bunga Merdeka</Text>
-      <Text style={styles.address}>Jln. Surya Sejahtera 20</Text>
+      <Text style={styles.name}>{hospital.type}</Text>
+      <Text style={styles.name}>{hospital.name}</Text>
+      <Text style={styles.address}>{hospital.address}</Text>
     </View>
   </AppBorderedItem>
 );

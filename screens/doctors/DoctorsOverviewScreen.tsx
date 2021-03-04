@@ -11,7 +11,7 @@ import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
 const DoctorsOverviewScreenScreen: React.FC = () => (
-  <AppTabScreen style={styles.screen} statusBar>
+  <AppTabScreen style={styles.screen} indentStatusBar withScrollView>
     <View style={styles.padX16}>
       <HomeProfile />
       <Text style={styles.welcomeText}>Mau konsultasi dengan siapa hari ini?</Text>
