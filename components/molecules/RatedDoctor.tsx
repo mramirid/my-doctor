@@ -11,7 +11,10 @@ interface RatedDoctorProps {
 
 const RatedDoctor: React.FC<RatedDoctorProps> = (props) => (
   <View style={{ ...styles.container, ...(props.style ?? {}) }}>
-    <Image style={styles.avatar} source={require('../../assets/dummies/doctor-alexa-rachel.png')} />
+    <Image
+      style={styles.avatar}
+      source={{ uri: 'https://i.ibb.co/yX7n5zD/doctor-alexa-rachel.png' }}
+    />
     <View style={styles.profile}>
       <Text style={styles.name}>Alexa Rachel</Text>
       <Text style={styles.specialist}>Pediatrician</Text>

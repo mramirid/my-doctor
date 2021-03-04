@@ -3,19 +3,20 @@ import { View, StyleSheet, Text, Image } from 'react-native';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
+import Doctor from '../../global-types/doctor';
 import AppBorderedItem from '../atoms/AppBorderedItem';
 
-interface DoctorItemProps {}
+interface DoctorItemProps {
+  doctor: Doctor;
+  chatPreview: string;
+}
 
 const DoctorItem: React.FC<DoctorItemProps> = (props) => (
   <AppBorderedItem style={styles.container}>
-    <Image
-      style={styles.avatar}
-      source={require('../../assets/dummies/doctor-alexander-jannie.png')}
-    />
+    <Image style={styles.avatar} source={{ uri: props.doctor.photoUrl }} />
     <View>
-      <Text style={styles.title}>List Doctor</Text>
-      <Text style={styles.chatPreview}>Baik ibu, terima kasih banyak atas wakt...</Text>
+      <Text style={styles.title}>{props.doctor.name}</Text>
+      <Text style={styles.chatPreview}>{props.chatPreview}</Text>
     </View>
   </AppBorderedItem>
 );
