@@ -3,11 +3,12 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import AppGap from '../../components/atoms/AppGap';
 import AppTabScreen from '../../components/atoms/bottom-tab/AppTabScreen';
-import DoctorsCategory from '../../components/molecules/DoctorsCategory';
+import DoctorCategory from '../../components/molecules/DoctorCategory';
 import HomeProfile from '../../components/molecules/HomeProfile';
 import NewsItem from '../../components/molecules/NewsItem';
 import RatedDoctor from '../../components/molecules/RatedDoctor';
 import Colors from '../../constants/colors';
+import DoctorSpecialist from '../../constants/doctor-specialist';
 import Fonts from '../../constants/fonts';
 
 const DoctorsOverviewScreenScreen: React.FC = () => (
@@ -22,10 +23,10 @@ const DoctorsOverviewScreenScreen: React.FC = () => (
         contentContainerStyle={styles.categoriesContent}
         showsHorizontalScrollIndicator={false}>
         <AppGap width={16} />
-        <DoctorsCategory />
-        <DoctorsCategory />
-        <DoctorsCategory />
-        <DoctorsCategory />
+        <DoctorCategory category={DoctorSpecialist.GeneralPractitioner} />
+        <DoctorCategory category={DoctorSpecialist.Psychiatrist} />
+        <DoctorCategory category={DoctorSpecialist.Medicine} />
+        <DoctorCategory category={DoctorSpecialist.Pediatrician} />
         <AppGap width={6} />
       </ScrollView>
     </View>
