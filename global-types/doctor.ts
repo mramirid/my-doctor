@@ -1,16 +1,11 @@
+import DoctorSpecialist from '../constants/doctor-specialist';
 import Gender from '../constants/gender';
-
-export enum Specialist {
-  Pediatrician = 'Dokter Anak',
-  Dentist = 'Dokter Gigi',
-  Podiatrist = 'Dokter Kaki',
-}
 
 export default interface Doctor {
   id: string;
   photoUrl: string;
   name: string;
-  specialist: Specialist;
+  specialist: DoctorSpecialist;
   gender: Gender;
   rating: number;
 }
