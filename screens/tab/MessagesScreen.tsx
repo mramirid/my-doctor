@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, Text } from 'react-native';
 
-import AppTabScreen from '../../components/atoms/bottom-tab/AppTabScreen';
+import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
 import DoctorItem from '../../components/molecules/DoctorItem';
 import Colors from '../../constants/colors';
 import DoctorSpecialist from '../../constants/doctor-specialist';
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.NunitoSemiBold,
     color: Colors.Dark,
     paddingHorizontal: 16,
+    marginBottom: 16,
   },
 });
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 import AddPhoto from '../../../assets/icons/AddPhoto';
-import AppTextLink from '../../../components/atoms/AppTextLink';
+import AppLink from '../../../components/atoms/AppLink';
 import AppButton from '../../../components/atoms/clickables/AppButton';
 import AppHeader from '../../../components/molecules/AppHeader';
 import Colors from '../../../constants/colors';
@@ -26,7 +26,7 @@ const UploadPhotoScreen: React.FC = () => (
       </View>
       <View>
         <AppButton title="Upload and Continue" color="accent" onPress={() => null} />
-        <AppTextLink style={styles.skipLink}>Skip for this</AppTextLink>
+        <AppLink style={styles.skipLink}>Skip for this</AppLink>
       </View>
     </View>
   </View>

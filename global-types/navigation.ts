@@ -3,6 +3,7 @@ import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import DoctorSpecialist from '../constants/doctor-specialist';
+import Doctor from './doctor';
 
 /*
  * Auth Stack
@@ -25,23 +26,27 @@ export type SignUpScreenNavProp = StackNavigationProp<AuthStackParamList, 'SignU
  * Home Stack
  */
 export type HomeStackParamList = {
-  HomeBottomTab: undefined;
-  ListDoctorsScreen: { category: DoctorSpecialist };
+  HomeTab: undefined;
+  CategoryDoctorsScreen: { category: DoctorSpecialist };
+  ChatRoomScreen: { doctor: Doctor };
 };
 
-export type ListDoctorsScreenRouteProp = RouteProp<HomeStackParamList, 'ListDoctorsScreen'>;
-export type ListDoctorsScreenNavProp = StackNavigationProp<HomeStackParamList, 'ListDoctorsScreen'>;
+export type CategoryDoctorsScreenRouteProp = RouteProp<HomeStackParamList, 'CategoryDoctorsScreen'>;
+export type CategoryDoctorsScreenNavProp = StackNavigationProp<
+  HomeStackParamList,
+  'CategoryDoctorsScreen'
+>;
 
 /*
  * Home Bottom Tabs
  */
-export type HomeBottomTabParamList = {
+export type HomeTabParamList = {
   DoctorsOverviewScreen: undefined;
   MessagesScreen: undefined;
   HospitalsScreen: undefined;
 };
 
 export type DoctorsOverviewScreenNavProp = CompositeNavigationProp<
-  BottomTabNavigationProp<HomeBottomTabParamList, 'DoctorsOverviewScreen'>,
+  BottomTabNavigationProp<HomeTabParamList, 'DoctorsOverviewScreen'>,
   StackNavigationProp<HomeStackParamList>
 >;

@@ -5,9 +5,9 @@ import { StyleSheet, View } from 'react-native';
 
 import Colors from '../../constants/colors';
 import Icons from '../../constants/icons';
-import AppBottomTabItem from '../atoms/bottom-tab/AppBottomTabItem';
+import AppTabItem from '../atoms/tab/AppTabItem';
 
-const AppBottomTabBar: React.FC<BottomTabBarProps<BottomTabBarOptions>> = (props) => {
+const AppTabBar: React.FC<BottomTabBarProps<BottomTabBarOptions>> = (props) => {
   const focusedOptions = props.descriptors[props.state.routes[props.state.index].key].options;
   if (focusedOptions.tabBarVisible === false) {
     return null;
@@ -57,7 +57,7 @@ const AppBottomTabBar: React.FC<BottomTabBarProps<BottomTabBarOptions>> = (props
         };
 
         return (
-          <AppBottomTabItem
+          <AppTabItem
             key={index}
             icon={icon}
             label={label}
@@ -84,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AppBottomTabBar;
+export default AppTabBar;

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import AppGap from '../../components/atoms/AppGap';
-import AppTabScreen from '../../components/atoms/bottom-tab/AppTabScreen';
+import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
 import DoctorCategory from '../../components/molecules/DoctorCategory';
 import HomeProfile from '../../components/molecules/HomeProfile';
 import NewsItem from '../../components/molecules/NewsItem';
@@ -53,7 +53,7 @@ const DoctorsOverviewScreen: React.FC = () => {
               key={category.id}
               category={category.name}
               onPress={() => {
-                navigation.navigate('ListDoctorsScreen', { category: category.name });
+                navigation.navigate('CategoryDoctorsScreen', { category: category.name });
               }}
             />
           ))}
@@ -67,11 +67,11 @@ const DoctorsOverviewScreen: React.FC = () => {
         <RatedDoctor style={styles.ratedDoctor} />
         <RatedDoctor style={styles.ratedDoctor} />
         <AppGap height={14} />
-        <Text style={styles.sectionLabel}>Good News</Text>
       </View>
-      <NewsItem style={styles.newsItem} />
-      <NewsItem style={styles.newsItem} />
-      <NewsItem style={styles.newsItem} />
+      <Text style={{ ...styles.sectionLabel, ...styles.padX16, marginTop: 14 }}>Good News</Text>
+      <NewsItem />
+      <NewsItem />
+      <NewsItem />
     </AppTabScreen>
   );
 };
@@ -98,14 +98,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: Fonts.NunitoSemiBold,
     color: Colors.Dark,
-    marginBottom: 16,
   },
   ratedDoctor: {
-    marginBottom: 16,
+    marginTop: 16,
   },
   newsItem: {
-    marginBottom: 16,
-    paddingHorizontal: 16,
+    marginHorizontal: -15,
   },
 });
 

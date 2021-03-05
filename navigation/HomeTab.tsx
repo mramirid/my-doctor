@@ -2,18 +2,18 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 
-import AppBottomTabBar from '../components/molecules/AppBottomTabBar';
+import AppBottomTabBar from '../components/molecules/AppTabBar';
 import Colors from '../constants/colors';
 import Fonts from '../constants/fonts';
 import icons from '../constants/icons';
-import { HomeBottomTabParamList } from '../global-types/navigation';
-import DoctorsOverviewScreen from '../screens/doctors/DoctorsOverviewScreen';
-import HospitalsScreen from '../screens/hospitals/HospitalsScreen';
-import MessagesScreen from '../screens/messages/MessagesScreen';
+import { HomeTabParamList } from '../global-types/navigation';
+import DoctorsOverviewScreen from '../screens/tab/DoctorsOverviewScreen';
+import HospitalsScreen from '../screens/tab/HospitalsScreen';
+import MessagesScreen from '../screens/tab/MessagesScreen';
 
-const Tab = createBottomTabNavigator<HomeBottomTabParamList>();
+const Tab = createBottomTabNavigator<HomeTabParamList>();
 
-const HomeBottomTab: React.FC = () => (
+const HomeTab: React.FC = () => (
   <Tab.Navigator
     tabBar={AppBottomTabBar}
     tabBarOptions={{
@@ -58,4 +58,4 @@ const HomeBottomTab: React.FC = () => (
   </Tab.Navigator>
 );
 
-export default HomeBottomTab;
+export default HomeTab;

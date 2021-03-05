@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { ImageBackground, StyleSheet, Text, View, FlatList } from 'react-native';
 
-import AppTabScreen from '../../components/atoms/bottom-tab/AppTabScreen';
+import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
 import HospitalItem from '../../components/molecules/HospitalItem';
 import Colors from '../../constants/colors';
 import hospitals from '../../constants/dummies/hospitals';

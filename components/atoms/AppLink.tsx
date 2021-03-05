@@ -4,11 +4,11 @@ import { TextStyle, Text, StyleSheet } from 'react-native';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
-interface AppTextLinkProps {
+interface AppLinkProps {
   style?: TextStyle;
 }
 
-const AppTextLink: React.FC<AppTextLinkProps> = (props) => (
+const AppLink: React.FC<AppLinkProps> = (props) => (
   <Text style={{ ...styles.textLink, ...(props.style ?? {}) }}>{props.children}</Text>
 );
 
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AppTextLink;
+export default AppLink;

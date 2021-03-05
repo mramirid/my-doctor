@@ -4,19 +4,19 @@ import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { ImageBackground, StyleSheet, View, Text, Platform } from 'react-native';
 
-import AppLogo from '../assets/icons/AppLogo';
-import AppGap from '../components/atoms/AppGap';
-import AppButton from '../components/atoms/clickables/AppButton';
-import Colors from '../constants/colors';
-import Fonts from '../constants/fonts';
-import { GettingStartedScreenNavProp } from '../global-types/navigation';
+import AppLogo from '../../assets/icons/AppLogo';
+import AppGap from '../../components/atoms/AppGap';
+import AppButton from '../../components/atoms/clickables/AppButton';
+import Colors from '../../constants/colors';
+import Fonts from '../../constants/fonts';
+import { GettingStartedScreenNavProp } from '../../global-types/navigation';
 
 const GetStartedScreen: React.FC = () => {
   const navigation = useNavigation<GettingStartedScreenNavProp>();
   return (
     <ImageBackground
       style={styles.screen}
-      source={require('../assets/illustrations/get-started-bg.png')}>
+      source={require('../../assets/illustrations/get-started-bg.png')}>
       <View>
         <AppLogo />
         <Text style={styles.text}>Konsultasi dengan dokter jadi lebih mudah &amp; fleksibel</Text>

@@ -10,7 +10,7 @@ interface NewsItemProps {
 }
 
 const NewsItem: React.FC<NewsItemProps> = (props) => (
-  <AppBorderedItem style={{ ...styles.container, ...(props.style ?? {}) }}>
+  <AppBorderedItem style={{ ...styles.container, ...(props.style ?? {}) }} onPress={() => null}>
     <View style={styles.newsHeading}>
       <Text style={styles.title}>Is it safe to stay at home during coronavirus?</Text>
       <Text style={styles.date}>Today</Text>
@@ -21,7 +21,7 @@ const NewsItem: React.FC<NewsItemProps> = (props) => (
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 12,
+    padding: 16,
   },
   newsHeading: {
     flex: 1,

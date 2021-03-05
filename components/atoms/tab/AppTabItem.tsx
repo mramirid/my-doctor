@@ -3,7 +3,7 @@ import { AccessibilityRole, AccessibilityState, StyleSheet, Text } from 'react-n
 
 import AppTouchable from '../clickables/AppTouchable';
 
-interface AppBottomTabItemProps {
+interface AppTabItemProps {
   icon: React.ReactNode;
   label: string | React.ReactNode;
   tabItemColor: string;
@@ -15,7 +15,7 @@ interface AppBottomTabItemProps {
   onLongPress(): void;
 }
 
-const AppBottomTabItem: React.FC<AppBottomTabItemProps> = (props) => (
+const AppTabItem: React.FC<AppTabItemProps> = (props) => (
   <AppTouchable {...props} style={styles.tabItem}>
     {props.icon}
     <Text style={{ ...styles.label, color: props.tabItemColor }}>{props.label}</Text>
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AppBottomTabItem;
+export default AppTabItem;

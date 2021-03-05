@@ -4,8 +4,8 @@ import { ScrollView, StyleSheet, Text } from 'react-native';
 
 import AppLogo from '../../assets/icons/AppLogo';
 import AppGap from '../../components/atoms/AppGap';
+import AppLink from '../../components/atoms/AppLink';
 import AppTextInput from '../../components/atoms/AppTextInput';
-import AppTextLink from '../../components/atoms/AppTextLink';
 import AppButton from '../../components/atoms/clickables/AppButton';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
@@ -66,9 +66,9 @@ const SignInScreen: React.FC = () => {
         )}
       />
       <AppGap height={10} />
-      <AppTextLink>Forgot My Password</AppTextLink>
+      <AppLink>Forgot My Password</AppLink>
       <AppButton style={styles.signInButton} title="Sign In" color="accent" onPress={() => null} />
-      <AppTextLink style={styles.signUpLink}>Create New Account</AppTextLink>
+      <AppLink style={styles.signUpLink}>Create New Account</AppLink>
       <AppGap height={64} />
     </ScrollView>
   );
