@@ -19,7 +19,7 @@ const MessagesScreen: React.FC = () => (
       <DoctorItem
         key={doctor.id}
         doctor={doctor}
-        chatPreview="Baik ibu, terima kasih banyak atas wakt..."
+        extra="Baik ibu, terima kasih banyak atas wakt..."
       />
     ))}
   </AppTabScreen>

@@ -9,9 +9,11 @@ import Colors from '../../constants/colors';
 import DoctorSpecialist from '../../constants/doctor-specialist';
 import Fonts from '../../constants/fonts';
 import AppCard from '../atoms/AppCard';
+import AppTouchable from '../atoms/clickables/AppTouchable';
 
 interface DoctorCategoryProps {
   category: DoctorSpecialist;
+  onPress(): void;
 }
 
 const DoctorCategory: React.FC<DoctorCategoryProps> = (props) => {
@@ -35,9 +37,11 @@ const DoctorCategory: React.FC<DoctorCategoryProps> = (props) => {
 
   return (
     <AppCard style={styles.container}>
-      <View style={styles.icon}>{icon}</View>
-      <Text style={styles.label}>Saya butuh</Text>
-      <Text style={styles.name}>{props.category}</Text>
+      <AppTouchable style={styles.content} useForeground onPress={props.onPress}>
+        <View style={styles.icon}>{icon}</View>
+        <Text style={styles.label}>Saya butuh</Text>
+        <Text style={styles.name}>{props.category}</Text>
+      </AppTouchable>
     </AppCard>
   );
 };
@@ -46,10 +50,12 @@ const styles = StyleSheet.create({
   container: {
     width: 105,
     height: 130,
-    padding: 12,
     backgroundColor: Colors.Green1,
     alignSelf: 'flex-start',
     marginRight: 10,
+  },
+  content: {
+    padding: 12,
   },
   icon: {
     marginBottom: 28,

@@ -8,7 +8,7 @@ import AppBorderedItem from '../atoms/AppBorderedItem';
 
 interface DoctorItemProps {
   doctor: Doctor;
-  chatPreview: string;
+  extra: string;
 }
 
 const DoctorItem: React.FC<DoctorItemProps> = (props) => (
@@ -16,7 +16,7 @@ const DoctorItem: React.FC<DoctorItemProps> = (props) => (
     <Image style={styles.avatar} source={{ uri: props.doctor.photoUrl }} />
     <View>
       <Text style={styles.title}>{props.doctor.name}</Text>
-      <Text style={styles.chatPreview}>{props.chatPreview}</Text>
+      <Text style={styles.extra}>{props.extra}</Text>
     </View>
   </AppBorderedItem>
 );
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.NunitoRegular,
     color: Colors.Dark,
   },
-  chatPreview: {
+  extra: {
     fontSize: 12,
     fontFamily: Fonts.NunitoLight,
     color: Colors.Grey2,

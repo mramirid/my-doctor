@@ -5,7 +5,7 @@ import * as React from 'react';
 import { enableScreens } from 'react-native-screens';
 
 import Fonts from './constants/fonts';
-import AppNavigator from './navigation/AppNavigator';
+import AppNavigator from './navigation';
 
 enableScreens();
 

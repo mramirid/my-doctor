@@ -6,14 +6,14 @@ import AppBottomTabBar from '../components/molecules/AppBottomTabBar';
 import Colors from '../constants/colors';
 import Fonts from '../constants/fonts';
 import icons from '../constants/icons';
-import { HomepageBottomTabsParamList } from '../global-types/navigation';
+import { HomeBottomTabParamList } from '../global-types/navigation';
+import DoctorsOverviewScreen from '../screens/doctors/DoctorsOverviewScreen';
 import HospitalsScreen from '../screens/hospitals/HospitalsScreen';
 import MessagesScreen from '../screens/messages/MessagesScreen';
-import DoctorsStack from './DoctorsStack';
 
-const Tab = createBottomTabNavigator<HomepageBottomTabsParamList>();
+const Tab = createBottomTabNavigator<HomeBottomTabParamList>();
 
-const HomepageBottomTabs: React.FC = () => (
+const HomeBottomTab: React.FC = () => (
   <Tab.Navigator
     tabBar={AppBottomTabBar}
     tabBarOptions={{
@@ -22,8 +22,8 @@ const HomepageBottomTabs: React.FC = () => (
       labelStyle: { fontFamily: Fonts.NunitoSemiBold },
     }}>
     <Tab.Screen
-      name="DoctorsStack"
-      component={DoctorsStack}
+      name="DoctorsOverviewScreen"
+      component={DoctorsOverviewScreen}
       options={{
         tabBarLabel: 'Doctor',
         tabBarIcon: (props) => (
@@ -32,7 +32,7 @@ const HomepageBottomTabs: React.FC = () => (
       }}
     />
     <Tab.Screen
-      name="MessagesStack"
+      name="MessagesScreen"
       component={MessagesScreen}
       options={{
         tabBarLabel: 'Messages',
@@ -58,4 +58,4 @@ const HomepageBottomTabs: React.FC = () => (
   </Tab.Navigator>
 );
 
-export default HomepageBottomTabs;
+export default HomeBottomTab;

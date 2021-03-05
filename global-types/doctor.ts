@@ -3,7 +3,7 @@ import Gender from '../constants/gender';
 
 export interface DoctorCategory {
   id: string;
-  name: DoctorSpecialist;
+  type: DoctorSpecialist;
 }
 
 export default interface Doctor {
