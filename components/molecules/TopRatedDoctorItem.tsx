@@ -5,11 +5,11 @@ import { View, StyleSheet, Text, Image, ViewStyle } from 'react-native';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
-interface RatedDoctorProps {
+interface TopRatedDoctorItemProps {
   style?: ViewStyle;
 }
 
-const RatedDoctor: React.FC<RatedDoctorProps> = (props) => (
+const TopRatedDoctorItem: React.FC<TopRatedDoctorItemProps> = (props) => (
   <View style={{ ...styles.container, ...(props.style ?? {}) }}>
     <Image
       style={styles.avatar}
@@ -60,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RatedDoctor;
+export default TopRatedDoctorItem;

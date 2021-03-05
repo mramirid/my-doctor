@@ -11,12 +11,12 @@ import Fonts from '../../constants/fonts';
 import AppCard from '../atoms/AppCard';
 import AppTouchable from '../atoms/clickables/AppTouchable';
 
-interface DoctorCategoryProps {
+interface DoctorCategoryItemProps {
   category: DoctorSpecialist;
   onPress(): void;
 }
 
-const DoctorCategory: React.FC<DoctorCategoryProps> = (props) => {
+const DoctorCategoryItem: React.FC<DoctorCategoryItemProps> = (props) => {
   let icon: JSX.Element;
   switch (props.category) {
     case DoctorSpecialist.GeneralPractitioner:
@@ -72,4 +72,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DoctorCategory;
+export default DoctorCategoryItem;

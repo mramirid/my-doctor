@@ -4,10 +4,10 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import AppGap from '../../components/atoms/AppGap';
 import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
-import DoctorCategory from '../../components/molecules/DoctorCategory';
+import DoctorCategoryItem from '../../components/molecules/DoctorCategoryItem';
 import HomeProfile from '../../components/molecules/HomeProfile';
 import NewsItem from '../../components/molecules/NewsItem';
-import RatedDoctor from '../../components/molecules/RatedDoctor';
+import TopRatedDoctorItem from '../../components/molecules/TopRatedDoctorItem';
 import Colors from '../../constants/colors';
 import DoctorSpecialist from '../../constants/doctor-specialist';
 import Fonts from '../../constants/fonts';
@@ -49,7 +49,7 @@ const DoctorsOverviewScreen: React.FC = () => {
           showsHorizontalScrollIndicator={false}>
           <AppGap width={16} />
           {doctorCategories.map((category) => (
-            <DoctorCategory
+            <DoctorCategoryItem
               key={category.id}
               category={category.name}
               onPress={() => {
@@ -63,9 +63,9 @@ const DoctorsOverviewScreen: React.FC = () => {
       <View style={styles.padX16}>
         <AppGap height={30} />
         <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
-        <RatedDoctor style={styles.ratedDoctor} />
-        <RatedDoctor style={styles.ratedDoctor} />
-        <RatedDoctor style={styles.ratedDoctor} />
+        <TopRatedDoctorItem style={styles.topRatedDoctor} />
+        <TopRatedDoctorItem style={styles.topRatedDoctor} />
+        <TopRatedDoctorItem style={styles.topRatedDoctor} />
         <AppGap height={14} />
       </View>
       <Text style={{ ...styles.sectionLabel, ...styles.padX16, marginTop: 14 }}>Good News</Text>
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.NunitoSemiBold,
     color: Colors.Dark,
   },
-  ratedDoctor: {
+  topRatedDoctor: {
     marginTop: 16,
   },
   newsItem: {

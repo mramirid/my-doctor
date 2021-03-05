@@ -3,8 +3,8 @@ import * as React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
 import AppGap from '../components/atoms/AppGap';
+import ChatInput from '../components/molecules/ChatInput';
 import ChatItem from '../components/molecules/ChatItem';
-import InputChat from '../components/molecules/InputChat';
 import ProfileHeader from '../components/molecules/header/ProfileHeader';
 import Colors from '../constants/colors';
 import { ChatRoomScreenRouteProp } from '../global-types/navigation';
@@ -20,7 +20,7 @@ const ChatRoomScreen: React.FC = () => {
       <ChatItem text="Ibu dokter, apakah memakan jeruk tiap hari itu buruk?" />
       <ChatItem text="Oh tentu saja tidak karena jeruk itu sangat sehat..." />
       <ChatItem text="Baik ibu, terima kasih atas waktu dan ilmunya ..." />
-      <InputChat />
+      <ChatInput />
     </View>
   );
 };
