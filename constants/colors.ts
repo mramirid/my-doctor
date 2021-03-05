@@ -8,6 +8,7 @@ enum Colors {
   Grey3 = '#495A75',
   Red = '#E06379',
   Gold = '#F8B459',
+  Blue = '#0066CB',
   Black = 'black',
   White = 'white',
 }

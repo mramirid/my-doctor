@@ -37,6 +37,7 @@ const Header: React.FC<HeaderProps> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
+    maxHeight: 107,
     paddingHorizontal: 16,
     paddingVertical: 30,
     flexDirection: 'row',

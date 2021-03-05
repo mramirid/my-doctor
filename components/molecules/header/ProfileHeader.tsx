@@ -30,6 +30,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ doctor }) => {
 
 const styles = StyleSheet.create({
   container: {
+    maxHeight: 107,
     paddingVertical: 30,
     paddingHorizontal: 16,
     backgroundColor: Colors.Dark,

@@ -31,6 +31,8 @@ const AppButton: React.FC<AppButtonProps> = (props) => {
     case 'accent':
       buttonStyle['backgroundColor'] = Colors.Green2;
       break;
+    default:
+      throw new Error('Unknown button color');
   }
 
   const textStyle: TextStyle = { fontFamily: Fonts.NunitoSemiBold };
@@ -44,6 +46,8 @@ const AppButton: React.FC<AppButtonProps> = (props) => {
     case 'accent':
       textStyle['color'] = Colors.White;
       break;
+    default:
+      throw new Error('Unknown button color');
   }
 
   return (

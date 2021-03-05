@@ -1,14 +1,14 @@
 import { useTypedController } from '@hookform/strictly-typed';
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 
-import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
-import Doctor from '../../global-types/doctor';
-import AppCard from '../atoms/AppCard';
-import AppTextInput from '../atoms/AppTextInput';
-import AppButton from '../atoms/clickables/AppButton';
+import Colors from '../../../constants/colors';
+import Fonts from '../../../constants/fonts';
+import Doctor from '../../../global-types/doctor';
+import AppCard from '../../atoms/AppCard';
+import AppTextInput from '../../atoms/AppTextInput';
+import SendButton from './SendButton';
 
 interface FormValues {
   message: string;
@@ -16,6 +16,7 @@ interface FormValues {
 
 interface ChatInputProps {
   doctor: Doctor;
+  styles?: ViewStyle;
 }
 
 const ChatInput: React.FC<ChatInputProps> = (props) => {
@@ -23,7 +24,7 @@ const ChatInput: React.FC<ChatInputProps> = (props) => {
   const TypedController = useTypedController<FormValues>({ control });
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, ...(props.styles ?? {}) }}>
       <AppCard style={styles.inputContainer}>
         <TypedController
           name="message"
@@ -41,7 +42,7 @@ const ChatInput: React.FC<ChatInputProps> = (props) => {
           )}
         />
       </AppCard>
-      <AppButton title="Send" color="primary" onPress={() => null} />
+      <SendButton onPress={() => null} />
     </View>
   );
 };
@@ -49,17 +50,21 @@ const ChatInput: React.FC<ChatInputProps> = (props) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    height: 45,
   },
   inputContainer: {
+    flex: 1,
     padding: 14,
+    marginRight: 10,
     backgroundColor: Colors.Grey1,
   },
   input: {
     borderRadius: 10,
     borderWidth: 0,
+    color: Colors.Grey2,
     fontFamily: Fonts.NunitoRegular,
     fontSize: 14,
-    color: Colors.Grey2,
+    maxHeight: 45,
   },
 });
 
