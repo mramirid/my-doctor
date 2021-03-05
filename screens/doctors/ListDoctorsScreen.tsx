@@ -1,6 +1,6 @@
 import { useRoute } from '@react-navigation/native';
 import * as React from 'react';
-import { FlatList, Text, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import AppHeader from '../../components/molecules/AppHeader';
 import DoctorItem from '../../components/molecules/DoctorItem';
@@ -15,29 +15,25 @@ const ListDoctorsScreen: React.FC = () => {
   const { params } = useRoute<ListDoctorsScreenRouteProp>();
   const filteredDoctors = doctors.filter((doctor) => doctor.specialist === params.category);
 
-  let body: JSX.Element;
   if (filteredDoctors.length === 0) {
-    body = (
-      <View style={styles.screenEmpty}>
+    return (
+      <View style={styles.screen}>
+        <AppHeader title={`Pilih ${params.category}`} type="dark" withBorderRadius />
         <Text style={styles.textEmpty}>Belum ada dokter di kategori ini</Text>
       </View>
-    );
-  } else {
-    body = (
-      <FlatList
-        data={filteredDoctors}
-        contentContainerStyle={styles.listContent}
-        renderItem={({ item }) => (
-          <DoctorItem doctor={item} description={item.gender} onPress={() => null} />
-        )}
-      />
     );
   }
 
   return (
     <View style={styles.screen}>
       <AppHeader title={`Pilih ${params.category}`} type="dark" withBorderRadius />
-      {body}
+      <FlatList
+        data={filteredDoctors}
+        contentContainerStyle={styles.listContent}
+        renderItem={({ item }) => (
+          <DoctorItem doctor={item} description={item.gender} withArrowIcon onPress={() => null} />
+        )}
+      />
     </View>
   );
 };
@@ -46,11 +42,8 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
   },
-  screenEmpty: {
-    alignItems: 'center',
-    marginTop: 16,
-  },
   textEmpty: {
+    textAlign: 'center',
     fontFamily: Fonts.NunitoRegular,
     color: Colors.Dark,
   },
