@@ -38,9 +38,8 @@ const AppHeader: React.FC<AppHeaderProps> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 84,
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingVertical: 30,
     flexDirection: 'row',
     alignItems: 'center',
   },
