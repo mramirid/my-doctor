@@ -30,6 +30,7 @@ export type HomeStackParamList = {
 };
 
 export type ListDoctorsScreenRouteProp = RouteProp<HomeStackParamList, 'ListDoctorsScreen'>;
+export type ListDoctorsScreenNavProp = StackNavigationProp<HomeStackParamList, 'ListDoctorsScreen'>;
 
 /*
  * Home Bottom Tabs

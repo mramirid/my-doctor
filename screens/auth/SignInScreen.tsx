@@ -1,8 +1,6 @@
-import Constants from 'expo-constants';
-import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Platform, ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text } from 'react-native';
 
 import AppLogo from '../../assets/icons/AppLogo';
 import AppGap from '../../components/atoms/AppGap';
@@ -11,6 +9,7 @@ import AppTextLink from '../../components/atoms/AppTextLink';
 import AppButton from '../../components/atoms/clickables/AppButton';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
+import withStatusBar from '../../hoc/withStatusBar';
 
 interface SignInData {
   email: string;
@@ -71,7 +70,6 @@ const SignInScreen: React.FC = () => {
       <AppButton style={styles.signInButton} title="Sign In" color="accent" onPress={() => null} />
       <AppTextLink style={styles.signUpLink}>Create New Account</AppTextLink>
       <AppGap height={64} />
-      <StatusBar style="dark" />
     </ScrollView>
   );
 };
@@ -82,7 +80,7 @@ const styles = StyleSheet.create({
   },
   screenContent: {
     flex: 1,
-    paddingTop: 40 + (Platform.OS === 'ios' ? 0 : Constants.statusBarHeight),
+    paddingTop: 40,
     paddingHorizontal: 40,
   },
   title: {
@@ -102,4 +100,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignInScreen;
+export default withStatusBar(SignInScreen, 'dark', Colors.White);

@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
@@ -8,10 +7,11 @@ import AppButton from '../../../components/atoms/clickables/AppButton';
 import AppHeader from '../../../components/molecules/AppHeader';
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
+import withStatusBar from '../../../hoc/withStatusBar';
 
 const UploadPhotoScreen: React.FC = () => (
   <View style={styles.screen}>
-    <AppHeader title="Unggah Foto" />
+    <AppHeader title="Unggah Foto" type="flat" />
     <View style={styles.body}>
       <View style={styles.profile}>
         <View style={styles.avatarContainer}>
@@ -29,7 +29,6 @@ const UploadPhotoScreen: React.FC = () => (
         <AppTextLink style={styles.skipLink}>Skip for this</AppTextLink>
       </View>
     </View>
-    <StatusBar style="dark" />
   </View>
 );
 
@@ -86,4 +85,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UploadPhotoScreen;
+export default withStatusBar(UploadPhotoScreen, 'dark', Colors.White);

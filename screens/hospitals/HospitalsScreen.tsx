@@ -1,6 +1,6 @@
+import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
-import { ImageBackground, StyleSheet, Text, View } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { ImageBackground, StyleSheet, Text, View, FlatList } from 'react-native';
 
 import AppTabScreen from '../../components/atoms/bottom-tab/AppTabScreen';
 import HospitalItem from '../../components/molecules/HospitalItem';
@@ -9,7 +9,7 @@ import hospitals from '../../constants/dummies/hospitals';
 import Fonts from '../../constants/fonts';
 
 const HospitalsScreen: React.FC = () => (
-  <AppTabScreen>
+  <AppTabScreen style={styles.screen}>
     <ImageBackground
       style={styles.coverImage}
       source={require('../../assets/illustrations/hospitals-screen-cover.png')}>
@@ -24,10 +24,14 @@ const HospitalsScreen: React.FC = () => (
         renderItem={({ item }) => <HospitalItem hospital={item} />}
       />
     </View>
+    <StatusBar backgroundColor="transparent" />
   </AppTabScreen>
 );
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   coverImage: {
     width: '100%',
     height: 240,

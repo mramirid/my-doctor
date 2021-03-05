@@ -59,7 +59,6 @@ const doctors: Doctor[] = [
     gender: Gender.Male,
     rating: 5,
   },
-
   {
     id: '8',
     name: 'Sunny Frank',
@@ -68,7 +67,6 @@ const doctors: Doctor[] = [
     gender: Gender.Male,
     rating: 5,
   },
-
   {
     id: '9',
     name: 'Sunny Frank',
@@ -77,7 +75,6 @@ const doctors: Doctor[] = [
     gender: Gender.Male,
     rating: 5,
   },
-
   {
     id: '10',
     name: 'Sunny Frank',

@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
-import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { ImageBackground, StyleSheet, View, Text, Platform } from 'react-native';
 
@@ -34,7 +33,6 @@ const GetStartedScreen: React.FC = () => {
           onPress={() => navigation.navigate('SignInScreen')}
         />
       </View>
-      <StatusBar style="light" />
     </ImageBackground>
   );
 };

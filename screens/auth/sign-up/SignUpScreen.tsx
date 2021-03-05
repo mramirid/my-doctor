@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -8,7 +7,9 @@ import AppGap from '../../../components/atoms/AppGap';
 import AppTextInput from '../../../components/atoms/AppTextInput';
 import AppButton from '../../../components/atoms/clickables/AppButton';
 import AppHeader from '../../../components/molecules/AppHeader';
+import Colors from '../../../constants/colors';
 import { SignUpScreenNavProp } from '../../../global-types/navigation';
+import withStatusBar from '../../../hoc/withStatusBar';
 
 interface SignUpData {
   fullName: string;
@@ -31,7 +32,7 @@ const SignUpScreen: React.FC = () => {
 
   return (
     <View style={styles.screen}>
-      <AppHeader title="Daftar Akun" />
+      <AppHeader title="Daftar Akun" type="flat" />
       <ScrollView contentContainerStyle={styles.body}>
         <Controller
           name="fullName"
@@ -107,7 +108,6 @@ const SignUpScreen: React.FC = () => {
           onPress={() => navigation.navigate('UploadPhotoScreen')}
         />
       </ScrollView>
-      <StatusBar style="dark" />
     </View>
   );
 };
@@ -123,4 +123,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUpScreen;
+export default withStatusBar(SignUpScreen, 'dark', Colors.White);

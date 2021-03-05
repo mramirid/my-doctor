@@ -1,8 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import Constants from 'expo-constants';
 import * as React from 'react';
-import { View, StyleSheet, Text, Platform } from 'react-native';
+import { StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
@@ -12,30 +11,42 @@ import AppTouchable from '../atoms/clickables/AppTouchable';
 
 interface AppHeaderProps {
   title: string;
+  type: 'flat' | 'dark';
+  withBorderRadius?: boolean;
 }
 
 const AppHeader: React.FC<AppHeaderProps> = (props) => {
   const navigation = useNavigation();
+
+  const textColor = props.type === 'dark' ? Colors.White : Colors.Dark;
+  const containerStyle: ViewStyle = {
+    backgroundColor: props.type === 'dark' ? Colors.Dark : Colors.White,
+    borderBottomLeftRadius: props.withBorderRadius ? 20 : 0,
+    borderBottomRightRadius: props.withBorderRadius ? 20 : 0,
+  };
+
   return (
-    <View style={styles.header}>
+    <View style={{ ...styles.container, ...containerStyle }}>
       <AppTouchable style={styles.backButton} onPress={navigation.goBack}>
-        <Ionicons name="arrow-back" size={icons.size} color={Colors.Dark} />
+        <Ionicons name="arrow-back" size={icons.size} color={textColor} />
       </AppTouchable>
-      <Text style={styles.title}>{props.title}</Text>
-      <AppGap width={icons.size} />
+      <Text style={{ ...styles.title, color: textColor }}>{props.title}</Text>
+      <AppGap width={icons.size * 2} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  header: {
+  container: {
+    height: 84,
     paddingHorizontal: 16,
-    paddingVertical: 30,
+    paddingVertical: 12,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight,
   },
   backButton: {
+    height: icons.size * 2,
+    width: icons.size * 2,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 100,

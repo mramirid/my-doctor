@@ -13,30 +13,31 @@ import DoctorSpecialist from '../../constants/doctor-specialist';
 import Fonts from '../../constants/fonts';
 import { DoctorCategory as IDoctorCategory } from '../../global-types/doctor';
 import { DoctorsOverviewScreenNavProp } from '../../global-types/navigation';
+import withStatusBar from '../../hoc/withStatusBar';
 
 const doctorCategories: IDoctorCategory[] = [
   {
     id: '1',
-    type: DoctorSpecialist.GeneralPractitioner,
+    name: DoctorSpecialist.GeneralPractitioner,
   },
   {
     id: '2',
-    type: DoctorSpecialist.Psychiatrist,
+    name: DoctorSpecialist.Psychiatrist,
   },
   {
     id: '3',
-    type: DoctorSpecialist.Medicine,
+    name: DoctorSpecialist.Medicine,
   },
   {
     id: '4',
-    type: DoctorSpecialist.Pediatrician,
+    name: DoctorSpecialist.Pediatrician,
   },
 ];
 
 const DoctorsOverviewScreen: React.FC = () => {
   const navigation = useNavigation<DoctorsOverviewScreenNavProp>();
   return (
-    <AppTabScreen style={styles.screen} indentStatusBar withScrollView>
+    <AppTabScreen style={styles.screen} withScrollView>
       <View style={styles.padX16}>
         <HomeProfile />
         <Text style={styles.welcomeText}>Mau konsultasi dengan siapa hari ini?</Text>
@@ -47,12 +48,12 @@ const DoctorsOverviewScreen: React.FC = () => {
           contentContainerStyle={styles.categoriesContent}
           showsHorizontalScrollIndicator={false}>
           <AppGap width={16} />
-          {doctorCategories.map((doctorCategory) => (
+          {doctorCategories.map((category) => (
             <DoctorCategory
-              key={doctorCategory.id}
-              category={doctorCategory.type}
+              key={category.id}
+              category={category.name}
               onPress={() => {
-                navigation.navigate('ListDoctorsScreen', { category: doctorCategory.type });
+                navigation.navigate('ListDoctorsScreen', { category: category.name });
               }}
             />
           ))}
@@ -108,4 +109,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DoctorsOverviewScreen;
+export default withStatusBar(DoctorsOverviewScreen, 'dark', Colors.White);
