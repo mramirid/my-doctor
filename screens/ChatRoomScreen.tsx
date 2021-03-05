@@ -20,7 +20,7 @@ const ChatRoomScreen: React.FC = () => {
       <ChatItem text="Ibu dokter, apakah memakan jeruk tiap hari itu buruk?" />
       <ChatItem text="Oh tentu saja tidak karena jeruk itu sangat sehat..." />
       <ChatItem text="Baik ibu, terima kasih atas waktu dan ilmunya ..." />
-      <ChatInput />
+      <ChatInput doctor={params.doctor} />
     </View>
   );
 };

@@ -5,12 +5,12 @@ import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
 interface AppTextInputProps extends TextInputProps, React.ClassAttributes<TextInput> {
-  label: string;
+  label?: string;
 }
 
 const AppTextInput = React.forwardRef<TextInput, AppTextInputProps>((props, ref) => (
   <>
-    <Text style={styles.label}>{props.label}</Text>
+    {props.label && <Text style={styles.label}>{props.label}</Text>}
     <TextInput style={styles.input} {...props} ref={ref} />
   </>
 ));

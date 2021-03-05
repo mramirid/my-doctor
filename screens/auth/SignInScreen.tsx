@@ -1,5 +1,6 @@
+import { useTypedController } from '@hookform/strictly-typed';
 import * as React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 
 import AppLogo from '../../assets/icons/AppLogo';
@@ -11,26 +12,22 @@ import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import withStatusBar from '../../hoc/withStatusBar';
 
-interface SignInData {
+interface FormValues {
   email: string;
   password: string;
 }
 
 const SignInScreen: React.FC = () => {
-  const { control } = useForm<SignInData>({
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  });
+  const { control } = useForm<FormValues>();
+  const TypedController = useTypedController<FormValues>({ control });
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.screenContent}>
       <AppLogo />
       <Text style={styles.title}>Masuk dan mulai berkonsultasi</Text>
-      <Controller
+      <TypedController
         name="email"
-        control={control}
+        defaultValue=""
         rules={{
           required: 'Email wajib diisi',
           pattern: {
@@ -50,9 +47,9 @@ const SignInScreen: React.FC = () => {
         )}
       />
       <AppGap height={24} />
-      <Controller
+      <TypedController
         name="password"
-        control={control}
+        defaultValue=""
         rules={{ required: 'Password wajib diisi' }}
         render={(renderProps) => (
           <AppTextInput

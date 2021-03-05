@@ -1,6 +1,7 @@
+import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import AppGap from '../../../components/atoms/AppGap';
@@ -11,7 +12,7 @@ import Colors from '../../../constants/colors';
 import { SignUpScreenNavProp } from '../../../global-types/navigation';
 import withStatusBar from '../../../hoc/withStatusBar';
 
-interface SignUpData {
+interface FormValues {
   fullName: string;
   occupation: string;
   email: string;
@@ -20,23 +21,16 @@ interface SignUpData {
 
 const SignUpScreen: React.FC = () => {
   const navigation = useNavigation<SignUpScreenNavProp>();
-
-  const { control } = useForm<SignUpData>({
-    defaultValues: {
-      fullName: '',
-      occupation: '',
-      email: '',
-      password: '',
-    },
-  });
+  const { control } = useForm<FormValues>();
+  const TypedController = useTypedController<FormValues>({ control });
 
   return (
     <View style={styles.screen}>
       <Header title="Daftar Akun" type="flat" />
       <ScrollView contentContainerStyle={styles.body}>
-        <Controller
+        <TypedController
           name="fullName"
-          control={control}
+          defaultValue=""
           rules={{ required: 'Nama lengkap wajib diisi' }}
           render={(renderProps) => (
             <AppTextInput
@@ -49,9 +43,9 @@ const SignUpScreen: React.FC = () => {
           )}
         />
         <AppGap height={24} />
-        <Controller
+        <TypedController
           name="occupation"
-          control={control}
+          defaultValue=""
           rules={{ required: 'Pekerjaan wajib diisi' }}
           render={(renderProps) => (
             <AppTextInput
@@ -64,9 +58,9 @@ const SignUpScreen: React.FC = () => {
           )}
         />
         <AppGap height={24} />
-        <Controller
+        <TypedController
           name="email"
-          control={control}
+          defaultValue=""
           rules={{
             required: 'Email wajib diisi',
             pattern: {
@@ -86,9 +80,9 @@ const SignUpScreen: React.FC = () => {
           )}
         />
         <AppGap height={24} />
-        <Controller
+        <TypedController
           name="password"
-          control={control}
+          defaultValue=""
           rules={{ required: 'Password wajib diisi' }}
           render={(renderProps) => (
             <AppTextInput

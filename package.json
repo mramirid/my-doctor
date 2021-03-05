@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@hookform/error-message": "0.0.5",
+    "@hookform/strictly-typed": "^0.0.4",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.8",
     "@react-navigation/native": "^5.9.3",
