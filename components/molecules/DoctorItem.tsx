@@ -4,7 +4,6 @@ import { View, StyleSheet, Text, Image, ViewStyle } from 'react-native';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
-import icons from '../../constants/icons';
 import Doctor from '../../global-types/doctor';
 import AppBorderedItem from '../atoms/AppBorderedItem';
 
@@ -23,7 +22,7 @@ const DoctorItem: React.FC<DoctorItemProps> = (props) => (
       <Text style={styles.title}>{props.doctor.name}</Text>
       {props.description && <Text style={styles.description}>{props.description}</Text>}
     </View>
-    {props.withArrowIcon && <MaterialIcons name="navigate-next" size={icons.size} color="black" />}
+    {props.withArrowIcon && <MaterialIcons name="navigate-next" size={24} color="black" />}
   </AppBorderedItem>
 );
 

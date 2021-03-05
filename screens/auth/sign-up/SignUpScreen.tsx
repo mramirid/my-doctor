@@ -6,7 +6,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import AppGap from '../../../components/atoms/AppGap';
 import AppTextInput from '../../../components/atoms/AppTextInput';
 import AppButton from '../../../components/atoms/clickables/AppButton';
-import AppHeader from '../../../components/molecules/AppHeader';
+import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
 import { SignUpScreenNavProp } from '../../../global-types/navigation';
 import withStatusBar from '../../../hoc/withStatusBar';
@@ -32,7 +32,7 @@ const SignUpScreen: React.FC = () => {
 
   return (
     <View style={styles.screen}>
-      <AppHeader title="Daftar Akun" type="flat" />
+      <Header title="Daftar Akun" type="flat" />
       <ScrollView contentContainerStyle={styles.body}>
         <Controller
           name="fullName"

@@ -37,6 +37,8 @@ export type CategoryDoctorsScreenNavProp = StackNavigationProp<
   'CategoryDoctorsScreen'
 >;
 
+export type ChatRoomScreenRouteProp = RouteProp<HomeStackParamList, 'ChatRoomScreen'>;
+
 /*
  * Home Bottom Tabs
  */
@@ -48,5 +50,10 @@ export type HomeTabParamList = {
 
 export type DoctorsOverviewScreenNavProp = CompositeNavigationProp<
   BottomTabNavigationProp<HomeTabParamList, 'DoctorsOverviewScreen'>,
+  StackNavigationProp<HomeStackParamList>
+>;
+
+export type MessagesScreenNavProp = CompositeNavigationProp<
+  BottomTabNavigationProp<HomeTabParamList, 'MessagesScreen'>,
   StackNavigationProp<HomeStackParamList>
 >;

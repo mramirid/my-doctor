@@ -5,7 +5,6 @@ import * as React from 'react';
 import AppBottomTabBar from '../components/molecules/AppTabBar';
 import Colors from '../constants/colors';
 import Fonts from '../constants/fonts';
-import icons from '../constants/icons';
 import { HomeTabParamList } from '../global-types/navigation';
 import DoctorsOverviewScreen from '../screens/tab/DoctorsOverviewScreen';
 import HospitalsScreen from '../screens/tab/HospitalsScreen';
@@ -27,7 +26,7 @@ const HomeTab: React.FC = () => (
       options={{
         tabBarLabel: 'Doctor',
         tabBarIcon: (props) => (
-          <MaterialCommunityIcons name="face-outline" size={icons.size} color={props.color} />
+          <MaterialCommunityIcons name="face-outline" size={24} color={props.color} />
         ),
       }}
     />
@@ -37,11 +36,7 @@ const HomeTab: React.FC = () => (
       options={{
         tabBarLabel: 'Messages',
         tabBarIcon: (props) => (
-          <MaterialCommunityIcons
-            name="message-processing-outline"
-            size={icons.size}
-            color={props.color}
-          />
+          <MaterialCommunityIcons name="message-processing-outline" size={24} color={props.color} />
         ),
       }}
     />
@@ -51,7 +46,7 @@ const HomeTab: React.FC = () => (
       options={{
         tabBarLabel: 'Hospitals',
         tabBarIcon: (props) => (
-          <MaterialCommunityIcons name="map-outline" size={icons.size} color={props.color} />
+          <MaterialCommunityIcons name="map-outline" size={24} color={props.color} />
         ),
       }}
     />

@@ -4,14 +4,14 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import AddPhoto from '../../../assets/icons/AddPhoto';
 import AppLink from '../../../components/atoms/AppLink';
 import AppButton from '../../../components/atoms/clickables/AppButton';
-import AppHeader from '../../../components/molecules/AppHeader';
+import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
 import withStatusBar from '../../../hoc/withStatusBar';
 
 const UploadPhotoScreen: React.FC = () => (
   <View style={styles.screen}>
-    <AppHeader title="Unggah Foto" type="flat" />
+    <Header title="Unggah Foto" type="flat" />
     <View style={styles.body}>
       <View style={styles.profile}>
         <View style={styles.avatarContainer}>

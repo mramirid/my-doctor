@@ -4,7 +4,6 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Colors from '../../constants/colors';
-import Icons from '../../constants/icons';
 import AppTabItem from '../atoms/tab/AppTabItem';
 
 const AppTabBar: React.FC<BottomTabBarProps<BottomTabBarOptions>> = (props) => {
@@ -35,7 +34,7 @@ const AppTabBar: React.FC<BottomTabBarProps<BottomTabBarOptions>> = (props) => {
             size: 23,
           });
         } else {
-          icon = <AntDesign name="questioncircleo" size={Icons.size} color={tabItemColor} />;
+          icon = <AntDesign name="questioncircleo" size={24} color={tabItemColor} />;
         }
 
         const onPress = () => {

@@ -3,8 +3,8 @@ import * as React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import AppGap from '../components/atoms/AppGap';
-import AppHeader from '../components/molecules/AppHeader';
 import DoctorItem from '../components/molecules/DoctorItem';
+import Header from '../components/molecules/header/Header';
 import Colors from '../constants/colors';
 import doctors from '../constants/dummies/doctors';
 import Fonts from '../constants/fonts';
@@ -32,9 +32,7 @@ const CategoryDoctorsScreen: React.FC = () => {
             doctor={item}
             description={item.gender}
             withArrowIcon
-            onPress={() => {
-              navigation.navigate('ChatRoomScreen', { doctor: item });
-            }}
+            onPress={() => navigation.navigate('ChatRoomScreen', { doctor: item })}
           />
         )}
       />
@@ -43,7 +41,7 @@ const CategoryDoctorsScreen: React.FC = () => {
 
   return (
     <View style={styles.screen}>
-      <AppHeader title={`Pilih ${params.category}`} type="dark" withBorderRadius />
+      <Header title={`Pilih ${params.category}`} type="dark" withBorderRadius />
       <AppGap height={20} />
       {bodyContent}
     </View>
