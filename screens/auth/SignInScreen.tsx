@@ -22,7 +22,10 @@ const SignInScreen: React.FC = () => {
   const TypedController = useTypedController<FormValues>({ control });
 
   return (
-    <ScrollView style={styles.screen} contentContainerStyle={styles.screenContent}>
+    <ScrollView
+      style={styles.screen}
+      contentContainerStyle={styles.screenContent}
+      showsVerticalScrollIndicator={false}>
       <AppLogo />
       <Text style={styles.title}>Masuk dan mulai berkonsultasi</Text>
       <TypedController

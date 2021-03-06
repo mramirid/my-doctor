@@ -83,6 +83,7 @@ const ChatRoomScreen: React.FC = () => {
           <Text style={styles.dateText}>{format(new Date(), 'PPPP', { locale: id })}</Text>
           <FlatList
             data={chats}
+            showsVerticalScrollIndicator={false}
             renderItem={({ item }) => {
               if (item.sender.id === userId) {
                 return <MyChatItem style={styles.chatItem} chat={item} />;

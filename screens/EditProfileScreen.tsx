@@ -1,16 +1,16 @@
 import { useTypedController } from '@hookform/strictly-typed';
-import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
-import AppGap from '../../../components/atoms/AppGap';
-import AppTextInput from '../../../components/atoms/AppTextInput';
-import AppButton from '../../../components/atoms/clickables/AppButton';
-import Header from '../../../components/molecules/header/Header';
-import Colors from '../../../constants/colors';
-import { SignUpScreenNavProp } from '../../../global-types/navigation';
-import withStatusBar from '../../../hoc/withStatusBar';
+import AppGap from '../components/atoms/AppGap';
+import AppTextInput from '../components/atoms/AppTextInput';
+import AppButton from '../components/atoms/clickables/AppButton';
+import ProfileWithPhoto from '../components/molecules/ProfileWithPhoto';
+import Header from '../components/molecules/header/Header';
+import Colors from '../constants/colors';
+import patient from '../constants/dummies/patient';
+import withStatusBar from '../hoc/withStatusBar';
 
 interface FormValues {
   fullName: string;
@@ -19,15 +19,19 @@ interface FormValues {
   password: string;
 }
 
-const SignUpScreen: React.FC = () => {
-  const navigation = useNavigation<SignUpScreenNavProp>();
+const EditProfileScreen: React.FC = (props) => {
   const { control } = useForm<FormValues>();
   const TypedController = useTypedController<FormValues>({ control });
 
   return (
     <View style={styles.screen}>
-      <Header title="Daftar Akun" type="flat" />
-      <ScrollView contentContainerStyle={styles.body} showsVerticalScrollIndicator={false}>
+      <Header title="Profile" type="flat" />
+      <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
+        <ProfileWithPhoto
+          style={styles.profileWithPhoto}
+          photoUrl={patient.photoUrl}
+          onRemoveAvatar={() => null}
+        />
         <TypedController
           name="fullName"
           defaultValue=""
@@ -97,9 +101,10 @@ const SignUpScreen: React.FC = () => {
         />
         <AppGap height={40} />
         <AppButton
+          style={styles.submitButton}
           title="Continue"
           color="accent"
-          onPress={() => navigation.navigate('UploadPhotoScreen')}
+          onPress={() => null}
         />
       </ScrollView>
     </View>
@@ -112,9 +117,15 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    marginTop: 10,
     paddingHorizontal: 40,
+  },
+  profileWithPhoto: {
+    marginTop: 10,
+    marginBottom: 30,
+  },
+  submitButton: {
+    marginBottom: 48,
   },
 });
 
-export default withStatusBar(SignUpScreen, 'dark', Colors.White);
+export default withStatusBar(EditProfileScreen, 'dark', Colors.White);

@@ -1,23 +1,26 @@
 import * as React from 'react';
 import { Image, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
+import RemovePhoto from '../../assets/icons/RemovePhoto';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
 interface ProfileWithPhotoProps {
-  name: string;
-  occupation: string;
+  name?: string;
+  occupation?: string;
   photoUrl: string;
   style?: ViewStyle;
+  onRemoveAvatar?: () => void;
 }
 
 const ProfileWithPhoto: React.FC<ProfileWithPhotoProps> = (props) => (
   <View style={{ ...styles.container, ...props.style }}>
     <View style={styles.avatarContainer}>
       <Image style={styles.avatar} source={{ uri: props.photoUrl }} />
+      {props.onRemoveAvatar && <RemovePhoto style={styles.removePhotoIcon} />}
     </View>
-    <Text style={styles.name}>{props.name}</Text>
-    <Text style={styles.occupation}>{props.occupation}</Text>
+    {props.name && <Text style={styles.name}>{props.name}</Text>}
+    {props.occupation && <Text style={styles.occupation}>{props.occupation}</Text>}
   </View>
 );
 
@@ -40,13 +43,23 @@ const styles = StyleSheet.create({
     height: 110,
     borderRadius: 110 / 2,
   },
+  removePhotoIcon: {
+    position: 'absolute',
+    right: 6,
+    bottom: 8,
+  },
   name: {
     fontSize: 20,
     fontFamily: Fonts.NunitoSemiBold,
     color: Colors.Dark,
     marginTop: 16,
   },
-  occupation: {},
+  occupation: {
+    fontSize: 16,
+    fontFamily: Fonts.NunitoRegular,
+    color: Colors.Grey2,
+    marginTop: 2,
+  },
 });
 
 export default ProfileWithPhoto;

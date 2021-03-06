@@ -3,10 +3,12 @@ import { StatusBar } from 'expo-status-bar';
 import React, { FC } from 'react';
 import { Platform, View, ViewStyle } from 'react-native';
 
+import Colors from '../constants/colors';
+
 export default function withStatusBar<P>(
   WrappedComponent: FC<P>,
   tintColor?: 'auto' | 'inverted' | 'light' | 'dark',
-  bgColor?: string
+  bgColor?: Colors
 ) {
   const containerStyle: ViewStyle = {
     flex: 1,

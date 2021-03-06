@@ -30,6 +30,7 @@ export type HomeStackParamList = {
   CategoryDoctorsScreen: { category: DoctorSpecialist };
   ChatRoomScreen: { doctor: Doctor };
   UserProfileScreen: undefined;
+  EditProfileScreen: undefined;
 };
 
 export type CategoryDoctorsScreenRouteProp = RouteProp<HomeStackParamList, 'CategoryDoctorsScreen'>;
@@ -39,6 +40,8 @@ export type CategoryDoctorsScreenNavProp = StackNavigationProp<
 >;
 
 export type ChatRoomScreenRouteProp = RouteProp<HomeStackParamList, 'ChatRoomScreen'>;
+
+export type UserProfileScreenNavProp = StackNavigationProp<HomeStackParamList, 'UserProfileScreen'>;
 
 /*
  * Home Bottom Tabs
