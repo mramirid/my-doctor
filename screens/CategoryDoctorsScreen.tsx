@@ -29,6 +29,7 @@ const CategoryDoctorsScreen: React.FC = () => {
         contentContainerStyle={styles.listContent}
         renderItem={({ item }) => (
           <ListItemBordered
+            style={styles.doctorItem}
             title={item.name}
             description={item.gender}
             avatar={<Image style={styles.avatar} source={{ uri: item.photoUrl }} />}
@@ -60,6 +61,9 @@ const styles = StyleSheet.create({
   },
   listContent: {
     flex: 1,
+  },
+  doctorItem: {
+    marginTop: 16,
   },
   avatar: {
     width: 46,

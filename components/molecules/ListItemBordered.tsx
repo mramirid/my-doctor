@@ -28,7 +28,8 @@ const ListItemBordered: React.FC<ListItemBorderedProps> = (props) => (
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingBottom: 16,
     justifyContent: 'space-between',
   },
   avatarContainer: {

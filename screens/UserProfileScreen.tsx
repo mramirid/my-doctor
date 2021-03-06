@@ -24,6 +24,7 @@ const UserProfileScreen: React.FC = () => {
           photoUrl={patient.photoUrl}
         />
         <ListItemBordered
+          style={styles.settingItem}
           title="Edit Profile"
           description="Last updated yesterday"
           avatar={
@@ -33,6 +34,7 @@ const UserProfileScreen: React.FC = () => {
           onPress={() => navigation.navigate('EditUserProfileScreen')}
         />
         <ListItemBordered
+          style={styles.settingItem}
           title="Language"
           description="Available 12 languages"
           avatar={<MaterialCommunityIcons name="translate" size={24} color={Colors.Green2} />}
@@ -40,6 +42,7 @@ const UserProfileScreen: React.FC = () => {
           onPress={() => null}
         />
         <ListItemBordered
+          style={styles.settingItem}
           title="Give Us Rate"
           description="On Google Play Store"
           avatar={<MaterialCommunityIcons name="star-outline" size={24} color={Colors.Green2} />}
@@ -47,6 +50,7 @@ const UserProfileScreen: React.FC = () => {
           onPress={() => null}
         />
         <ListItemBordered
+          style={styles.settingItem}
           title="Help Center"
           description="Read our guidelines"
           avatar={
@@ -70,6 +74,9 @@ const styles = StyleSheet.create({
   profileWithPhoto: {
     marginTop: 10,
     marginBottom: 26,
+  },
+  settingItem: {
+    marginTop: 16,
   },
 });
 

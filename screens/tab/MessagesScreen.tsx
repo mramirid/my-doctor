@@ -25,6 +25,7 @@ const MessagesScreen: React.FC = () => {
         style={styles.list}
         renderItem={({ item }) => (
           <ListItemBordered
+            style={styles.messageItem}
             key={item.id}
             title={item.name}
             avatar={<Image style={styles.avatar} source={{ uri: item.photoUrl }} />}
@@ -57,6 +58,9 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 1,
+  },
+  messageItem: {
+    marginTop: 16,
   },
 });
 
