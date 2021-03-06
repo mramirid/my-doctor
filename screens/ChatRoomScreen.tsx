@@ -1,25 +1,69 @@
 import { useRoute } from '@react-navigation/core';
+import { format } from 'date-fns';
+import { id } from 'date-fns/locale';
 import * as React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, FlatList } from 'react-native';
 
 import ChatInput from '../components/molecules/chat/ChatInput';
-import ChatItem from '../components/molecules/chat/ChatItem';
+import MyChatItem from '../components/molecules/chat/MyChatItem';
+import OtherChatItem from '../components/molecules/chat/OtherChatItem';
 import ProfileHeader from '../components/molecules/header/ProfileHeader';
 import Colors from '../constants/colors';
+import Fonts from '../constants/fonts';
+import Chat from '../global-types/chat';
 import { ChatRoomScreenRouteProp } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
 
+const chats: Chat[] = [
+  {
+    id: '1',
+    message: 'Ibu dokter, apakah memakan jeruk tiap hari itu buruk?',
+    date: new Date().getTime(),
+    sender: {
+      id: 'A',
+      photoUrl: 'https://i.ibb.co/9nqPWmN/doctor-nairobi-putri.png',
+    },
+  },
+  {
+    id: '2',
+    message: 'Oh tentu saja tidak karena jeruk itu sangat sehat...',
+    date: new Date().getTime() + 3600000,
+    sender: {
+      id: 'B',
+      photoUrl: 'https://i.ibb.co/9nqPWmN/doctor-nairobi-putri.png',
+    },
+  },
+  {
+    id: '3',
+    message: 'Baik ibu, terima kasih atas waktu dan ilmunya...',
+    date: new Date().getTime() + 3600000,
+    sender: {
+      id: 'A',
+      photoUrl: 'https://i.ibb.co/9nqPWmN/doctor-nairobi-putri.png',
+    },
+  },
+];
+
 const ChatRoomScreen: React.FC = () => {
   const { params } = useRoute<ChatRoomScreenRouteProp>();
+  const userId = 'A';
+
   return (
     <>
       <ProfileHeader doctor={params.doctor} />
       <View style={styles.screen}>
         <View style={styles.chats}>
-          <Text>Jum'at, 5 Maret, 2020</Text>
-          <ChatItem text="Ibu dokter, apakah memakan jeruk tiap hari itu buruk?" />
-          <ChatItem text="Oh tentu saja tidak karena jeruk itu sangat sehat..." />
-          <ChatItem text="Baik ibu, terima kasih atas waktu dan ilmunya ..." />
+          <Text style={styles.dateText}>{format(new Date(), 'PPPP', { locale: id })}</Text>
+          <FlatList
+            data={chats}
+            renderItem={({ item }) => {
+              if (item.sender.id === userId) {
+                return <MyChatItem style={styles.chatItem} chat={item} />;
+              } else {
+                return <OtherChatItem style={styles.chatItem} chat={item} />;
+              }
+            }}
+          />
         </View>
         <ChatInput doctor={params.doctor} />
       </View>
@@ -34,6 +78,16 @@ const styles = StyleSheet.create({
   },
   chats: {
     flex: 1,
+  },
+  dateText: {
+    textAlign: 'center',
+    marginBottom: 20,
+    fontFamily: Fonts.NunitoRegular,
+    fontSize: 11,
+    color: Colors.Grey2,
+  },
+  chatItem: {
+    marginBottom: 20,
   },
 });
 
