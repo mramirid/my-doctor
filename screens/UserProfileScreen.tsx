@@ -30,7 +30,7 @@ const UserProfileScreen: React.FC = () => {
             <MaterialCommunityIcons name="account-circle-outline" size={24} color={Colors.Green2} />
           }
           withArrowIcon
-          onPress={() => navigation.navigate('EditProfileScreen')}
+          onPress={() => navigation.navigate('EditUserProfileScreen')}
         />
         <ListItemBordered
           title="Language"

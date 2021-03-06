@@ -85,4 +85,6 @@ const doctors: Doctor[] = [
   },
 ];
 
+export const topRatedDoctors = doctors.slice(0, 3);
+
 export default doctors;

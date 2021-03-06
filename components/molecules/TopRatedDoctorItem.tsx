@@ -1,23 +1,24 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as React from 'react';
 import { View, StyleSheet, Text, Image, ViewStyle } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
+import Doctor from '../../global-types/doctor';
 
 interface TopRatedDoctorItemProps {
   style?: ViewStyle;
+  doctor: Doctor;
+  onPress(): void;
 }
 
 const TopRatedDoctorItem: React.FC<TopRatedDoctorItemProps> = (props) => (
-  <View style={{ ...styles.container, ...(props.style ?? {}) }}>
-    <Image
-      style={styles.avatar}
-      source={{ uri: 'https://i.ibb.co/yX7n5zD/doctor-alexa-rachel.png' }}
-    />
+  <TouchableOpacity style={{ ...styles.container, ...(props.style ?? {}) }} onPress={props.onPress}>
+    <Image style={styles.avatar} source={{ uri: props.doctor.photoUrl }} />
     <View style={styles.profile}>
-      <Text style={styles.name}>Alexa Rachel</Text>
-      <Text style={styles.specialist}>Pediatrician</Text>
+      <Text style={styles.name}>{props.doctor.name}</Text>
+      <Text style={styles.specialist}>{props.doctor.specialist}</Text>
     </View>
     <View style={styles.rating}>
       <Ionicons name="star" size={16} color={Colors.Gold} />
@@ -26,7 +27,7 @@ const TopRatedDoctorItem: React.FC<TopRatedDoctorItemProps> = (props) => (
       <Ionicons name="star" size={16} color={Colors.Gold} />
       <Ionicons name="star" size={16} color={Colors.Gold} />
     </View>
-  </View>
+  </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({

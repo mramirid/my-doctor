@@ -10,6 +10,7 @@ import NewsItem from '../../components/molecules/NewsItem';
 import TopRatedDoctorItem from '../../components/molecules/TopRatedDoctorItem';
 import Colors from '../../constants/colors';
 import DoctorSpecialist from '../../constants/doctor-specialist';
+import { topRatedDoctors } from '../../constants/dummies/doctors';
 import Fonts from '../../constants/fonts';
 import { DoctorCategory as IDoctorCategory } from '../../global-types/doctor';
 import { DoctorsOverviewScreenNavProp } from '../../global-types/navigation';
@@ -60,18 +61,18 @@ const DoctorsOverviewScreen: React.FC = () => {
           <AppGap width={6} />
         </ScrollView>
       </View>
+      <AppGap height={30} />
+      <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
       <View style={styles.padX16}>
-        <AppGap height={30} />
-        <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
-        <TopRatedDoctorItem style={styles.topRatedDoctor} />
-        <TopRatedDoctorItem style={styles.topRatedDoctor} />
-        <TopRatedDoctorItem style={styles.topRatedDoctor} />
-        <AppGap height={14} />
+        {topRatedDoctors.map((doctor) => (
+          <TopRatedDoctorItem style={styles.topRatedDoctor} doctor={doctor} onPress={() => null} />
+        ))}
       </View>
-      <Text style={{ ...styles.sectionLabel, ...styles.padX16, marginTop: 14 }}>Good News</Text>
-      <NewsItem />
-      <NewsItem />
-      <NewsItem />
+      <AppGap height={30} />
+      <Text style={styles.sectionLabel}>Good News</Text>
+      <NewsItem style={styles.newsItem} />
+      <NewsItem style={styles.newsItem} />
+      <NewsItem style={styles.newsItem} />
     </AppTabScreen>
   );
 };
@@ -95,6 +96,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   sectionLabel: {
+    marginHorizontal: 16,
     fontSize: 16,
     fontFamily: Fonts.NunitoSemiBold,
     color: Colors.Dark,
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   newsItem: {
-    marginHorizontal: -15,
+    marginTop: 16,
   },
 });
 

@@ -19,7 +19,7 @@ interface FormValues {
   password: string;
 }
 
-const EditProfileScreen: React.FC = (props) => {
+const EditUserProfileScreen: React.FC = () => {
   const { control } = useForm<FormValues>();
   const TypedController = useTypedController<FormValues>({ control });
 
@@ -128,4 +128,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withStatusBar(EditProfileScreen, 'dark', Colors.White);
+export default withStatusBar(EditUserProfileScreen, 'dark', Colors.White);

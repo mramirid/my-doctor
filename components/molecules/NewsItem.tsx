@@ -21,7 +21,8 @@ const NewsItem: React.FC<NewsItemProps> = (props) => (
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingBottom: 16,
   },
   newsHeading: {
     flex: 1,
