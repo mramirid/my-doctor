@@ -1,7 +1,11 @@
 import * as React from 'react';
-import { AccessibilityRole, AccessibilityState, StyleSheet, Text } from 'react-native';
-
-import AppTouchable from '../clickables/AppTouchable';
+import {
+  AccessibilityRole,
+  AccessibilityState,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 
 interface AppTabItemProps {
   icon: React.ReactNode;
@@ -16,10 +20,10 @@ interface AppTabItemProps {
 }
 
 const AppTabItem: React.FC<AppTabItemProps> = (props) => (
-  <AppTouchable {...props} style={styles.tabItem}>
+  <TouchableOpacity {...props} style={styles.tabItem}>
     {props.icon}
     <Text style={{ ...styles.label, color: props.tabItemColor }}>{props.label}</Text>
-  </AppTouchable>
+  </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({

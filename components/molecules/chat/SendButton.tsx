@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import Colors from '../../../constants/colors';
 import AppCard from '../../atoms/AppCard';
-import AppTouchable from '../../atoms/clickables/AppTouchable';
 
 interface SendButtonProps {
   disabled?: boolean;
@@ -16,10 +15,9 @@ const SendButton: React.FC<SendButtonProps> = (props) => {
   const iconColor = !props.disabled ? Colors.White : Colors.Grey2;
   return (
     <AppCard style={{ ...styles.buttonContainer, backgroundColor: buttonColor }}>
-      <AppTouchable
+      <TouchableOpacity
         disabled={props.disabled}
         style={styles.buttonContent}
-        useForeground
         onPress={props.onPress}>
         <Svg width={34} height={34} viewBox="0 0 34 34" fill="none">
           <Path
@@ -29,7 +27,7 @@ const SendButton: React.FC<SendButtonProps> = (props) => {
             fill={iconColor}
           />
         </Svg>
-      </AppTouchable>
+      </TouchableOpacity>
     </AppCard>
   );
 };

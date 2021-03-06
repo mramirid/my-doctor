@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 import AddPhoto from '../../../assets/icons/AddPhoto';
+import AppButton from '../../../components/atoms/AppButton';
 import AppLink from '../../../components/atoms/AppLink';
-import AppButton from '../../../components/atoms/clickables/AppButton';
 import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';

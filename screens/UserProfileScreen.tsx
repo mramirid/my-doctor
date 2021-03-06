@@ -20,7 +20,7 @@ const UserProfileScreen: React.FC = () => {
         <ProfileWithPhoto
           style={styles.profileWithPhoto}
           name={patient.name}
-          occupation={patient.occupation}
+          description={patient.occupation}
           photoUrl={patient.photoUrl}
         />
         <ListItemBordered

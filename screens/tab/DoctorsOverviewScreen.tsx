@@ -65,7 +65,12 @@ const DoctorsOverviewScreen: React.FC = () => {
       <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
       <View style={styles.padX16}>
         {topRatedDoctors.map((doctor) => (
-          <TopRatedDoctorItem style={styles.topRatedDoctor} doctor={doctor} onPress={() => null} />
+          <TopRatedDoctorItem
+            key={doctor.id}
+            style={styles.topRatedDoctor}
+            doctor={doctor}
+            onPress={() => navigation.navigate('DoctorProfileScreen', { doctor })}
+          />
         ))}
       </View>
       <AppGap height={30} />

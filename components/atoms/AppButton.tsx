@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { TextStyle, ViewStyle, Text } from 'react-native';
+import { Text, TextStyle, ViewStyle } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import Colors from '../../../constants/colors';
-import Fonts from '../../../constants/fonts';
-import AppTouchable from './AppTouchable';
+import Colors from '../../constants/colors';
+import Fonts from '../../constants/fonts';
 
 interface AppButtonProps {
   title: string;
@@ -51,9 +51,9 @@ const AppButton: React.FC<AppButtonProps> = (props) => {
   }
 
   return (
-    <AppTouchable style={buttonStyle} onPress={props.onPress}>
+    <TouchableOpacity style={buttonStyle} onPress={props.onPress}>
       <Text style={textStyle}>{props.title}</Text>
-    </AppTouchable>
+    </TouchableOpacity>
   );
 };
 

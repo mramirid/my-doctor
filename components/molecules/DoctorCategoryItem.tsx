@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import GeneralPractitioner from '../../assets/icons/doctor-categories/GeneralPractitioner';
 import Medicine from '../../assets/icons/doctor-categories/Medicine';
@@ -9,7 +9,6 @@ import Colors from '../../constants/colors';
 import DoctorSpecialist from '../../constants/doctor-specialist';
 import Fonts from '../../constants/fonts';
 import AppCard from '../atoms/AppCard';
-import AppTouchable from '../atoms/clickables/AppTouchable';
 
 interface DoctorCategoryItemProps {
   category: DoctorSpecialist;
@@ -37,11 +36,11 @@ const DoctorCategoryItem: React.FC<DoctorCategoryItemProps> = (props) => {
 
   return (
     <AppCard style={styles.container}>
-      <AppTouchable style={styles.content} useForeground onPress={props.onPress}>
+      <TouchableOpacity style={styles.content} onPress={props.onPress}>
         <View style={styles.icon}>{icon}</View>
         <Text style={styles.label}>Saya butuh</Text>
         <Text style={styles.name}>{props.category}</Text>
-      </AppTouchable>
+      </TouchableOpacity>
     </AppCard>
   );
 };

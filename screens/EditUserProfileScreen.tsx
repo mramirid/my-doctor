@@ -3,9 +3,9 @@ import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
+import AppButton from '../components/atoms/AppButton';
 import AppGap from '../components/atoms/AppGap';
 import AppTextInput from '../components/atoms/AppTextInput';
-import AppButton from '../components/atoms/clickables/AppButton';
 import ProfileWithPhoto from '../components/molecules/ProfileWithPhoto';
 import Header from '../components/molecules/header/Header';
 import Colors from '../constants/colors';

@@ -5,8 +5,8 @@ import * as React from 'react';
 import { ImageBackground, StyleSheet, View, Text, Platform } from 'react-native';
 
 import AppLogo from '../../assets/icons/AppLogo';
+import AppButton from '../../components/atoms/AppButton';
 import AppGap from '../../components/atoms/AppGap';
-import AppButton from '../../components/atoms/clickables/AppButton';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import { GettingStartedScreenNavProp } from '../../global-types/navigation';

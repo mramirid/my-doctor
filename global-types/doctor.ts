@@ -8,9 +8,12 @@ export interface DoctorCategory {
 
 export default interface Doctor {
   id: string;
-  photoUrl: string;
   name: string;
-  specialist: DoctorSpecialist;
   gender: Gender;
+  specialist: DoctorSpecialist;
+  photoUrl: string;
+  almamater: string;
+  workplace: string;
+  credentialID: string;
   rating: number;
 }

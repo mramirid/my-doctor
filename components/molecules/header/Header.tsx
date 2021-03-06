@@ -1,12 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
-import { StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
 import AppGap from '../../atoms/AppGap';
-import AppTouchable from '../../atoms/clickables/AppTouchable';
 
 interface HeaderProps {
   title: string;
@@ -26,11 +25,11 @@ const Header: React.FC<HeaderProps> = (props) => {
 
   return (
     <View style={{ ...styles.container, ...containerStyle }}>
-      <AppTouchable style={styles.backButton} onPress={navigation.goBack}>
+      <TouchableOpacity style={styles.backButton} onPress={navigation.goBack}>
         <Ionicons name="arrow-back" size={24} color={textColor} />
-      </AppTouchable>
+      </TouchableOpacity>
       <Text style={{ ...styles.title, color: textColor }}>{props.title}</Text>
-      <AppGap width={48} />
+      <AppGap width={24} />
     </View>
   );
 };
@@ -44,8 +43,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   backButton: {
-    height: 48,
-    width: 48,
+    height: 24,
+    width: 24,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 100,

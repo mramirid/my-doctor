@@ -7,7 +7,7 @@ import Fonts from '../../constants/fonts';
 
 interface ProfileWithPhotoProps {
   name?: string;
-  occupation?: string;
+  description?: string;
   photoUrl: string;
   style?: ViewStyle;
   onRemoveAvatar?: () => void;
@@ -20,7 +20,7 @@ const ProfileWithPhoto: React.FC<ProfileWithPhotoProps> = (props) => (
       {props.onRemoveAvatar && <RemovePhoto style={styles.removePhotoIcon} />}
     </View>
     {props.name && <Text style={styles.name}>{props.name}</Text>}
-    {props.occupation && <Text style={styles.occupation}>{props.occupation}</Text>}
+    {props.description && <Text style={styles.description}>{props.description}</Text>}
   </View>
 );
 
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     color: Colors.Dark,
     marginTop: 16,
   },
-  occupation: {
+  description: {
     fontSize: 16,
     fontFamily: Fonts.NunitoRegular,
     color: Colors.Grey2,

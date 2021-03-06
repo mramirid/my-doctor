@@ -4,10 +4,10 @@ import { useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 
 import AppLogo from '../../assets/icons/AppLogo';
+import AppButton from '../../components/atoms/AppButton';
 import AppGap from '../../components/atoms/AppGap';
 import AppLink from '../../components/atoms/AppLink';
 import AppTextInput from '../../components/atoms/AppTextInput';
-import AppButton from '../../components/atoms/clickables/AppButton';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import withStatusBar from '../../hoc/withStatusBar';

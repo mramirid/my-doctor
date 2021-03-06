@@ -9,6 +9,9 @@ const doctors: Doctor[] = [
     photoUrl: 'https://i.ibb.co/hYSYqTk/doctor-alexander-jannie.png',
     specialist: DoctorSpecialist.Pediatrician,
     gender: Gender.Female,
+    almamater: 'Universitas Indonesia, 2020',
+    workplace: 'Rumah Sakit Umum, Bandung',
+    credentialID: '0000116622081996',
     rating: 5,
   },
   {
@@ -17,6 +20,9 @@ const doctors: Doctor[] = [
     photoUrl: 'https://i.ibb.co/yX7n5zD/doctor-alexa-rachel.png',
     specialist: DoctorSpecialist.Pediatrician,
     gender: Gender.Female,
+    almamater: 'Universitas Airlangga, 2017',
+    workplace: 'Rumah Sakit Umum, Surabaya',
+    credentialID: '0000182922081211',
     rating: 5,
   },
   {
@@ -25,6 +31,9 @@ const doctors: Doctor[] = [
     photoUrl: 'https://i.ibb.co/d7QNNHt/doctor-james-rivillia.png',
     specialist: DoctorSpecialist.Pediatrician,
     gender: Gender.Male,
+    almamater: 'Universitas Indonesia, 2020',
+    workplace: 'Rumah Sakit Umum, Bandung',
+    credentialID: '0000116622081996',
     rating: 5,
   },
   {
@@ -33,6 +42,9 @@ const doctors: Doctor[] = [
     photoUrl: 'https://i.ibb.co/ZXH1vdq/doctor-mcparker-steve.png',
     specialist: DoctorSpecialist.Pediatrician,
     gender: Gender.Male,
+    almamater: 'Universitas Indonesia, 2020',
+    workplace: 'Rumah Sakit Umum, Bandung',
+    credentialID: '0000116622081996',
     rating: 5,
   },
   {
@@ -41,6 +53,9 @@ const doctors: Doctor[] = [
     photoUrl: 'https://i.ibb.co/9nqPWmN/doctor-nairobi-putri.png',
     specialist: DoctorSpecialist.Pediatrician,
     gender: Gender.Female,
+    almamater: 'Universitas Indonesia, 2020',
+    workplace: 'Rumah Sakit Umum, Bandung',
+    credentialID: '0000116622081996',
     rating: 5,
   },
   {
@@ -49,6 +64,9 @@ const doctors: Doctor[] = [
     photoUrl: 'https://i.ibb.co/HD5N137/doctor-salsabila-citra.png',
     specialist: DoctorSpecialist.Podiatrist,
     gender: Gender.Female,
+    almamater: 'Universitas Indonesia, 2020',
+    workplace: 'Rumah Sakit Umum, Bandung',
+    credentialID: '0000116622081996',
     rating: 5,
   },
   {
@@ -57,6 +75,9 @@ const doctors: Doctor[] = [
     photoUrl: 'https://i.ibb.co/9cQ5hnm/doctor-sunny-frank.png',
     specialist: DoctorSpecialist.Dentist,
     gender: Gender.Male,
+    almamater: 'Universitas Indonesia, 2020',
+    workplace: 'Rumah Sakit Umum, Bandung',
+    credentialID: '0000116622081996',
     rating: 5,
   },
   {
@@ -65,6 +86,9 @@ const doctors: Doctor[] = [
     photoUrl: 'https://i.ibb.co/9cQ5hnm/doctor-sunny-frank.png',
     specialist: DoctorSpecialist.Dentist,
     gender: Gender.Male,
+    almamater: 'Universitas Indonesia, 2020',
+    workplace: 'Rumah Sakit Umum, Bandung',
+    credentialID: '0000116622081996',
     rating: 5,
   },
   {
@@ -73,6 +97,9 @@ const doctors: Doctor[] = [
     photoUrl: 'https://i.ibb.co/9cQ5hnm/doctor-sunny-frank.png',
     specialist: DoctorSpecialist.Dentist,
     gender: Gender.Male,
+    almamater: 'Universitas Indonesia, 2020',
+    workplace: 'Rumah Sakit Umum, Bandung',
+    credentialID: '0000116622081996',
     rating: 5,
   },
   {
@@ -81,6 +108,9 @@ const doctors: Doctor[] = [
     photoUrl: 'https://i.ibb.co/9cQ5hnm/doctor-sunny-frank.png',
     specialist: DoctorSpecialist.Dentist,
     gender: Gender.Male,
+    almamater: 'Universitas Indonesia, 2020',
+    workplace: 'Rumah Sakit Umum, Bandung',
+    credentialID: '0000116622081996',
     rating: 5,
   },
 ];
