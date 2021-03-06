@@ -42,6 +42,33 @@ const chats: Chat[] = [
       photoUrl: 'https://i.ibb.co/9nqPWmN/doctor-nairobi-putri.png',
     },
   },
+  {
+    id: '4',
+    message: 'Baik ibu, terima kasih atas waktu dan ilmunya...',
+    date: new Date().getTime() + 3600000,
+    sender: {
+      id: 'B',
+      photoUrl: 'https://i.ibb.co/9nqPWmN/doctor-nairobi-putri.png',
+    },
+  },
+  {
+    id: '5',
+    message: 'Baik ibu, terima kasih atas waktu dan ilmunya...',
+    date: new Date().getTime() + 3600000,
+    sender: {
+      id: 'A',
+      photoUrl: 'https://i.ibb.co/9nqPWmN/doctor-nairobi-putri.png',
+    },
+  },
+  {
+    id: '6',
+    message: 'Baik ibu, terima kasih atas waktu dan ilmunya...',
+    date: new Date().getTime() + 3600000,
+    sender: {
+      id: 'A',
+      photoUrl: 'https://i.ibb.co/9nqPWmN/doctor-nairobi-putri.png',
+    },
+  },
 ];
 
 const ChatRoomScreen: React.FC = () => {

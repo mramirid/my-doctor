@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     width: 130,
     height: 130,
     borderWidth: 1,
-    borderColor: Colors.Grey2,
+    borderColor: Colors.Grey1,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 130 / 2,
@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 110,
     height: 110,
+    borderRadius: 110 / 2,
   },
   addPhotoIcon: {
     position: 'absolute',

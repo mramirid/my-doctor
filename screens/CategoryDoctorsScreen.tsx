@@ -1,9 +1,9 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
 
 import AppGap from '../components/atoms/AppGap';
-import DoctorItem from '../components/molecules/DoctorItem';
+import ListItemBordered from '../components/molecules/ListItemBordered';
 import Header from '../components/molecules/header/Header';
 import Colors from '../constants/colors';
 import doctors from '../constants/dummies/doctors';
@@ -28,9 +28,10 @@ const CategoryDoctorsScreen: React.FC = () => {
         data={filteredDoctors}
         contentContainerStyle={styles.listContent}
         renderItem={({ item }) => (
-          <DoctorItem
-            doctor={item}
+          <ListItemBordered
+            title={item.name}
             description={item.gender}
+            avatar={<Image style={styles.avatar} source={{ uri: item.photoUrl }} />}
             withArrowIcon
             onPress={() => navigation.navigate('ChatRoomScreen', { doctor: item })}
           />
@@ -59,6 +60,12 @@ const styles = StyleSheet.create({
   },
   listContent: {
     flex: 1,
+  },
+  avatar: {
+    width: 46,
+    height: 46,
+    borderRadius: 46 / 2,
+    marginRight: 12,
   },
 });
 

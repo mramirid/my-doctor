@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/core';
 import * as React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, Image, FlatList } from 'react-native';
 
 import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
-import DoctorItem from '../../components/molecules/DoctorItem';
+import ListItemBordered from '../../components/molecules/ListItemBordered';
 import Colors from '../../constants/colors';
 import DoctorSpecialist from '../../constants/doctor-specialist';
 import doctors from '../../constants/dummies/doctors';
@@ -18,30 +18,45 @@ const pedriaticians = doctors.filter(
 const MessagesScreen: React.FC = () => {
   const navigation = useNavigation<MessagesScreenNavProp>();
   return (
-    <AppTabScreen style={styles.screen} withScrollView>
+    <AppTabScreen style={styles.screen}>
       <Text style={styles.title}>Messages</Text>
-      {pedriaticians.map((doctor) => (
-        <DoctorItem
-          key={doctor.id}
-          doctor={doctor}
-          description="Baik ibu, terima kasih banyak atas wakt..."
-          onPress={() => navigation.navigate('ChatRoomScreen', { doctor })}
-        />
-      ))}
+      <FlatList
+        data={pedriaticians}
+        style={styles.list}
+        renderItem={({ item }) => (
+          <ListItemBordered
+            key={item.id}
+            title={item.name}
+            avatar={<Image style={styles.avatar} source={{ uri: item.photoUrl }} />}
+            description="Baik ibu, terima kasih banyak atas wakt..."
+            onPress={() => navigation.navigate('ChatRoomScreen', { doctor: item })}
+          />
+        )}
+      />
     </AppTabScreen>
   );
 };
 
 const styles = StyleSheet.create({
   screen: {
+    flex: 1,
     paddingTop: 30,
   },
   title: {
     fontSize: 20,
     fontFamily: Fonts.NunitoSemiBold,
     color: Colors.Dark,
-    paddingHorizontal: 16,
+    marginHorizontal: 16,
     marginBottom: 16,
+  },
+  avatar: {
+    width: 46,
+    height: 46,
+    borderRadius: 46 / 2,
+    marginRight: 12,
+  },
+  list: {
+    flex: 1,
   },
 });
 

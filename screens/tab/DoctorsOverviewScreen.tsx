@@ -39,7 +39,7 @@ const DoctorsOverviewScreen: React.FC = () => {
   return (
     <AppTabScreen style={styles.screen} withScrollView>
       <View style={styles.padX16}>
-        <HomeProfile />
+        <HomeProfile onPress={() => navigation.navigate('UserProfileScreen')} />
         <Text style={styles.welcomeText}>Mau konsultasi dengan siapa hari ini?</Text>
       </View>
       <View>

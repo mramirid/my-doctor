@@ -29,6 +29,7 @@ export type HomeStackParamList = {
   HomeTab: undefined;
   CategoryDoctorsScreen: { category: DoctorSpecialist };
   ChatRoomScreen: { doctor: Doctor };
+  UserProfileScreen: undefined;
 };
 
 export type CategoryDoctorsScreenRouteProp = RouteProp<HomeStackParamList, 'CategoryDoctorsScreen'>;
