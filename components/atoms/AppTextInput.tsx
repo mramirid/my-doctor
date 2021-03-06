@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { StyleSheet, TextInput, TextInputProps, Text } from 'react-native';
+import {
+  StyleSheet,
+  TextInput,
+  TextInputProps,
+  Text,
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
+} from 'react-native';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
@@ -8,12 +15,32 @@ interface AppTextInputProps extends TextInputProps, React.ClassAttributes<TextIn
   label?: string;
 }
 
-const AppTextInput = React.forwardRef<TextInput, AppTextInputProps>((props, ref) => (
-  <>
-    {props.label && <Text style={styles.label}>{props.label}</Text>}
-    <TextInput style={styles.input} {...props} ref={ref} />
-  </>
-));
+const AppTextInput = React.forwardRef<TextInput, AppTextInputProps>((props, ref) => {
+  const [borderColor, setBorderColor] = React.useState(Colors.Grey2);
+
+  const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    if (props.onFocus) props.onFocus(e);
+    setBorderColor(Colors.Blue);
+  };
+
+  const onBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    if (props.onBlur) props.onBlur(e);
+    setBorderColor(Colors.Grey2);
+  };
+
+  return (
+    <>
+      {props.label && <Text style={styles.label}>{props.label}</Text>}
+      <TextInput
+        {...props}
+        style={{ ...styles.input, borderColor }}
+        ref={ref}
+        onFocus={onFocus}
+        onBlur={onBlur}
+      />
+    </>
+  );
+});
 
 const styles = StyleSheet.create({
   label: {
@@ -27,7 +54,6 @@ const styles = StyleSheet.create({
     height: 45,
     padding: 12,
     borderWidth: 1,
-    borderColor: Colors.Grey2,
     borderRadius: 10,
   },
 });
