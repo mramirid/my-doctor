@@ -26,7 +26,7 @@ const SignUpScreen: React.FC = () => {
 
   return (
     <View style={styles.screen}>
-      <Header title="Daftar Akun" type="flat" />
+      <Header title="Daftar Akun" type="flat" onBackButtonPressed={navigation.goBack} />
       <ScrollView contentContainerStyle={styles.body} showsVerticalScrollIndicator={false}>
         <TypedController
           name="fullName"

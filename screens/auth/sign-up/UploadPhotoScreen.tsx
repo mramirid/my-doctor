@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/core';
 import * as React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
@@ -7,30 +8,37 @@ import AppLink from '../../../components/atoms/AppLink';
 import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
+import { UploadPhotoScreenNavProp } from '../../../global-types/navigation';
 import withStatusBar from '../../../hoc/withStatusBar';
 
-const UploadPhotoScreen: React.FC = () => (
-  <View style={styles.screen}>
-    <Header title="Unggah Foto" type="flat" />
-    <View style={styles.body}>
-      <View style={styles.profile}>
-        <View style={styles.avatarContainer}>
-          <Image
-            source={require('../../../assets/illustrations/user-photo-null.png')}
-            style={styles.avatar}
-          />
-          <AddPhoto style={styles.addPhotoIcon} />
+const UploadPhotoScreen: React.FC = () => {
+  const navigation = useNavigation<UploadPhotoScreenNavProp>();
+
+  return (
+    <View style={styles.screen}>
+      <Header title="Unggah Foto" type="flat" onBackButtonPressed={navigation.goBack} />
+      <View style={styles.body}>
+        <View style={styles.profile}>
+          <View style={styles.avatarContainer}>
+            <Image
+              source={require('../../../assets/illustrations/user-photo-null.png')}
+              style={styles.avatar}
+            />
+            <AddPhoto style={styles.addPhotoIcon} />
+          </View>
+          <Text style={styles.fullName}>Amir Muhammad Hakim</Text>
+          <Text style={styles.occupation}>Software Engineer</Text>
         </View>
-        <Text style={styles.fullName}>Amir Muhammad Hakim</Text>
-        <Text style={styles.occupation}>Software Engineer</Text>
-      </View>
-      <View>
-        <AppButton title="Upload and Continue" color="accent" onPress={() => null} />
-        <AppLink style={styles.skipLink}>Skip for this</AppLink>
+        <View>
+          <AppButton title="Upload and Continue" color="accent" onPress={() => null} />
+          <AppLink style={styles.skipLink} onPress={() => null}>
+            Skip for this
+          </AppLink>
+        </View>
       </View>
     </View>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   screen: {

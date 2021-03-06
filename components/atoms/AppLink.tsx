@@ -1,15 +1,19 @@
 import * as React from 'react';
 import { TextStyle, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
 interface AppLinkProps {
   style?: TextStyle;
+  onPress(): void;
 }
 
 const AppLink: React.FC<AppLinkProps> = (props) => (
-  <Text style={{ ...styles.textLink, ...(props.style ?? {}) }}>{props.children}</Text>
+  <TouchableOpacity onPress={props.onPress}>
+    <Text style={{ ...styles.textLink, ...(props.style ?? {}) }}>{props.children}</Text>
+  </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({

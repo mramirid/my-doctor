@@ -1,5 +1,4 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
@@ -11,11 +10,10 @@ interface HeaderProps {
   title: string;
   type: 'flat' | 'dark';
   withBorderRadius?: boolean;
+  onBackButtonPressed(): void;
 }
 
 const Header: React.FC<HeaderProps> = (props) => {
-  const navigation = useNavigation();
-
   const textColor = props.type === 'dark' ? Colors.White : Colors.Dark;
   const containerStyle: ViewStyle = {
     backgroundColor: props.type === 'dark' ? Colors.Dark : Colors.White,
@@ -25,7 +23,7 @@ const Header: React.FC<HeaderProps> = (props) => {
 
   return (
     <View style={{ ...styles.container, ...containerStyle }}>
-      <TouchableOpacity style={styles.backButton} onPress={navigation.goBack}>
+      <TouchableOpacity style={styles.backButton} onPress={props.onBackButtonPressed}>
         <Ionicons name="arrow-back" size={24} color={textColor} />
       </TouchableOpacity>
       <Text style={{ ...styles.title, color: textColor }}>{props.title}</Text>

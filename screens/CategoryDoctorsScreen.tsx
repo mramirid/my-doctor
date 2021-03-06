@@ -43,7 +43,12 @@ const CategoryDoctorsScreen: React.FC = () => {
 
   return (
     <View style={styles.screen}>
-      <Header title={`Pilih ${params.category}`} type="dark" withBorderRadius />
+      <Header
+        title={`Pilih ${params.category}`}
+        type="dark"
+        withBorderRadius
+        onBackButtonPressed={navigation.goBack}
+      />
       <AppGap height={20} />
       {bodyContent}
     </View>

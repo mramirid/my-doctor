@@ -1,4 +1,4 @@
-import { useRoute } from '@react-navigation/core';
+import { useNavigation, useRoute } from '@react-navigation/core';
 import * as React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 
@@ -7,14 +7,19 @@ import DoctorProfileItem from '../components/molecules/DoctorProfileItem';
 import ProfileWithPhoto from '../components/molecules/ProfileWithPhoto';
 import Header from '../components/molecules/header/Header';
 import Colors from '../constants/colors';
-import { DoctorProfileScreenRouteProp } from '../global-types/navigation';
+import {
+  DoctorProfileScreenNavProp,
+  DoctorProfileScreenRouteProp,
+} from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
 
 const DoctorProfileScreen: React.FC = () => {
+  const navigation = useNavigation<DoctorProfileScreenNavProp>();
   const { params } = useRoute<DoctorProfileScreenRouteProp>();
+
   return (
     <View style={styles.screen}>
-      <Header title="Profile Dokter" type="flat" />
+      <Header title="Profile Dokter" type="flat" onBackButtonPressed={navigation.goBack} />
       <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
         <ProfileWithPhoto
           style={styles.profileWithPhoto}
@@ -42,7 +47,7 @@ const DoctorProfileScreen: React.FC = () => {
           style={styles.button}
           title="Start Consultation"
           color="accent"
-          onPress={() => null}
+          onPress={() => navigation.navigate('ChatRoomScreen', { doctor: params.doctor })}
         />
       </ScrollView>
     </View>

@@ -1,4 +1,5 @@
 import { useTypedController } from '@hookform/strictly-typed';
+import { useNavigation } from '@react-navigation/core';
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, Text } from 'react-native';
@@ -10,6 +11,7 @@ import AppLink from '../../components/atoms/AppLink';
 import AppTextInput from '../../components/atoms/AppTextInput';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
+import { SignInScreenNavProp } from '../../global-types/navigation';
 import withStatusBar from '../../hoc/withStatusBar';
 
 interface FormValues {
@@ -18,6 +20,7 @@ interface FormValues {
 }
 
 const SignInScreen: React.FC = () => {
+  const navigation = useNavigation<SignInScreenNavProp>();
   const { control } = useForm<FormValues>();
   const TypedController = useTypedController<FormValues>({ control });
 
@@ -66,9 +69,11 @@ const SignInScreen: React.FC = () => {
         )}
       />
       <AppGap height={10} />
-      <AppLink>Forgot My Password</AppLink>
+      <AppLink onPress={() => null}>Forgot My Password</AppLink>
       <AppButton style={styles.signInButton} title="Sign In" color="accent" onPress={() => null} />
-      <AppLink style={styles.signUpLink}>Create New Account</AppLink>
+      <AppLink style={styles.signUpLink} onPress={() => navigation.navigate('SignUpScreen')}>
+        Create New Account
+      </AppLink>
       <AppGap height={64} />
     </ScrollView>
   );

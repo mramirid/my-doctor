@@ -13,9 +13,10 @@ import withStatusBar from '../hoc/withStatusBar';
 
 const UserProfileScreen: React.FC = () => {
   const navigation = useNavigation<UserProfileScreenNavProp>();
+
   return (
     <View style={styles.screen}>
-      <Header title="Profile" type="flat" />
+      <Header title="Profile" type="flat" onBackButtonPressed={navigation.goBack} />
       <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
         <ProfileWithPhoto
           style={styles.profileWithPhoto}

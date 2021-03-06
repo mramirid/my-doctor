@@ -22,6 +22,10 @@ export type GettingStartedScreenNavProp = StackNavigationProp<
 
 export type SignUpScreenNavProp = StackNavigationProp<AuthStackParamList, 'SignUpScreen'>;
 
+export type SignInScreenNavProp = StackNavigationProp<AuthStackParamList, 'SignInScreen'>;
+
+export type UploadPhotoScreenNavProp = StackNavigationProp<AuthStackParamList, 'UploadPhotoScreen'>;
+
 /*
  * Home Stack
  */
@@ -45,6 +49,15 @@ export type ChatRoomScreenRouteProp = RouteProp<HomeStackParamList, 'ChatRoomScr
 export type UserProfileScreenNavProp = StackNavigationProp<HomeStackParamList, 'UserProfileScreen'>;
 
 export type DoctorProfileScreenRouteProp = RouteProp<HomeStackParamList, 'DoctorProfileScreen'>;
+export type DoctorProfileScreenNavProp = StackNavigationProp<
+  HomeStackParamList,
+  'DoctorProfileScreen'
+>;
+
+export type EditUserProfileScreenNavProp = StackNavigationProp<
+  HomeStackParamList,
+  'EditUserProfileScreen'
+>;
 
 /*
  * Home Bottom Tabs

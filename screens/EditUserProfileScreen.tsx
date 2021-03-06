@@ -1,4 +1,5 @@
 import { useTypedController } from '@hookform/strictly-typed';
+import { useNavigation } from '@react-navigation/core';
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -10,6 +11,7 @@ import ProfileWithPhoto from '../components/molecules/ProfileWithPhoto';
 import Header from '../components/molecules/header/Header';
 import Colors from '../constants/colors';
 import patient from '../constants/dummies/patient';
+import { EditUserProfileScreenNavProp } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
 
 interface FormValues {
@@ -20,12 +22,13 @@ interface FormValues {
 }
 
 const EditUserProfileScreen: React.FC = () => {
+  const navigation = useNavigation<EditUserProfileScreenNavProp>();
   const { control } = useForm<FormValues>();
   const TypedController = useTypedController<FormValues>({ control });
 
   return (
     <View style={styles.screen}>
-      <Header title="Profile" type="flat" />
+      <Header title="Profile" type="flat" onBackButtonPressed={navigation.goBack} />
       <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
         <ProfileWithPhoto
           style={styles.profileWithPhoto}
@@ -102,9 +105,9 @@ const EditUserProfileScreen: React.FC = () => {
         <AppGap height={40} />
         <AppButton
           style={styles.submitButton}
-          title="Continue"
+          title="Save Profile"
           color="accent"
-          onPress={() => null}
+          onPress={navigation.goBack}
         />
       </ScrollView>
     </View>
