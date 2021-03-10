@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 import Colors from '../../constants/colors';
@@ -8,10 +8,11 @@ import AppBorderedItem from '../atoms/AppBorderedItem';
 
 interface HospitalItemProps {
   hospital: Hospital;
+  onPress(): void;
 }
 
-const HospitalItem: React.FC<HospitalItemProps> = ({ hospital }) => (
-  <AppBorderedItem style={styles.container}>
+const HospitalItem: FC<HospitalItemProps> = ({ hospital, onPress }) => (
+  <AppBorderedItem style={styles.container} onPress={onPress}>
     <Image style={styles.image} source={{ uri: hospital.imageUrl }} />
     <View>
       <Text style={styles.name}>{hospital.type}</Text>

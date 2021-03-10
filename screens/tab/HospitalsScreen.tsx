@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import * as React from 'react';
+import React, { FC } from 'react';
 import { ImageBackground, StyleSheet, Text, View, FlatList } from 'react-native';
 
 import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
@@ -8,7 +8,7 @@ import Colors from '../../constants/colors';
 import hospitals from '../../constants/dummies/hospitals';
 import Fonts from '../../constants/fonts';
 
-const HospitalsScreen: React.FC = () => (
+const HospitalsScreen: FC = () => (
   <AppTabScreen style={styles.screen}>
     <ImageBackground
       style={styles.coverImage}
@@ -21,7 +21,7 @@ const HospitalsScreen: React.FC = () => (
         contentContainerStyle={styles.listHospitals}
         showsVerticalScrollIndicator={false}
         data={hospitals}
-        renderItem={({ item }) => <HospitalItem hospital={item} />}
+        renderItem={({ item }) => <HospitalItem hospital={item} onPress={() => null} />}
       />
     </View>
     <StatusBar backgroundColor="transparent" />

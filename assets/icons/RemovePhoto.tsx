@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React, { FC, memo } from 'react';
 import Svg, { Circle, Path, SvgProps } from 'react-native-svg';
 
 import Colors from '../../constants/colors';
 
-const RemovePhoto: React.FC<SvgProps> = (props) => (
+const RemovePhoto: FC<SvgProps> = (props) => (
   <Svg width={38} height={38} viewBox="0 0 38 38" fill="none" {...props}>
     <Circle cx={19} cy={19} r={17} fill={Colors.Red} stroke={Colors.White} strokeWidth={4} />
     <Path
@@ -13,4 +13,4 @@ const RemovePhoto: React.FC<SvgProps> = (props) => (
   </Svg>
 );
 
-export default React.memo(RemovePhoto);
+export default memo(RemovePhoto);

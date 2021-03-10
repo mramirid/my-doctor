@@ -1,5 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
+import React, { FC } from 'react';
 
 import { AuthStackParamList } from '../global-types/navigation';
 import GetStartedScreen from '../screens/auth/GetStartedScreen';
@@ -9,7 +9,7 @@ import UploadPhotoScreen from '../screens/auth/sign-up/UploadPhotoScreen';
 
 const Stack = createStackNavigator<AuthStackParamList>();
 
-const AuthStack: React.FC = () => (
+const AuthStack: FC = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="GetStartedScreen" component={GetStartedScreen} />
     <Stack.Screen name="SignInScreen" component={SignInScreen} />

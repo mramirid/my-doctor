@@ -1,23 +1,29 @@
-import * as React from 'react';
+import React, { FC, memo } from 'react';
 import { Image, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
-import RemovePhoto from '../../assets/icons/RemovePhoto';
+import FemaleSymbol from '../../assets/icons/FemaleSymbol';
+import MaleSymbol from '../../assets/icons/MaleSymbol';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
+import Gender from '../../constants/gender';
 
 interface ProfileWithPhotoProps {
   name?: string;
   description?: string;
   photoUrl: string;
+  gender: Gender;
   style?: ViewStyle;
-  onRemoveAvatar?: () => void;
 }
 
-const ProfileWithPhoto: React.FC<ProfileWithPhotoProps> = (props) => (
+const ProfileWithPhoto: FC<ProfileWithPhotoProps> = (props) => (
   <View style={{ ...styles.container, ...props.style }}>
     <View style={styles.avatarContainer}>
       <Image style={styles.avatar} source={{ uri: props.photoUrl }} />
-      {props.onRemoveAvatar && <RemovePhoto style={styles.removePhotoIcon} />}
+      {props.gender === Gender.Male ? (
+        <MaleSymbol style={styles.genderIcon} />
+      ) : (
+        <FemaleSymbol style={styles.genderIcon} />
+      )}
     </View>
     {props.name && <Text style={styles.name}>{props.name}</Text>}
     {props.description && <Text style={styles.description}>{props.description}</Text>}
@@ -43,7 +49,7 @@ const styles = StyleSheet.create({
     height: 110,
     borderRadius: 110 / 2,
   },
-  removePhotoIcon: {
+  genderIcon: {
     position: 'absolute',
     right: 6,
     bottom: 8,
@@ -62,4 +68,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileWithPhoto;
+export default memo(ProfileWithPhoto);

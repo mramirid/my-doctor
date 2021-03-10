@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import { ScrollView, StyleSheet, View, ViewStyle } from 'react-native';
 
 import Colors from '../../../constants/colors';
@@ -8,7 +8,7 @@ interface AppTabScreenProps {
   style?: ViewStyle;
 }
 
-const AppTabScreen: React.FC<AppTabScreenProps> = (props) => (
+const AppTabScreen: FC<AppTabScreenProps> = (props) => (
   <View style={styles.background}>
     <View style={styles.card}>
       {props.withScrollView ? (

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -10,7 +10,7 @@ interface HomeProfileProps {
   onPress(): void;
 }
 
-const HomeProfile: React.FC<HomeProfileProps> = (props) => (
+const HomeProfile: FC<HomeProfileProps> = (props) => (
   <TouchableOpacity style={styles.container} onPress={props.onPress}>
     <Image style={styles.avatar} source={{ uri: patient.photoUrl }} />
     <View>

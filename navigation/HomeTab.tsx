@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import * as React from 'react';
+import React, { FC } from 'react';
 
 import AppBottomTabBar from '../components/molecules/AppTabBar';
 import Colors from '../constants/colors';
@@ -12,7 +12,7 @@ import MessagesScreen from '../screens/tab/MessagesScreen';
 
 const Tab = createBottomTabNavigator<HomeTabParamList>();
 
-const HomeTab: React.FC = () => (
+const HomeTab: FC = () => (
   <Tab.Navigator
     tabBar={AppBottomTabBar}
     tabBarOptions={{

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC, ReactNode } from 'react';
 import {
   AccessibilityRole,
   AccessibilityState,
@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 
 interface AppTabItemProps {
-  icon: React.ReactNode;
-  label: string | React.ReactNode;
+  icon: ReactNode;
+  label: string | ReactNode;
   tabItemColor: string;
   accessibilityRole: AccessibilityRole;
   accessibilityState?: AccessibilityState;
@@ -19,7 +19,7 @@ interface AppTabItemProps {
   onLongPress(): void;
 }
 
-const AppTabItem: React.FC<AppTabItemProps> = (props) => (
+const AppTabItem: FC<AppTabItemProps> = (props) => (
   <TouchableOpacity {...props} style={styles.tabItem}>
     {props.icon}
     <Text style={{ ...styles.label, color: props.tabItemColor }}>{props.label}</Text>

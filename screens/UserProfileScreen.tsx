@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
-import * as React from 'react';
+import React, { FC } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import ListItemBordered from '../components/molecules/ListItemBordered';
@@ -11,7 +11,7 @@ import patient from '../constants/dummies/patient';
 import { UserProfileScreenNavProp } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
 
-const UserProfileScreen: React.FC = () => {
+const UserProfileScreen: FC = () => {
   const navigation = useNavigation<UserProfileScreenNavProp>();
 
   return (

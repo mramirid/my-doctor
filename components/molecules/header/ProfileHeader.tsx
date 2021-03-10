@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import * as React from 'react';
+import React, { FC, memo } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import Colors from '../../../constants/colors';
@@ -11,7 +11,7 @@ interface ProfileHeaderProps {
   doctor: Doctor;
 }
 
-const ProfileHeader: React.FC<ProfileHeaderProps> = ({ doctor }) => {
+const ProfileHeader: FC<ProfileHeaderProps> = ({ doctor }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -68,4 +68,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default React.memo(ProfileHeader);
+export default memo(ProfileHeader);

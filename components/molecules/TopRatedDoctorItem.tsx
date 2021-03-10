@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import * as React from 'react';
+import React, { FC } from 'react';
 import { View, StyleSheet, Text, Image, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -13,7 +13,7 @@ interface TopRatedDoctorItemProps {
   onPress(): void;
 }
 
-const TopRatedDoctorItem: React.FC<TopRatedDoctorItemProps> = (props) => (
+const TopRatedDoctorItem: FC<TopRatedDoctorItemProps> = (props) => (
   <TouchableOpacity style={{ ...styles.container, ...(props.style ?? {}) }} onPress={props.onPress}>
     <Image style={styles.avatar} source={{ uri: props.doctor.photoUrl }} />
     <View style={styles.profile}>

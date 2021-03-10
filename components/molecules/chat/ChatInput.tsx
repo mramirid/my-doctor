@@ -1,5 +1,5 @@
 import { useTypedController } from '@hookform/strictly-typed';
-import * as React from 'react';
+import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 
@@ -19,7 +19,7 @@ interface ChatInputProps {
   styles?: ViewStyle;
 }
 
-const ChatInput: React.FC<ChatInputProps> = (props) => {
+const ChatInput: FC<ChatInputProps> = (props) => {
   const { control } = useForm<FormValues>();
   const TypedController = useTypedController<FormValues>({ control });
 

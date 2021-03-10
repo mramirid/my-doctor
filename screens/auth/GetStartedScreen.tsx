@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
-import * as React from 'react';
+import React, { FC } from 'react';
 import { ImageBackground, StyleSheet, View, Text, Platform } from 'react-native';
 
 import AppLogo from '../../assets/icons/AppLogo';
@@ -11,7 +11,7 @@ import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import { GettingStartedScreenNavProp } from '../../global-types/navigation';
 
-const GetStartedScreen: React.FC = () => {
+const GetStartedScreen: FC = () => {
   const navigation = useNavigation<GettingStartedScreenNavProp>();
   return (
     <ImageBackground

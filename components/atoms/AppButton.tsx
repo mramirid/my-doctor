@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import { Text, TextStyle, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -12,7 +12,7 @@ interface AppButtonProps {
   onPress(): void;
 }
 
-const AppButton: React.FC<AppButtonProps> = (props) => {
+const AppButton: FC<AppButtonProps> = (props) => {
   const buttonStyle: ViewStyle = {
     height: 45,
     paddingVertical: 10,

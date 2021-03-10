@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import * as React from 'react';
+import React, { FC, memo } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import Colors from '../../../constants/colors';
@@ -13,7 +13,7 @@ interface HeaderProps {
   onBackButtonPressed(): void;
 }
 
-const Header: React.FC<HeaderProps> = (props) => {
+const Header: FC<HeaderProps> = (props) => {
   const textColor = props.type === 'dark' ? Colors.White : Colors.Dark;
   const containerStyle: ViewStyle = {
     backgroundColor: props.type === 'dark' ? Colors.Dark : Colors.White,
@@ -56,4 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default React.memo(Header);
+export default memo(Header);

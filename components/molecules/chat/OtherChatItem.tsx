@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import * as React from 'react';
+import React, { FC } from 'react';
 import { View, StyleSheet, Text, ViewStyle, Image } from 'react-native';
 
 import Colors from '../../../constants/colors';
@@ -12,7 +12,7 @@ interface OtherChatItemProps {
   style?: ViewStyle;
 }
 
-const OtherChatItem: React.FC<OtherChatItemProps> = (props) => (
+const OtherChatItem: FC<OtherChatItemProps> = (props) => (
   <View style={{ ...styles.container, ...props.style }}>
     <Image style={styles.avatar} source={{ uri: props.chat.sender.photoUrl }} />
     <View>

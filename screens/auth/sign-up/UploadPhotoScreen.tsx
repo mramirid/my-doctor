@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
-import * as React from 'react';
+import React, { FC } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 import AddPhoto from '../../../assets/icons/AddPhoto';
@@ -11,7 +11,7 @@ import Fonts from '../../../constants/fonts';
 import { UploadPhotoScreenNavProp } from '../../../global-types/navigation';
 import withStatusBar from '../../../hoc/withStatusBar';
 
-const UploadPhotoScreen: React.FC = () => {
+const UploadPhotoScreen: FC = () => {
   const navigation = useNavigation<UploadPhotoScreenNavProp>();
 
   return (

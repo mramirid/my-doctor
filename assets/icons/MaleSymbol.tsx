@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React, { FC, memo } from 'react';
 import Svg, { Path, SvgProps } from 'react-native-svg';
 
-const MaleSymbol: React.FC<SvgProps> = (props) => (
+const MaleSymbol: FC<SvgProps> = (props) => (
   <Svg width={38} height={38} viewBox="0 0 38 38" fill="none" {...props}>
     <Path
       d="M19 36c9.389 0 17-7.611 17-17S28.389 2 19 2 2 9.611 2 19s7.611 17 17 17z"
@@ -16,4 +16,4 @@ const MaleSymbol: React.FC<SvgProps> = (props) => (
   </Svg>
 );
 
-export default React.memo(MaleSymbol);
+export default memo(MaleSymbol);

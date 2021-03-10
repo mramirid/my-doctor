@@ -1,5 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
+import React, { FC } from 'react';
 
 import { HomeStackParamList } from '../global-types/navigation';
 import CategoryDoctorsScreen from '../screens/CategoryDoctorsScreen';
@@ -11,7 +11,7 @@ import HomeTab from './HomeTab';
 
 const Stack = createStackNavigator<HomeStackParamList>();
 
-const HomeStack: React.FC = () => (
+const HomeStack: FC = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="HomeTab" component={HomeTab} />
     <Stack.Screen name="CategoryDoctorsScreen" component={CategoryDoctorsScreen} />

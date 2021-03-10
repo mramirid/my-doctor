@@ -1,5 +1,5 @@
 import { useNavigation, useRoute } from '@react-navigation/core';
-import * as React from 'react';
+import React, { FC } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 
 import AppButton from '../components/atoms/AppButton';
@@ -13,7 +13,7 @@ import {
 } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
 
-const DoctorProfileScreen: React.FC = () => {
+const DoctorProfileScreen: FC = () => {
   const navigation = useNavigation<DoctorProfileScreenNavProp>();
   const { params } = useRoute<DoctorProfileScreenRouteProp>();
 
@@ -26,7 +26,7 @@ const DoctorProfileScreen: React.FC = () => {
           name={params.doctor.name}
           description={params.doctor.specialist}
           photoUrl={params.doctor.photoUrl}
-          onRemoveAvatar={() => null}
+          gender={params.doctor.gender}
         />
         <DoctorProfileItem
           style={styles.profileItem}

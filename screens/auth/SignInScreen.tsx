@@ -1,6 +1,6 @@
 import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/core';
-import * as React from 'react';
+import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 
@@ -19,7 +19,7 @@ interface FormValues {
   password: string;
 }
 
-const SignInScreen: React.FC = () => {
+const SignInScreen: FC = () => {
   const navigation = useNavigation<SignInScreenNavProp>();
   const { control } = useForm<FormValues>();
   const TypedController = useTypedController<FormValues>({ control });

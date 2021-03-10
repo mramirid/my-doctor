@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import * as React from 'react';
+import React, { FC } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import AppGap from '../../components/atoms/AppGap';
@@ -35,7 +35,7 @@ const doctorCategories: IDoctorCategory[] = [
   },
 ];
 
-const DoctorsOverviewScreen: React.FC = () => {
+const DoctorsOverviewScreen: FC = () => {
   const navigation = useNavigation<DoctorsOverviewScreenNavProp>();
   return (
     <AppTabScreen style={styles.screen} withScrollView>
@@ -75,9 +75,9 @@ const DoctorsOverviewScreen: React.FC = () => {
       </View>
       <AppGap height={30} />
       <Text style={styles.sectionLabel}>Good News</Text>
-      <NewsItem style={styles.newsItem} />
-      <NewsItem style={styles.newsItem} />
-      <NewsItem style={styles.newsItem} />
+      <NewsItem style={styles.newsItem} onPress={() => null} />
+      <NewsItem style={styles.newsItem} onPress={() => null} />
+      <NewsItem style={styles.newsItem} onPress={() => null} />
     </AppTabScreen>
   );
 };

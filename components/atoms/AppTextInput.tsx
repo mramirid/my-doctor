@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { ClassAttributes, forwardRef, useState } from 'react';
 import {
   StyleSheet,
   TextInput,
@@ -11,12 +11,12 @@ import {
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
-interface AppTextInputProps extends TextInputProps, React.ClassAttributes<TextInput> {
+interface AppTextInputProps extends TextInputProps, ClassAttributes<TextInput> {
   label?: string;
 }
 
-const AppTextInput = React.forwardRef<TextInput, AppTextInputProps>((props, ref) => {
-  const [borderColor, setBorderColor] = React.useState(Colors.Grey2);
+const AppTextInput = forwardRef<TextInput, AppTextInputProps>((props, ref) => {
+  const [borderColor, setBorderColor] = useState(Colors.Grey2);
 
   const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
     if (props.onFocus) props.onFocus(e);

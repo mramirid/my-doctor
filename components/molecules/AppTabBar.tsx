@@ -1,12 +1,12 @@
 import { AntDesign } from '@expo/vector-icons';
 import { BottomTabBarOptions, BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import * as React from 'react';
+import React, { FC, ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Colors from '../../constants/colors';
 import AppTabItem from '../atoms/tab/AppTabItem';
 
-const AppTabBar: React.FC<BottomTabBarProps<BottomTabBarOptions>> = (props) => {
+const AppTabBar: FC<BottomTabBarProps<BottomTabBarOptions>> = (props) => {
   const focusedOptions = props.descriptors[props.state.routes[props.state.index].key].options;
   if (focusedOptions.tabBarVisible === false) {
     return null;
@@ -26,7 +26,7 @@ const AppTabBar: React.FC<BottomTabBarProps<BottomTabBarOptions>> = (props) => {
           ? options.title
           : route.name;
 
-        let icon: React.ReactNode;
+        let icon: ReactNode;
         if (options.tabBarIcon) {
           icon = options.tabBarIcon({
             focused: isFocused,

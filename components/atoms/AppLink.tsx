@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import { TextStyle, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -10,7 +10,7 @@ interface AppLinkProps {
   onPress(): void;
 }
 
-const AppLink: React.FC<AppLinkProps> = (props) => (
+const AppLink: FC<AppLinkProps> = (props) => (
   <TouchableOpacity onPress={props.onPress}>
     <Text style={{ ...styles.textLink, ...(props.style ?? {}) }}>{props.children}</Text>
   </TouchableOpacity>

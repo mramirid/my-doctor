@@ -1,7 +1,7 @@
 import { useRoute } from '@react-navigation/core';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
-import * as React from 'react';
+import React, { FC } from 'react';
 import { View, StyleSheet, Text, FlatList } from 'react-native';
 
 import ChatInput from '../components/molecules/chat/ChatInput';
@@ -14,7 +14,7 @@ import Fonts from '../constants/fonts';
 import { ChatRoomScreenRouteProp } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
 
-const ChatRoomScreen: React.FC = () => {
+const ChatRoomScreen: FC = () => {
   const { params } = useRoute<ChatRoomScreenRouteProp>();
   const userId = 'A';
 

@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
-import * as React from 'react';
+import React, { FC } from 'react';
 import { StyleSheet, Text, Image, FlatList } from 'react-native';
 
 import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
@@ -15,7 +15,7 @@ const pedriaticians = doctors.filter(
   (doctor) => doctor.specialist === DoctorSpecialist.Pediatrician
 );
 
-const MessagesScreen: React.FC = () => {
+const MessagesScreen: FC = () => {
   const navigation = useNavigation<MessagesScreenNavProp>();
   return (
     <AppTabScreen style={styles.screen}>

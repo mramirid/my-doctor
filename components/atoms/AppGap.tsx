@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 
 interface AppGapProps {
@@ -7,6 +7,6 @@ interface AppGapProps {
   backgroundColor?: string;
 }
 
-const AppGap: React.FC<AppGapProps> = (props) => <View style={{ ...props }} />;
+const AppGap: FC<AppGapProps> = (props) => <View style={{ ...props }} />;
 
-export default AppGap;
+export default memo(AppGap);

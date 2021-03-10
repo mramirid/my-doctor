@@ -1,5 +1,5 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import * as React from 'react';
+import React, { FC } from 'react';
 import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
 
 import AppGap from '../components/atoms/AppGap';
@@ -14,7 +14,7 @@ import {
 } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
 
-const CategoryDoctorsScreen: React.FC = () => {
+const CategoryDoctorsScreen: FC = () => {
   const navigation = useNavigation<CategoryDoctorsScreenNavProp>();
   const { params } = useRoute<CategoryDoctorsScreenRouteProp>();
   const filteredDoctors = doctors.filter((doctor) => doctor.specialist === params.category);

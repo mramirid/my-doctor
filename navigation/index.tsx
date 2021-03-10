@@ -1,5 +1,5 @@
 import { DefaultTheme, NavigationContainer, Theme } from '@react-navigation/native';
-import * as React from 'react';
+import React, { FC, useRef } from 'react';
 
 import Colors from '../constants/colors';
 import AuthStack from './AuthStack';
@@ -13,8 +13,8 @@ const appTheme: Theme = {
   },
 };
 
-const AppNavigator: React.FC = () => {
-  const isAuth = React.useRef(false);
+const AppNavigator: FC = () => {
+  const isAuth = useRef(false);
   return (
     <NavigationContainer theme={appTheme}>
       {isAuth.current ? <HomeStack /> : <AuthStack />}

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC, memo } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
@@ -10,7 +10,7 @@ interface SendButtonProps {
   onPress(): void;
 }
 
-const SendButton: React.FC<SendButtonProps> = (props) => {
+const SendButton: FC<SendButtonProps> = (props) => {
   const buttonColor = !props.disabled ? Colors.Blue : Colors.Grey1;
   const iconColor = !props.disabled ? Colors.White : Colors.Grey2;
   return (
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SendButton;
+export default memo(SendButton);

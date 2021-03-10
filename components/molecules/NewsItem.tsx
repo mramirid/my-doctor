@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import { View, StyleSheet, Text, Image, ViewStyle } from 'react-native';
 
 import Colors from '../../constants/colors';
@@ -7,10 +7,11 @@ import AppBorderedItem from '../atoms/AppBorderedItem';
 
 interface NewsItemProps {
   style?: ViewStyle;
+  onPress(): void;
 }
 
-const NewsItem: React.FC<NewsItemProps> = (props) => (
-  <AppBorderedItem style={{ ...styles.container, ...(props.style ?? {}) }} onPress={() => null}>
+const NewsItem: FC<NewsItemProps> = (props) => (
+  <AppBorderedItem style={{ ...styles.container, ...(props.style ?? {}) }} onPress={props.onPress}>
     <View style={styles.newsHeading}>
       <Text style={styles.title}>Is it safe to stay at home during coronavirus?</Text>
       <Text style={styles.date}>Today</Text>

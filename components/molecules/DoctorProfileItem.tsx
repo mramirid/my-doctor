@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import { View, StyleSheet, Text, ViewStyle } from 'react-native';
 
 import Colors from '../../constants/colors';
@@ -10,7 +10,7 @@ interface DoctorProfileItemProps {
   style?: ViewStyle;
 }
 
-const DoctorProfileItem: React.FC<DoctorProfileItemProps> = (props) => (
+const DoctorProfileItem: FC<DoctorProfileItemProps> = (props) => (
   <View style={{ ...styles.container, ...props.style }}>
     <Text style={styles.label}>{props.label}</Text>
     <Text style={styles.data}>{props.data}</Text>

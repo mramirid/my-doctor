@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import GeneralPractitioner from '../../assets/icons/doctor-categories/GeneralPractitioner';
@@ -15,7 +15,7 @@ interface DoctorCategoryItemProps {
   onPress(): void;
 }
 
-const DoctorCategoryItem: React.FC<DoctorCategoryItemProps> = (props) => {
+const DoctorCategoryItem: FC<DoctorCategoryItemProps> = (props) => {
   let icon: JSX.Element;
   switch (props.category) {
     case DoctorSpecialist.GeneralPractitioner:

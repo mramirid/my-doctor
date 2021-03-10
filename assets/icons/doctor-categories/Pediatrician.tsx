@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React, { FC, memo } from 'react';
 import Svg, { Circle, Ellipse, G, Mask, Path, SvgProps } from 'react-native-svg';
 
 import { EMaskUnits } from '../types';
 
-const Pediatrician: React.FC<SvgProps> = (props) => (
+const Pediatrician: FC<SvgProps> = (props) => (
   <Svg width={46} height={46} viewBox="0 0 46 46" fill="none" {...props}>
     <Mask
       id="icon_dokter_umum_svg__a"
@@ -49,4 +49,4 @@ const Pediatrician: React.FC<SvgProps> = (props) => (
   </Svg>
 );
 
-export default React.memo(Pediatrician);
+export default memo(Pediatrician);
