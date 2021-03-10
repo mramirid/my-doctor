@@ -2,6 +2,7 @@ import 'react-native-gesture-handler';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 import React, { FC } from 'react';
+import FlashMessage from 'react-native-flash-message';
 import { enableScreens } from 'react-native-screens';
 
 import Fonts from './constants/fonts';
@@ -24,7 +25,12 @@ const App: FC = () => {
     return <AppLoading />;
   }
 
-  return <AppNavigator />;
+  return (
+    <>
+      <AppNavigator />
+      <FlashMessage position="top" />
+    </>
+  );
 };
 
 export default App;

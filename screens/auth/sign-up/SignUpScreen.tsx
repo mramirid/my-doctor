@@ -1,8 +1,9 @@
 import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/native';
 import React, { FC, useCallback } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 
 import AppButton from '../../../components/atoms/AppButton';
 import AppGap from '../../../components/atoms/AppGap';
@@ -23,19 +24,37 @@ interface FormValues {
 
 const SignUpScreen: FC = () => {
   const navigation = useNavigation<SignUpScreenNavProp>();
-  const { control, handleSubmit, formState } = useForm<FormValues>();
+  const { control, handleSubmit, formState, reset } = useForm<FormValues>();
   const TypedController = useTypedController<FormValues>({ control });
 
-  const onSubmit = useCallback<SubmitHandler<FormValues>>(async (data) => {
-    try {
-      const userCredential = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(data.email, data.password);
-      const user = userCredential.user;
-      console.log(user);
-    } catch (error) {
-      const { code, message } = error.code;
-      console.log(code, message);
+  const onSubmit = useCallback<SubmitHandler<FormValues>>(
+    async (data) => {
+      try {
+        const userCredential = await firebase
+          .auth()
+          .createUserWithEmailAndPassword(data.email, data.password);
+        const user = userCredential.user;
+        console.log(user);
+        reset();
+      } catch (error) {
+        showMessage({
+          message: error.message,
+          type: 'danger',
+        });
+      }
+    },
+    [reset]
+  );
+
+  const onValidationError = useCallback<SubmitErrorHandler<FormValues>>((errors) => {
+    for (const field in errors) {
+      if (errors.hasOwnProperty(field)) {
+        showMessage({
+          message: (errors as any)[field].message,
+          type: 'danger',
+        });
+        break;
+      }
     }
   }, []);
 
@@ -111,7 +130,11 @@ const SignUpScreen: FC = () => {
           )}
         />
         <AppGap height={40} />
-        <AppButton title="Continue" color="accent" onPress={handleSubmit(onSubmit)} />
+        <AppButton
+          title="Continue"
+          color="accent"
+          onPress={handleSubmit(onSubmit, onValidationError)}
+        />
       </ScrollView>
       {formState.isSubmitting && <AppLoadingIndicator />}
     </View>
