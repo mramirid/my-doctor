@@ -1,13 +1,14 @@
 import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/native';
-import React, { FC } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { FC, useCallback } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import AppButton from '../../../components/atoms/AppButton';
 import AppGap from '../../../components/atoms/AppGap';
 import AppTextInput from '../../../components/atoms/AppTextInput';
 import Header from '../../../components/molecules/header/Header';
+import firebase from '../../../config/firebase';
 import Colors from '../../../constants/colors';
 import { SignUpScreenNavProp } from '../../../global-types/navigation';
 import withStatusBar from '../../../hoc/withStatusBar';
@@ -21,8 +22,21 @@ interface FormValues {
 
 const SignUpScreen: FC = () => {
   const navigation = useNavigation<SignUpScreenNavProp>();
-  const { control } = useForm<FormValues>();
+  const { control, handleSubmit } = useForm<FormValues>();
   const TypedController = useTypedController<FormValues>({ control });
+
+  const onSubmit = useCallback<SubmitHandler<FormValues>>(async (data) => {
+    try {
+      const userCredential = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(data.email, data.password);
+      const user = userCredential.user;
+      console.log(user);
+    } catch (error) {
+      const { code, message } = error.code;
+      console.log(code, message);
+    }
+  }, []);
 
   return (
     <View style={styles.screen}>
@@ -96,11 +110,7 @@ const SignUpScreen: FC = () => {
           )}
         />
         <AppGap height={40} />
-        <AppButton
-          title="Continue"
-          color="accent"
-          onPress={() => navigation.navigate('UploadPhotoScreen')}
-        />
+        <AppButton title="Continue" color="accent" onPress={handleSubmit(onSubmit)} />
       </ScrollView>
     </View>
   );

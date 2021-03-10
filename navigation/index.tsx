@@ -14,7 +14,7 @@ const appTheme: Theme = {
 };
 
 const AppNavigator: FC = () => {
-  const isAuth = useRef(true);
+  const isAuth = useRef(false);
   return (
     <NavigationContainer theme={appTheme}>
       {isAuth.current ? <HomeStack /> : <AuthStack />}
