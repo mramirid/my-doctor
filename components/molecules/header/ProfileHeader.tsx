@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   specialist: {
     fontFamily: Fonts.NunitoRegular,
-    color: Colors.Grey3,
+    color: Colors.Grey4,
     fontSize: 14,
     marginTop: 6,
   },

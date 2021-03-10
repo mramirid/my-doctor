@@ -9,6 +9,7 @@ interface AppButtonProps {
   title: string;
   color: 'primary' | 'flat' | 'accent';
   style?: ViewStyle;
+  disabled?: boolean;
   onPress(): void;
 }
 
@@ -19,39 +20,36 @@ const AppButton: FC<AppButtonProps> = (props) => {
     borderRadius: 10,
     overflow: 'hidden',
     alignItems: 'center',
+    justifyContent: 'center',
     ...(props.style ?? {}),
   };
-  switch (props.color) {
-    case 'primary':
-      buttonStyle['backgroundColor'] = Colors.Dark;
-      break;
-    case 'flat':
-      buttonStyle['backgroundColor'] = Colors.White;
-      break;
-    case 'accent':
-      buttonStyle['backgroundColor'] = Colors.Green2;
-      break;
-    default:
-      throw new Error('Unknown button color');
-  }
+  const textStyle: TextStyle = {
+    fontSize: 18,
+    fontFamily: Fonts.NunitoSemiBold,
+  };
 
-  const textStyle: TextStyle = { fontFamily: Fonts.NunitoSemiBold };
-  switch (props.color) {
-    case 'primary':
-      textStyle['color'] = Colors.White;
-      break;
-    case 'flat':
-      textStyle['color'] = Colors.Dark;
-      break;
-    case 'accent':
-      textStyle['color'] = Colors.White;
-      break;
-    default:
-      throw new Error('Unknown button color');
+  if (props.disabled) {
+    buttonStyle['backgroundColor'] = Colors.Grey1;
+    textStyle['color'] = Colors.Grey3;
+  } else {
+    switch (props.color) {
+      case 'primary':
+        buttonStyle['backgroundColor'] = Colors.Dark;
+        textStyle['color'] = Colors.White;
+        break;
+      case 'flat':
+        buttonStyle['backgroundColor'] = Colors.White;
+        textStyle['color'] = Colors.Dark;
+        break;
+      case 'accent':
+        buttonStyle['backgroundColor'] = Colors.Green2;
+        textStyle['color'] = Colors.White;
+        break;
+    }
   }
 
   return (
-    <TouchableOpacity style={buttonStyle} onPress={props.onPress}>
+    <TouchableOpacity style={buttonStyle} disabled={props.disabled} onPress={props.onPress}>
       <Text style={textStyle}>{props.title}</Text>
     </TouchableOpacity>
   );

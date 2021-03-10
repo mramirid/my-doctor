@@ -1,10 +1,14 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { FC } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import React, { FC, useCallback, useState } from 'react';
+import { Alert, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import AddPhoto from '../../../assets/icons/AddPhoto';
+import RemovePhoto from '../../../assets/icons/RemovePhoto';
 import AppButton from '../../../components/atoms/AppButton';
 import AppLink from '../../../components/atoms/AppLink';
+import AppLoadingIndicator from '../../../components/molecules/AppLoadingIndicator';
 import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
@@ -14,28 +18,75 @@ import withStatusBar from '../../../hoc/withStatusBar';
 const UploadPhotoScreen: FC = () => {
   const navigation = useNavigation<UploadPhotoScreenNavProp>();
 
+  const [photoUri, setPhotoUri] = useState('');
+  const [isLoading] = useState(false);
+
+  const pickPhoto = useCallback(async () => {
+    const permission = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+    if (!permission.granted) {
+      Alert.alert(
+        'Izin Akses Diperlukan',
+        'Perizinan akses ke penyimpanan diperlukan untuk mengambil gambar',
+        [{ text: 'OK' }]
+      );
+      return;
+    }
+
+    const pickResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+    if (!pickResult.cancelled) {
+      setPhotoUri(pickResult.uri);
+    }
+  }, []);
+
+  let photo: JSX.Element;
+  if (photoUri) {
+    photo = (
+      <>
+        <Image source={{ uri: photoUri }} style={styles.photo} />
+        <RemovePhoto style={styles.actionPhoto} />
+      </>
+    );
+  } else {
+    photo = (
+      <>
+        <Image
+          source={require('../../../assets/illustrations/user-photo-null.png')}
+          style={styles.photo}
+        />
+        <AddPhoto style={styles.actionPhoto} />
+      </>
+    );
+  }
+
   return (
     <View style={styles.screen}>
       <Header title="Unggah Foto" type="flat" onBackButtonPressed={navigation.goBack} />
       <View style={styles.body}>
         <View style={styles.profile}>
-          <View style={styles.avatarContainer}>
-            <Image
-              source={require('../../../assets/illustrations/user-photo-null.png')}
-              style={styles.avatar}
-            />
-            <AddPhoto style={styles.addPhotoIcon} />
-          </View>
+          <TouchableOpacity style={styles.photoContainer} onPress={pickPhoto}>
+            {photo}
+          </TouchableOpacity>
           <Text style={styles.fullName}>Amir Muhammad Hakim</Text>
           <Text style={styles.occupation}>Software Engineer</Text>
         </View>
         <View>
-          <AppButton title="Upload and Continue" color="accent" onPress={() => null} />
+          <AppButton
+            title="Upload and Continue"
+            color="accent"
+            disabled={!photoUri}
+            onPress={() => null}
+          />
           <AppLink style={styles.skipLink} onPress={() => null}>
             Skip for this
           </AppLink>
         </View>
       </View>
+      {isLoading && <AppLoadingIndicator />}
     </View>
   );
 };
@@ -55,7 +106,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  avatarContainer: {
+  photoContainer: {
     width: 130,
     height: 130,
     borderWidth: 1,
@@ -64,12 +115,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 130 / 2,
   },
-  avatar: {
+  photo: {
     width: 110,
     height: 110,
     borderRadius: 110 / 2,
   },
-  addPhotoIcon: {
+  actionPhoto: {
     position: 'absolute',
     bottom: 8,
     right: 6,

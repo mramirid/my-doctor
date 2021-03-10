@@ -17,7 +17,7 @@ const HomeTab: FC = () => (
     tabBar={AppBottomTabBar}
     tabBarOptions={{
       activeTintColor: Colors.Green2,
-      inactiveTintColor: Colors.Grey3,
+      inactiveTintColor: Colors.Grey4,
       labelStyle: { fontFamily: Fonts.NunitoSemiBold },
     }}>
     <Tab.Screen

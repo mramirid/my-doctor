@@ -18,7 +18,7 @@ const AppTabBar: FC<BottomTabBarProps<BottomTabBarOptions>> = (props) => {
         const isFocused = props.state.index === index;
         const { options } = props.descriptors[route.key];
         const tabItemColor =
-          (isFocused ? props.activeTintColor : props.inactiveTintColor) ?? Colors.Grey3;
+          (isFocused ? props.activeTintColor : props.inactiveTintColor) ?? Colors.Grey4;
 
         const label = options.tabBarLabel
           ? options.tabBarLabel
