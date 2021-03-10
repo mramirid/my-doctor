@@ -22,6 +22,13 @@ interface FormValues {
   password: string;
 }
 
+interface CreatedPatient {
+  fullName: string;
+  email: string;
+  occupation: string;
+  photoUrl: string;
+}
+
 const SignUpScreen: FC = () => {
   const navigation = useNavigation<SignUpScreenNavProp>();
   const { control, handleSubmit, formState, reset } = useForm<FormValues>();
@@ -33,12 +40,19 @@ const SignUpScreen: FC = () => {
         const userCredential = await firebase
           .auth()
           .createUserWithEmailAndPassword(data.email, data.password);
+
         const user = userCredential.user;
-        console.log(user);
+        const createdUser: CreatedPatient = {
+          fullName: data.fullName,
+          email: data.email,
+          occupation: data.occupation,
+          photoUrl: '',
+        };
+        await firebase.database().ref(`users/${user!.uid}`).set(createdUser);
         reset();
       } catch (error) {
         showMessage({
-          message: error.message,
+          message: error.message || 'Terjadi kesalahan',
           type: 'danger',
         });
       }
