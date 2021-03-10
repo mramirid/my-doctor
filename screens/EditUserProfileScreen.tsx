@@ -7,8 +7,8 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import AppButton from '../components/atoms/AppButton';
 import AppGap from '../components/atoms/AppGap';
 import AppTextInput from '../components/atoms/AppTextInput';
-import ProfileWithPhoto from '../components/molecules/ProfileWithPhoto';
 import Header from '../components/molecules/header/Header';
+import UserProfileWithPhoto from '../components/molecules/profile/UserProfileWithPhoto';
 import Colors from '../constants/colors';
 import patient from '../constants/dummies/patient';
 import { EditUserProfileScreenNavProp } from '../global-types/navigation';
@@ -30,7 +30,7 @@ const EditUserProfileScreen: FC = () => {
     <View style={styles.screen}>
       <Header title="Profile" type="flat" onBackButtonPressed={navigation.goBack} />
       <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
-        <ProfileWithPhoto
+        <UserProfileWithPhoto
           style={styles.profileWithPhoto}
           photoUrl={patient.photoUrl}
           onRemoveAvatar={() => null}

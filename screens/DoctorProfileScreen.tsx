@@ -3,9 +3,9 @@ import React, { FC } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 
 import AppButton from '../components/atoms/AppButton';
-import DoctorProfileItem from '../components/molecules/DoctorProfileItem';
-import ProfileWithPhoto from '../components/molecules/ProfileWithPhoto';
 import Header from '../components/molecules/header/Header';
+import DoctorProfileInfoItem from '../components/molecules/profile/DoctorProfileInfoItem';
+import DoctorProfileWithPhoto from '../components/molecules/profile/DoctorProfileWithPhoto';
 import Colors from '../constants/colors';
 import {
   DoctorProfileScreenNavProp,
@@ -21,24 +21,24 @@ const DoctorProfileScreen: FC = () => {
     <View style={styles.screen}>
       <Header title="Profile Dokter" type="flat" onBackButtonPressed={navigation.goBack} />
       <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
-        <ProfileWithPhoto
+        <DoctorProfileWithPhoto
           style={styles.profileWithPhoto}
           name={params.doctor.name}
           description={params.doctor.specialist}
           photoUrl={params.doctor.photoUrl}
           gender={params.doctor.gender}
         />
-        <DoctorProfileItem
+        <DoctorProfileInfoItem
           style={styles.profileItem}
           label="Alumnus"
           data={params.doctor.almamater}
         />
-        <DoctorProfileItem
+        <DoctorProfileInfoItem
           style={styles.profileItem}
           label="Tempat Praktik"
           data={params.doctor.workplace}
         />
-        <DoctorProfileItem
+        <DoctorProfileInfoItem
           style={styles.profileItem}
           label="No. STR"
           data={params.doctor.credentialID}

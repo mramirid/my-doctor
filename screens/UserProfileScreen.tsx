@@ -4,8 +4,8 @@ import React, { FC } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import ListItemBordered from '../components/molecules/ListItemBordered';
-import ProfileWithPhoto from '../components/molecules/ProfileWithPhoto';
 import Header from '../components/molecules/header/Header';
+import UserProfileWithPhoto from '../components/molecules/profile/UserProfileWithPhoto';
 import Colors from '../constants/colors';
 import patient from '../constants/dummies/patient';
 import { UserProfileScreenNavProp } from '../global-types/navigation';
@@ -18,7 +18,7 @@ const UserProfileScreen: FC = () => {
     <View style={styles.screen}>
       <Header title="Profile" type="flat" onBackButtonPressed={navigation.goBack} />
       <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
-        <ProfileWithPhoto
+        <UserProfileWithPhoto
           style={styles.profileWithPhoto}
           name={patient.name}
           description={patient.occupation}

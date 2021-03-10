@@ -1,13 +1,13 @@
 import React, { FC, memo } from 'react';
 import { Image, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
-import FemaleSymbol from '../../assets/icons/FemaleSymbol';
-import MaleSymbol from '../../assets/icons/MaleSymbol';
-import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
-import Gender from '../../constants/gender';
+import FemaleSymbol from '../../../assets/icons/FemaleSymbol';
+import MaleSymbol from '../../../assets/icons/MaleSymbol';
+import Colors from '../../../constants/colors';
+import Fonts from '../../../constants/fonts';
+import Gender from '../../../constants/gender';
 
-interface ProfileWithPhotoProps {
+interface DoctorProfileWithPhotoProps {
   name?: string;
   description?: string;
   photoUrl: string;
@@ -15,7 +15,7 @@ interface ProfileWithPhotoProps {
   style?: ViewStyle;
 }
 
-const ProfileWithPhoto: FC<ProfileWithPhotoProps> = (props) => (
+const DoctorProfileWithPhoto: FC<DoctorProfileWithPhotoProps> = (props) => (
   <View style={{ ...styles.container, ...props.style }}>
     <View style={styles.avatarContainer}>
       <Image style={styles.avatar} source={{ uri: props.photoUrl }} />
@@ -68,4 +68,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(ProfileWithPhoto);
+export default memo(DoctorProfileWithPhoto);

@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
 import { View, StyleSheet, Text, ViewStyle } from 'react-native';
 
-import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
+import Colors from '../../../constants/colors';
+import Fonts from '../../../constants/fonts';
 
-interface DoctorProfileItemProps {
+interface DoctorProfileInfoItemProps {
   label: string;
   data: string;
   style?: ViewStyle;
 }
 
-const DoctorProfileItem: FC<DoctorProfileItemProps> = (props) => (
+const DoctorProfileInfoItem: FC<DoctorProfileInfoItemProps> = (props) => (
   <View style={{ ...styles.container, ...props.style }}>
     <Text style={styles.label}>{props.label}</Text>
     <Text style={styles.data}>{props.data}</Text>
@@ -36,4 +36,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DoctorProfileItem;
+export default DoctorProfileInfoItem;
