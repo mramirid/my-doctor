@@ -7,6 +7,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import AppButton from '../../../components/atoms/AppButton';
 import AppGap from '../../../components/atoms/AppGap';
 import AppTextInput from '../../../components/atoms/AppTextInput';
+import AppLoadingIndicator from '../../../components/molecules/AppLoadingIndicator';
 import Header from '../../../components/molecules/header/Header';
 import firebase from '../../../config/firebase';
 import Colors from '../../../constants/colors';
@@ -22,7 +23,7 @@ interface FormValues {
 
 const SignUpScreen: FC = () => {
   const navigation = useNavigation<SignUpScreenNavProp>();
-  const { control, handleSubmit } = useForm<FormValues>();
+  const { control, handleSubmit, formState } = useForm<FormValues>();
   const TypedController = useTypedController<FormValues>({ control });
 
   const onSubmit = useCallback<SubmitHandler<FormValues>>(async (data) => {
@@ -112,6 +113,7 @@ const SignUpScreen: FC = () => {
         <AppGap height={40} />
         <AppButton title="Continue" color="accent" onPress={handleSubmit(onSubmit)} />
       </ScrollView>
+      {formState.isSubmitting && <AppLoadingIndicator />}
     </View>
   );
 };
