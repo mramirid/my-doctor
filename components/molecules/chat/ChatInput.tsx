@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flex: 1,
-    padding: 14,
+    // padding: 14,
     marginRight: 10,
     backgroundColor: Colors.Grey1,
   },

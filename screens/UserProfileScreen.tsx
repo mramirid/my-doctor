@@ -7,23 +7,21 @@ import ListItemBordered from '../components/molecules/ListItemBordered';
 import Header from '../components/molecules/header/Header';
 import UserProfileWithPhoto from '../components/molecules/profile/UserProfileWithPhoto';
 import Colors from '../constants/colors';
-import patient from '../constants/dummies/patient';
 import { UserProfileScreenNavProp } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
+import { selectUserAuth } from '../store/reducers/auth';
+import { useAppSelector } from '../store/types';
 
 const UserProfileScreen: FC = () => {
   const navigation = useNavigation<UserProfileScreenNavProp>();
+
+  const userAuth = useAppSelector(selectUserAuth);
 
   return (
     <View style={styles.screen}>
       <Header title="Profile" type="flat" onBackButtonPressed={navigation.goBack} />
       <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
-        <UserProfileWithPhoto
-          style={styles.profileWithPhoto}
-          name={patient.name}
-          description={patient.occupation}
-          photoUrl={patient.photoUrl}
-        />
+        <UserProfileWithPhoto style={styles.profileWithPhoto} isEdit={false} patient={userAuth} />
         <ListItemBordered
           style={styles.settingItem}
           title="Edit Profile"
