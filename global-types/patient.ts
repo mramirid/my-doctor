@@ -5,6 +5,11 @@ export interface SignUpFormValues {
   password: string;
 }
 
+export interface SignInFormValues {
+  email: string;
+  password: string;
+}
+
 export interface PickedPhoto {
   uri: string;
   base64: string;

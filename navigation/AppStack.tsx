@@ -6,6 +6,7 @@ import CategoryDoctorsScreen from '../screens/CategoryDoctorsScreen';
 import ChatRoomScreen from '../screens/ChatRoomScreen';
 import DoctorProfileScreen from '../screens/DoctorProfileScreen';
 import EditUserProfileScreen from '../screens/EditUserProfileScreen';
+import StartupScreen from '../screens/StartupScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import GetStartedScreen from '../screens/auth/GetStartedScreen';
 import SignInScreen from '../screens/auth/SignInScreen';
@@ -17,6 +18,7 @@ const Stack = createStackNavigator<AppStackParamList>();
 
 const AppStack: FC = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="StartupScreen" component={StartupScreen} />
     <Stack.Screen name="GetStartedScreen" component={GetStartedScreen} />
     <Stack.Screen name="SignInScreen" component={SignInScreen} />
     <Stack.Screen name="SignUpScreen" component={SignUpScreen} />

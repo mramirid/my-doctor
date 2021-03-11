@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
-import React, { FC } from 'react';
+import React, { FC, useLayoutEffect } from 'react';
 import { ImageBackground, StyleSheet, View, Text, Platform } from 'react-native';
 
 import AppLogo from '../../assets/icons/AppLogo';
@@ -9,10 +9,21 @@ import AppButton from '../../components/atoms/AppButton';
 import AppGap from '../../components/atoms/AppGap';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
-import { GettingStartedScreenNavProp } from '../../global-types/navigation';
+import { GetStartedScreenNavProp } from '../../global-types/navigation';
+import { selectIsAuth } from '../../store/reducers/auth';
+import { useAppSelector } from '../../store/types';
 
 const GetStartedScreen: FC = () => {
-  const navigation = useNavigation<GettingStartedScreenNavProp>();
+  const navigation = useNavigation<GetStartedScreenNavProp>();
+
+  const isAuth = useAppSelector(selectIsAuth);
+
+  useLayoutEffect(() => {
+    if (isAuth) {
+      navigation.replace('HomeTab');
+    }
+  }, [isAuth, navigation]);
+
   return (
     <ImageBackground
       style={styles.screen}

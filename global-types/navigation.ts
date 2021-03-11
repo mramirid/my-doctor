@@ -9,6 +9,7 @@ import Doctor from './doctor';
  * App Stack
  */
 export type AppStackParamList = {
+  StartupScreen: undefined;
   GetStartedScreen: undefined;
   SignInScreen: undefined;
   SignUpScreen: undefined;
@@ -21,10 +22,9 @@ export type AppStackParamList = {
   DoctorProfileScreen: { doctor: Doctor };
 };
 
-export type GettingStartedScreenNavProp = StackNavigationProp<
-  AppStackParamList,
-  'GetStartedScreen'
->;
+export type StartupScreenNavProp = StackNavigationProp<AppStackParamList, 'GetStartedScreen'>;
+
+export type GetStartedScreenNavProp = StackNavigationProp<AppStackParamList, 'GetStartedScreen'>;
 
 export type SignUpScreenNavProp = StackNavigationProp<AppStackParamList, 'SignUpScreen'>;
 

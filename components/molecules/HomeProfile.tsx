@@ -13,7 +13,14 @@ interface HomeProfileProps {
 
 const HomeProfile: FC<HomeProfileProps> = (props) => (
   <TouchableOpacity style={styles.container} onPress={props.onPress}>
-    <Image style={styles.avatar} source={{ uri: props.patient.photo! }} />
+    <Image
+      style={styles.avatar}
+      source={
+        props.patient.photo
+          ? { uri: props.patient.photo }
+          : require('../../assets/illustrations/user-photo-null.png')
+      }
+    />
     <View>
       <Text style={styles.name}>{props.patient.fullName}</Text>
       <Text style={styles.occupation}>{props.patient.occupation}</Text>
