@@ -4,9 +4,12 @@ import { useFonts } from 'expo-font';
 import React, { FC } from 'react';
 import FlashMessage from 'react-native-flash-message';
 import { enableScreens } from 'react-native-screens';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import Fonts from './constants/fonts';
 import AppNavigator from './navigation';
+import { store, persistor } from './store';
 
 enableScreens();
 
@@ -27,7 +30,11 @@ const App: FC = () => {
 
   return (
     <>
-      <AppNavigator />
+      <Provider store={store}>
+        <PersistGate loading={<AppLoading />} persistor={persistor}>
+          <AppNavigator />
+        </PersistGate>
+      </Provider>
       <FlashMessage position="top" />
     </>
   );

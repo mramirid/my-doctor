@@ -1,25 +1,18 @@
-import { DefaultTheme, NavigationContainer, Theme } from '@react-navigation/native';
-import React, { FC, useRef } from 'react';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import produce from 'immer';
+import React, { FC } from 'react';
 
 import Colors from '../constants/colors';
-import AuthStack from './AuthStack';
-import HomeStack from './HomeStack';
+import AppStack from './AppStack';
 
-const appTheme: Theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: Colors.White,
-  },
-};
+const appTheme = produce(DefaultTheme, (themeDraft) => {
+  themeDraft.colors.background = Colors.White;
+});
 
-const AppNavigator: FC = () => {
-  const isAuth = useRef(false);
-  return (
-    <NavigationContainer theme={appTheme}>
-      {isAuth.current ? <HomeStack /> : <AuthStack />}
-    </NavigationContainer>
-  );
-};
+const AppNavigator: FC = () => (
+  <NavigationContainer theme={appTheme}>
+    <AppStack />
+  </NavigationContainer>
+);
 
 export default AppNavigator;

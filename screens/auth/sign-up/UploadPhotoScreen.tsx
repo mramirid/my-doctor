@@ -1,25 +1,51 @@
 import { useNavigation } from '@react-navigation/core';
+import { unwrapResult } from '@reduxjs/toolkit';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import React, { FC, useCallback, useState } from 'react';
 import { Alert, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 
 import AddPhoto from '../../../assets/icons/AddPhoto';
 import RemovePhoto from '../../../assets/icons/RemovePhoto';
 import AppButton from '../../../components/atoms/AppButton';
+import AppGap from '../../../components/atoms/AppGap';
 import AppLink from '../../../components/atoms/AppLink';
 import AppLoadingIndicator from '../../../components/molecules/AppLoadingIndicator';
 import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
 import { UploadPhotoScreenNavProp } from '../../../global-types/navigation';
+import { PickedPhoto } from '../../../global-types/patient';
 import withStatusBar from '../../../hoc/withStatusBar';
+import useIsMounted from '../../../hooks/useIsMounted';
+import { selectUserAuth } from '../../../store/reducers/auth';
+import { uploadPhoto } from '../../../store/thunks/auth';
+import { useAppDispatch, useAppSelector } from '../../../store/types';
 
 const UploadPhotoScreen: FC = () => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation<UploadPhotoScreenNavProp>();
+  const { runInMounted } = useIsMounted();
 
-  const [photoUri, setPhotoUri] = useState('');
-  const [isLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const userAuth = useAppSelector(selectUserAuth);
+  const [pickedPhoto, setPickedPhoto] = useState<PickedPhoto>();
+
+  const uploadNewPhoto = async () => {
+    try {
+      setIsLoading(true);
+      unwrapResult(await dispatch(uploadPhoto(pickedPhoto!)));
+      navigation.replace('HomeTab');
+    } catch (error) {
+      showMessage({
+        message: error.message,
+        type: 'danger',
+      });
+    } finally {
+      runInMounted(() => setIsLoading(false));
+    }
+  };
 
   const pickPhoto = useCallback(async () => {
     const permission = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
@@ -36,18 +62,22 @@ const UploadPhotoScreen: FC = () => {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [1, 1],
-      quality: 1,
+      quality: 0.5,
+      base64: true,
     });
     if (!pickResult.cancelled) {
-      setPhotoUri(pickResult.uri);
+      setPickedPhoto({
+        uri: pickResult.uri,
+        base64: pickResult.base64!,
+      });
     }
   }, []);
 
   let photo: JSX.Element;
-  if (photoUri) {
+  if (pickedPhoto?.uri) {
     photo = (
       <>
-        <Image source={{ uri: photoUri }} style={styles.photo} />
+        <Image source={{ uri: pickedPhoto.uri }} style={styles.photo} />
         <RemovePhoto style={styles.actionPhoto} />
       </>
     );
@@ -71,17 +101,18 @@ const UploadPhotoScreen: FC = () => {
           <TouchableOpacity style={styles.photoContainer} onPress={pickPhoto}>
             {photo}
           </TouchableOpacity>
-          <Text style={styles.fullName}>Amir Muhammad Hakim</Text>
-          <Text style={styles.occupation}>Software Engineer</Text>
+          <AppGap height={26} />
+          <Text style={styles.fullName}>{userAuth.fullName}</Text>
+          <Text style={styles.occupation}>{userAuth.occupation}</Text>
         </View>
         <View>
           <AppButton
             title="Upload and Continue"
             color="accent"
-            disabled={!photoUri}
-            onPress={() => null}
+            disabled={!pickedPhoto?.uri}
+            onPress={uploadNewPhoto}
           />
-          <AppLink style={styles.skipLink} onPress={() => null}>
+          <AppLink style={styles.skipLink} onPress={() => navigation.replace('HomeTab')}>
             Skip for this
           </AppLink>
         </View>

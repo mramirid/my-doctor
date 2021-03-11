@@ -15,6 +15,8 @@ import Fonts from '../../constants/fonts';
 import { DoctorCategory as IDoctorCategory } from '../../global-types/doctor';
 import { DoctorsOverviewScreenNavProp } from '../../global-types/navigation';
 import withStatusBar from '../../hoc/withStatusBar';
+import { selectUserAuth } from '../../store/reducers/auth';
+import { useAppSelector } from '../../store/types';
 
 const doctorCategories: IDoctorCategory[] = [
   {
@@ -36,11 +38,13 @@ const doctorCategories: IDoctorCategory[] = [
 ];
 
 const DoctorsOverviewScreen: FC = () => {
+  const userAuth = useAppSelector(selectUserAuth);
   const navigation = useNavigation<DoctorsOverviewScreenNavProp>();
+
   return (
     <AppTabScreen style={styles.screen} withScrollView>
       <View style={styles.padX16}>
-        <HomeProfile onPress={() => navigation.navigate('UserProfileScreen')} />
+        <HomeProfile patient={userAuth} onPress={() => navigation.navigate('UserProfileScreen')} />
         <Text style={styles.welcomeText}>Mau konsultasi dengan siapa hari ini?</Text>
       </View>
       <View>

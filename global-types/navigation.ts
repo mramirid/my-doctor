@@ -6,30 +6,13 @@ import DoctorSpecialist from '../constants/doctor-specialist';
 import Doctor from './doctor';
 
 /*
- * Auth Stack
+ * App Stack
  */
-export type AuthStackParamList = {
+export type AppStackParamList = {
   GetStartedScreen: undefined;
   SignInScreen: undefined;
   SignUpScreen: undefined;
   UploadPhotoScreen: undefined;
-};
-
-export type GettingStartedScreenNavProp = StackNavigationProp<
-  AuthStackParamList,
-  'GetStartedScreen'
->;
-
-export type SignUpScreenNavProp = StackNavigationProp<AuthStackParamList, 'SignUpScreen'>;
-
-export type SignInScreenNavProp = StackNavigationProp<AuthStackParamList, 'SignInScreen'>;
-
-export type UploadPhotoScreenNavProp = StackNavigationProp<AuthStackParamList, 'UploadPhotoScreen'>;
-
-/*
- * Home Stack
- */
-export type HomeStackParamList = {
   HomeTab: undefined;
   CategoryDoctorsScreen: { category: DoctorSpecialist };
   ChatRoomScreen: { doctor: Doctor };
@@ -38,24 +21,35 @@ export type HomeStackParamList = {
   DoctorProfileScreen: { doctor: Doctor };
 };
 
-export type CategoryDoctorsScreenRouteProp = RouteProp<HomeStackParamList, 'CategoryDoctorsScreen'>;
+export type GettingStartedScreenNavProp = StackNavigationProp<
+  AppStackParamList,
+  'GetStartedScreen'
+>;
+
+export type SignUpScreenNavProp = StackNavigationProp<AppStackParamList, 'SignUpScreen'>;
+
+export type SignInScreenNavProp = StackNavigationProp<AppStackParamList, 'SignInScreen'>;
+
+export type UploadPhotoScreenNavProp = StackNavigationProp<AppStackParamList, 'UploadPhotoScreen'>;
+
+export type CategoryDoctorsScreenRouteProp = RouteProp<AppStackParamList, 'CategoryDoctorsScreen'>;
 export type CategoryDoctorsScreenNavProp = StackNavigationProp<
-  HomeStackParamList,
+  AppStackParamList,
   'CategoryDoctorsScreen'
 >;
 
-export type ChatRoomScreenRouteProp = RouteProp<HomeStackParamList, 'ChatRoomScreen'>;
+export type ChatRoomScreenRouteProp = RouteProp<AppStackParamList, 'ChatRoomScreen'>;
 
-export type UserProfileScreenNavProp = StackNavigationProp<HomeStackParamList, 'UserProfileScreen'>;
+export type UserProfileScreenNavProp = StackNavigationProp<AppStackParamList, 'UserProfileScreen'>;
 
-export type DoctorProfileScreenRouteProp = RouteProp<HomeStackParamList, 'DoctorProfileScreen'>;
+export type DoctorProfileScreenRouteProp = RouteProp<AppStackParamList, 'DoctorProfileScreen'>;
 export type DoctorProfileScreenNavProp = StackNavigationProp<
-  HomeStackParamList,
+  AppStackParamList,
   'DoctorProfileScreen'
 >;
 
 export type EditUserProfileScreenNavProp = StackNavigationProp<
-  HomeStackParamList,
+  AppStackParamList,
   'EditUserProfileScreen'
 >;
 
@@ -70,10 +64,10 @@ export type HomeTabParamList = {
 
 export type DoctorsOverviewScreenNavProp = CompositeNavigationProp<
   BottomTabNavigationProp<HomeTabParamList, 'DoctorsOverviewScreen'>,
-  StackNavigationProp<HomeStackParamList>
+  StackNavigationProp<AppStackParamList>
 >;
 
 export type MessagesScreenNavProp = CompositeNavigationProp<
   BottomTabNavigationProp<HomeTabParamList, 'MessagesScreen'>,
-  StackNavigationProp<HomeStackParamList>
+  StackNavigationProp<AppStackParamList>
 >;

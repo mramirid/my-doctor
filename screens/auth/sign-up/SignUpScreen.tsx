@@ -1,5 +1,6 @@
 import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/native';
+import { unwrapResult } from '@reduxjs/toolkit';
 import React, { FC, useCallback } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -10,57 +11,39 @@ import AppGap from '../../../components/atoms/AppGap';
 import AppTextInput from '../../../components/atoms/AppTextInput';
 import AppLoadingIndicator from '../../../components/molecules/AppLoadingIndicator';
 import Header from '../../../components/molecules/header/Header';
-import firebase from '../../../config/firebase';
 import Colors from '../../../constants/colors';
 import { SignUpScreenNavProp } from '../../../global-types/navigation';
+import { SignUpFormValues } from '../../../global-types/patient';
 import withStatusBar from '../../../hoc/withStatusBar';
-
-interface FormValues {
-  fullName: string;
-  occupation: string;
-  email: string;
-  password: string;
-}
-
-interface CreatedPatient {
-  fullName: string;
-  email: string;
-  occupation: string;
-  photoUrl: string;
-}
+import { logout } from '../../../store/reducers/auth';
+import { signUp } from '../../../store/thunks/auth';
+import { useAppDispatch } from '../../../store/types';
 
 const SignUpScreen: FC = () => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation<SignUpScreenNavProp>();
-  const { control, handleSubmit, formState, reset } = useForm<FormValues>();
-  const TypedController = useTypedController<FormValues>({ control });
 
-  const onSubmit = useCallback<SubmitHandler<FormValues>>(
+  const { control, handleSubmit, formState, reset } = useForm<SignUpFormValues>();
+  const TypedController = useTypedController<SignUpFormValues>({ control });
+
+  const onSubmit = useCallback<SubmitHandler<SignUpFormValues>>(
     async (data) => {
       try {
-        const userCredential = await firebase
-          .auth()
-          .createUserWithEmailAndPassword(data.email, data.password);
-
-        const user = userCredential.user;
-        const createdUser: CreatedPatient = {
-          fullName: data.fullName,
-          email: data.email,
-          occupation: data.occupation,
-          photoUrl: '',
-        };
-        await firebase.database().ref(`users/${user!.uid}`).set(createdUser);
+        dispatch(logout());
+        unwrapResult(await dispatch(signUp(data)));
         reset();
+        navigation.navigate('UploadPhotoScreen');
       } catch (error) {
         showMessage({
-          message: error.message || 'Terjadi kesalahan',
+          message: error.message,
           type: 'danger',
         });
       }
     },
-    [reset]
+    [dispatch, navigation, reset]
   );
 
-  const onValidationError = useCallback<SubmitErrorHandler<FormValues>>((errors) => {
+  const onValidationError = useCallback<SubmitErrorHandler<SignUpFormValues>>((errors) => {
     for (const field in errors) {
       if (errors.hasOwnProperty(field)) {
         showMessage({
@@ -147,6 +130,7 @@ const SignUpScreen: FC = () => {
         <AppButton
           title="Continue"
           color="accent"
+          disabled={formState.isSubmitting}
           onPress={handleSubmit(onSubmit, onValidationError)}
         />
       </ScrollView>
