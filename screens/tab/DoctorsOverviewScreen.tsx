@@ -22,25 +22,6 @@ import { selectUserAuth } from '../../store/reducers/auth';
 import { useAppSelector } from '../../store/types';
 import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
 
-const doctorCategories: IDoctorCategory[] = [
-  {
-    id: '1',
-    name: DoctorSpecialist.GeneralPractitioner,
-  },
-  {
-    id: '2',
-    name: DoctorSpecialist.Psychiatrist,
-  },
-  {
-    id: '3',
-    name: DoctorSpecialist.Medicine,
-  },
-  {
-    id: '4',
-    name: DoctorSpecialist.Pediatrician,
-  },
-];
-
 interface FireGetNews {
   [id: string]: FireNews;
 }
@@ -52,22 +33,38 @@ async function fetchNews() {
   return news;
 }
 
+interface FireGetDoctorCategories {
+  [id: string]: DoctorSpecialist;
+}
+
+async function fetchDoctorCategories() {
+  const data = await firebase.database().ref('doctorCategories').once('value');
+  const fetchedCategories: FireGetDoctorCategories = data.val();
+  const categories = Object.keys(fetchedCategories).map<IDoctorCategory>((key) => ({
+    id: key,
+    name: fetchedCategories[key],
+  }));
+  return categories;
+}
+
 const DoctorsOverviewScreen: FC = () => {
   const navigation = useNavigation<DoctorsOverviewScreenNavProp>();
   const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
 
   const userAuth = useAppSelector(selectUserAuth);
   const [news, setNews] = useState<News[]>([]);
+  const [doctorCategories, setDoctorCategories] = useState<IDoctorCategory[]>([]);
 
   useEffect(() => {
     (async () => {
       try {
         showLoading();
-        const [news] = await Promise.all([fetchNews()]);
+        const [news, doctorCategories] = await Promise.all([fetchNews(), fetchDoctorCategories()]);
         setNews(news);
+        setDoctorCategories(doctorCategories);
       } catch (error) {
         showMessage({
-          message: error.message || 'Tidak dapat menjangkau server',
+          message: error.message || 'Gagal menjangkau server',
           type: 'danger',
         });
       } finally {
