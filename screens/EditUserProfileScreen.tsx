@@ -2,7 +2,7 @@ import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/core';
 import { unwrapResult } from '@reduxjs/toolkit';
 import firebase from 'firebase';
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useContext } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -10,7 +10,6 @@ import { showMessage } from 'react-native-flash-message';
 import AppButton from '../components/atoms/AppButton';
 import AppGap from '../components/atoms/AppGap';
 import AppTextInput from '../components/atoms/AppTextInput';
-import AppLoadingIndicator from '../components/molecules/AppLoadingIndicator';
 import Header from '../components/molecules/header/Header';
 import UserProfileWithPhoto from '../components/molecules/profile/UserProfileWithPhoto';
 import Colors from '../constants/colors';
@@ -20,6 +19,7 @@ import withStatusBar from '../hoc/withStatusBar';
 import { selectUserAuth } from '../store/reducers/auth';
 import { updateProfile } from '../store/thunks/auth';
 import { useAppDispatch, useAppSelector } from '../store/types';
+import { AppLoadingIndicatorContext } from './contexts/app-loading-indicator';
 
 interface FormValues {
   fullName: string;
@@ -32,6 +32,7 @@ interface FormValues {
 const EditUserProfileScreen: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<EditUserProfileScreenNavProp>();
+  const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
 
   const userAuth = useAppSelector(selectUserAuth);
   const { control, formState, handleSubmit, reset } = useForm<FormValues>();
@@ -40,6 +41,7 @@ const EditUserProfileScreen: FC = () => {
   const onSubmit = useCallback<SubmitHandler<FormValues>>(
     async (data) => {
       try {
+        showLoading();
         if (!!data.oldPassword && !!data.newPassword) {
           const credential = firebase.auth.EmailAuthProvider.credential(
             userAuth.email!,
@@ -67,14 +69,17 @@ const EditUserProfileScreen: FC = () => {
           message: 'Profile berhasil diperbaharui',
           type: 'success',
         });
+        navigation.goBack();
       } catch (error) {
         showMessage({
           message: error.message,
           type: 'danger',
         });
+      } finally {
+        hideLoading();
       }
     },
-    [dispatch, reset, userAuth.email]
+    [dispatch, hideLoading, navigation, reset, showLoading, userAuth.email]
   );
 
   const onValidationError = useCallback<SubmitErrorHandler<SignUpFormValues>>((errors) => {
@@ -95,7 +100,7 @@ const EditUserProfileScreen: FC = () => {
       <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
         <TypedController
           name="photo"
-          defaultValue={userAuth.photo!}
+          defaultValue={userAuth.photo}
           render={(renderProps) => (
             <UserProfileWithPhoto
               style={styles.profileWithPhoto}
@@ -189,10 +194,10 @@ const EditUserProfileScreen: FC = () => {
           style={styles.submitButton}
           title="Save Profile"
           color="accent"
+          disabled={formState.isSubmitting}
           onPress={handleSubmit(onSubmit, onValidationError)}
         />
       </ScrollView>
-      {formState.isSubmitting && <AppLoadingIndicator />}
     </View>
   );
 };

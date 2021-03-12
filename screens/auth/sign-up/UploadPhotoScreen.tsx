@@ -1,9 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import { unwrapResult } from '@reduxjs/toolkit';
-import * as ImagePicker from 'expo-image-picker';
-import * as Permissions from 'expo-permissions';
-import React, { FC, useCallback, useState } from 'react';
-import { Alert, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, { FC, useCallback, useContext, useState } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
 import AddPhoto from '../../../assets/icons/AddPhoto';
@@ -11,29 +9,31 @@ import RemovePhoto from '../../../assets/icons/RemovePhoto';
 import AppButton from '../../../components/atoms/AppButton';
 import AppGap from '../../../components/atoms/AppGap';
 import AppLink from '../../../components/atoms/AppLink';
-import AppLoadingIndicator from '../../../components/molecules/AppLoadingIndicator';
 import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
 import { UploadPhotoScreenNavProp } from '../../../global-types/navigation';
 import withStatusBar from '../../../hoc/withStatusBar';
-import useIsMounted from '../../../hooks/useIsMounted';
+import usePhotoPicker from '../../../hooks/usePhotoPicker';
 import { selectUserAuth } from '../../../store/reducers/auth';
 import { uploadPhoto } from '../../../store/thunks/auth';
 import { useAppDispatch, useAppSelector } from '../../../store/types';
+import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
 
 const UploadPhotoScreen: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<UploadPhotoScreenNavProp>();
-  const { runInMounted } = useIsMounted();
+  const { pickPhoto } = usePhotoPicker();
+  const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
 
-  const [isLoading, setIsLoading] = useState(false);
   const userAuth = useAppSelector(selectUserAuth);
   const [pickedPhoto, setPickedPhoto] = useState<string | null>(null);
 
+  const startPickPhoto = useCallback(async () => setPickedPhoto(await pickPhoto()), [pickPhoto]);
+
   const uploadNewPhoto = async () => {
     try {
-      setIsLoading(true);
+      showLoading();
       unwrapResult(await dispatch(uploadPhoto({ newPhoto: pickedPhoto! })));
       navigation.replace('HomeTab');
     } catch (error) {
@@ -42,32 +42,9 @@ const UploadPhotoScreen: FC = () => {
         type: 'danger',
       });
     } finally {
-      runInMounted(() => setIsLoading(false));
+      hideLoading();
     }
   };
-
-  const pickPhoto = useCallback(async () => {
-    const permission = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
-    if (!permission.granted) {
-      Alert.alert(
-        'Izin Akses Diperlukan',
-        'Perizinan akses ke penyimpanan diperlukan untuk mengambil gambar',
-        [{ text: 'OK' }]
-      );
-      return;
-    }
-
-    const pickResult = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 0.5,
-      base64: true,
-    });
-    if (!pickResult.cancelled) {
-      setPickedPhoto(`data:image;base64, ${pickResult.base64}`);
-    }
-  }, []);
 
   let photo: JSX.Element;
   if (pickedPhoto) {
@@ -94,7 +71,7 @@ const UploadPhotoScreen: FC = () => {
       <Header title="Unggah Foto" type="flat" onBackButtonPressed={navigation.goBack} />
       <View style={styles.body}>
         <View style={styles.profile}>
-          <TouchableOpacity style={styles.photoContainer} onPress={pickPhoto}>
+          <TouchableOpacity style={styles.photoContainer} onPress={startPickPhoto}>
             {photo}
           </TouchableOpacity>
           <AppGap height={26} />
@@ -113,7 +90,6 @@ const UploadPhotoScreen: FC = () => {
           </AppLink>
         </View>
       </View>
-      {isLoading && <AppLoadingIndicator />}
     </View>
   );
 };
@@ -157,12 +133,14 @@ const styles = StyleSheet.create({
     color: Colors.Dark,
     fontFamily: Fonts.NunitoSemiBold,
     textAlign: 'center',
+    textTransform: 'capitalize',
   },
   occupation: {
     fontSize: 18,
+    color: Colors.Grey2,
     fontFamily: Fonts.NunitoRegular,
     textAlign: 'center',
-    color: Colors.Grey2,
+    textTransform: 'capitalize',
     marginTop: 4,
   },
   skipLink: {

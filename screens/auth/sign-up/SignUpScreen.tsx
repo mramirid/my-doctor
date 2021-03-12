@@ -1,7 +1,7 @@
 import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/native';
 import { unwrapResult } from '@reduxjs/toolkit';
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useContext } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -9,7 +9,6 @@ import { showMessage } from 'react-native-flash-message';
 import AppButton from '../../../components/atoms/AppButton';
 import AppGap from '../../../components/atoms/AppGap';
 import AppTextInput from '../../../components/atoms/AppTextInput';
-import AppLoadingIndicator from '../../../components/molecules/AppLoadingIndicator';
 import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
 import { SignUpScreenNavProp } from '../../../global-types/navigation';
@@ -18,10 +17,12 @@ import withStatusBar from '../../../hoc/withStatusBar';
 import { logout } from '../../../store/reducers/auth';
 import { signUp } from '../../../store/thunks/auth';
 import { useAppDispatch } from '../../../store/types';
+import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
 
 const SignUpScreen: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<SignUpScreenNavProp>();
+  const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
 
   const { control, handleSubmit, formState, reset } = useForm<SignUpFormValues>();
   const TypedController = useTypedController<SignUpFormValues>({ control });
@@ -29,6 +30,7 @@ const SignUpScreen: FC = () => {
   const onSubmit = useCallback<SubmitHandler<SignUpFormValues>>(
     async (data) => {
       try {
+        showLoading();
         dispatch(logout());
         unwrapResult(await dispatch(signUp(data)));
         reset();
@@ -38,9 +40,11 @@ const SignUpScreen: FC = () => {
           message: error.message,
           type: 'danger',
         });
+      } finally {
+        hideLoading();
       }
     },
-    [dispatch, navigation, reset]
+    [dispatch, hideLoading, navigation, reset, showLoading]
   );
 
   const onValidationError = useCallback<SubmitErrorHandler<SignUpFormValues>>((errors) => {
@@ -140,7 +144,6 @@ const SignUpScreen: FC = () => {
           onPress={handleSubmit(onSubmit, onValidationError)}
         />
       </ScrollView>
-      {formState.isSubmitting && <AppLoadingIndicator />}
     </View>
   );
 };

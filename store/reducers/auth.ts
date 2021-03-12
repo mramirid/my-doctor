@@ -18,9 +18,9 @@ const authSlice = createSlice({
   reducers: {
     logout(state) {
       state.uid = null;
-      state.email = null;
       state.fullName = null;
       state.occupation = null;
+      state.email = null;
       state.photo = null;
     },
   },
@@ -35,9 +35,9 @@ const authSlice = createSlice({
       })
       .addCase(signIn.fulfilled, (state, { payload }) => {
         state.uid = payload.uid;
-        state.email = payload.email;
         state.fullName = payload.fullName;
         state.occupation = payload.occupation;
+        state.email = payload.email;
         state.photo = payload.photo;
       })
       .addCase(uploadPhoto.fulfilled, (state, { payload }) => {

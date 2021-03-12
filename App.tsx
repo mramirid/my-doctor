@@ -9,6 +9,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import Fonts from './constants/fonts';
 import AppNavigator from './navigation';
+import { AppLoadingIndicatorContextProvider } from './screens/contexts/app-loading-indicator';
 import { store, persistor } from './store';
 
 enableScreens();
@@ -32,7 +33,9 @@ const App: FC = () => {
     <>
       <Provider store={store}>
         <PersistGate loading={<AppLoading />} persistor={persistor}>
-          <AppNavigator />
+          <AppLoadingIndicatorContextProvider>
+            <AppNavigator />
+          </AppLoadingIndicatorContextProvider>
         </PersistGate>
       </Provider>
       <FlashMessage position="top" />

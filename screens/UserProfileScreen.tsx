@@ -1,7 +1,9 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
-import React, { FC } from 'react';
+import firebase from 'firebase';
+import React, { FC, useContext } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 
 import ListItemBordered from '../components/molecules/ListItemBordered';
 import Header from '../components/molecules/header/Header';
@@ -9,13 +11,32 @@ import UserProfileWithPhoto from '../components/molecules/profile/UserProfileWit
 import Colors from '../constants/colors';
 import { UserProfileScreenNavProp } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
-import { selectUserAuth } from '../store/reducers/auth';
-import { useAppSelector } from '../store/types';
+import { logout, selectUserAuth } from '../store/reducers/auth';
+import { useAppDispatch, useAppSelector } from '../store/types';
+import { AppLoadingIndicatorContext } from './contexts/app-loading-indicator';
 
 const UserProfileScreen: FC = () => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation<UserProfileScreenNavProp>();
+  const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
 
   const userAuth = useAppSelector(selectUserAuth);
+
+  const signOut = async () => {
+    try {
+      showLoading();
+      await firebase.auth().signOut();
+      dispatch(logout());
+      navigation.replace('GetStartedScreen');
+    } catch (error) {
+      showMessage({
+        message: error.message || 'Failed to sign out',
+        type: 'danger',
+      });
+    } finally {
+      hideLoading();
+    }
+  };
 
   return (
     <View style={styles.screen}>
@@ -50,13 +71,13 @@ const UserProfileScreen: FC = () => {
         />
         <ListItemBordered
           style={styles.settingItem}
-          title="Help Center"
+          title="Sign Out"
           description="Read our guidelines"
           avatar={
             <MaterialCommunityIcons name="note-text-outline" size={24} color={Colors.Green2} />
           }
           withArrowIcon
-          onPress={() => null}
+          onPress={signOut}
         />
       </ScrollView>
     </View>

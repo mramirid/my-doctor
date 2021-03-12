@@ -1,13 +1,12 @@
-import * as ImagePicker from 'expo-image-picker';
-import * as Permissions from 'expo-permissions';
 import React, { FC, memo, useCallback } from 'react';
-import { Alert, Image, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { Image, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import RemovePhoto from '../../../assets/icons/RemovePhoto';
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
 import Patient from '../../../global-types/patient';
+import usePhotoPicker from '../../../hooks/usePhotoPicker';
 
 interface ReadonlyProps {
   patient: Patient;
@@ -23,34 +22,17 @@ interface EditProps {
 }
 
 const UserProfileWithPhoto: FC<ReadonlyProps | EditProps> = (props) => {
-  const pickPhoto = useCallback(async () => {
-    const permission = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
-    if (!permission.granted) {
-      Alert.alert(
-        'Izin Akses Diperlukan',
-        'Perizinan akses ke penyimpanan diperlukan untuk mengambil gambar',
-        [{ text: 'OK' }]
-      );
-      return;
-    }
+  const { pickPhoto } = usePhotoPicker();
 
-    const pickResult = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 0.5,
-      base64: true,
-    });
-    if (props.isEdit && !pickResult.cancelled) {
-      props.onPhotoTaken(`data:image;base64, ${pickResult.base64}`);
-    }
-  }, [props]);
+  const startPickPhoto = useCallback(async () => {
+    if (props.isEdit) props.onPhotoTaken(await pickPhoto());
+  }, [pickPhoto, props]);
 
   return (
     <View style={{ ...styles.container, ...props.style }}>
       {props.isEdit ? (
         <View style={styles.avatarContainer}>
-          <TouchableOpacity onPress={pickPhoto}>
+          <TouchableOpacity onPress={startPickPhoto}>
             <Image
               style={styles.avatar}
               source={
@@ -110,12 +92,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: Fonts.NunitoSemiBold,
     color: Colors.Dark,
+    textTransform: 'capitalize',
     marginTop: 16,
   },
   occupation: {
     fontSize: 16,
     fontFamily: Fonts.NunitoRegular,
     color: Colors.Grey2,
+    textTransform: 'capitalize',
     marginTop: 2,
   },
 });
