@@ -114,7 +114,13 @@ const SignUpScreen: FC = () => {
         <TypedController
           name="password"
           defaultValue=""
-          rules={{ required: 'Password wajib diisi' }}
+          rules={{
+            required: 'Password wajib diisi',
+            minLength: {
+              value: 6,
+              message: 'Password minimal 6 abjad',
+            },
+          }}
           render={(renderProps) => (
             <AppTextInput
               {...renderProps}

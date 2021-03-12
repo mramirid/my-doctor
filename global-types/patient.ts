@@ -10,11 +10,6 @@ export interface SignInFormValues {
   password: string;
 }
 
-export interface PickedPhoto {
-  uri: string;
-  base64: string;
-}
-
 export default interface Patient {
   uid: string | null;
   fullName: string | null;

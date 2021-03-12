@@ -1,43 +1,113 @@
 import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/core';
-import React, { FC } from 'react';
-import { useForm } from 'react-hook-form';
+import { unwrapResult } from '@reduxjs/toolkit';
+import firebase from 'firebase';
+import React, { FC, useCallback } from 'react';
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 
 import AppButton from '../components/atoms/AppButton';
 import AppGap from '../components/atoms/AppGap';
 import AppTextInput from '../components/atoms/AppTextInput';
+import AppLoadingIndicator from '../components/molecules/AppLoadingIndicator';
 import Header from '../components/molecules/header/Header';
 import UserProfileWithPhoto from '../components/molecules/profile/UserProfileWithPhoto';
 import Colors from '../constants/colors';
-import patient from '../constants/dummies/patient';
 import { EditUserProfileScreenNavProp } from '../global-types/navigation';
+import { SignUpFormValues } from '../global-types/patient';
 import withStatusBar from '../hoc/withStatusBar';
+import { selectUserAuth } from '../store/reducers/auth';
+import { updateProfile } from '../store/thunks/auth';
+import { useAppDispatch, useAppSelector } from '../store/types';
 
 interface FormValues {
   fullName: string;
   occupation: string;
-  email: string;
-  password: string;
+  photo: string | null;
+  oldPassword: string;
+  newPassword: string;
 }
 
 const EditUserProfileScreen: FC = () => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation<EditUserProfileScreenNavProp>();
-  const { control } = useForm<FormValues>();
+
+  const userAuth = useAppSelector(selectUserAuth);
+  const { control, formState, handleSubmit, reset } = useForm<FormValues>();
   const TypedController = useTypedController<FormValues>({ control });
+
+  const onSubmit = useCallback<SubmitHandler<FormValues>>(
+    async (data) => {
+      try {
+        if (!!data.oldPassword && !!data.newPassword) {
+          const credential = firebase.auth.EmailAuthProvider.credential(
+            userAuth.email!,
+            data.oldPassword
+          );
+          const patient = firebase.auth().currentUser;
+          await patient?.reauthenticateWithCredential(credential);
+          patient?.updatePassword(data.newPassword);
+        }
+        unwrapResult(
+          await dispatch(
+            updateProfile({
+              fullName: data.fullName,
+              occupation: data.occupation,
+              photo: data.photo,
+            })
+          )
+        );
+        reset({
+          ...data,
+          oldPassword: '',
+          newPassword: '',
+        });
+        showMessage({
+          message: 'Profile berhasil diperbaharui',
+          type: 'success',
+        });
+      } catch (error) {
+        showMessage({
+          message: error.message,
+          type: 'danger',
+        });
+      }
+    },
+    [dispatch, reset, userAuth.email]
+  );
+
+  const onValidationError = useCallback<SubmitErrorHandler<SignUpFormValues>>((errors) => {
+    for (const field in errors) {
+      if (errors.hasOwnProperty(field)) {
+        showMessage({
+          message: (errors as any)[field].message,
+          type: 'danger',
+        });
+        break;
+      }
+    }
+  }, []);
 
   return (
     <View style={styles.screen}>
       <Header title="Profile" type="flat" onBackButtonPressed={navigation.goBack} />
       <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
-        <UserProfileWithPhoto
-          style={styles.profileWithPhoto}
-          photoUrl={patient.photoUrl}
-          onRemoveAvatar={() => null}
+        <TypedController
+          name="photo"
+          defaultValue={userAuth.photo!}
+          render={(renderProps) => (
+            <UserProfileWithPhoto
+              style={styles.profileWithPhoto}
+              isEdit
+              photo={renderProps.value}
+              onPhotoTaken={(pickedPhoto) => renderProps.onChange(pickedPhoto)}
+            />
+          )}
         />
         <TypedController
           name="fullName"
-          defaultValue=""
+          defaultValue={userAuth.fullName ?? ''}
           rules={{ required: 'Nama lengkap wajib diisi' }}
           render={(renderProps) => (
             <AppTextInput
@@ -52,7 +122,7 @@ const EditUserProfileScreen: FC = () => {
         <AppGap height={24} />
         <TypedController
           name="occupation"
-          defaultValue=""
+          defaultValue={userAuth.occupation ?? ''}
           rules={{ required: 'Pekerjaan wajib diisi' }}
           render={(renderProps) => (
             <AppTextInput
@@ -65,37 +135,49 @@ const EditUserProfileScreen: FC = () => {
           )}
         />
         <AppGap height={24} />
+        <AppTextInput
+          defaultValue={userAuth.email!}
+          label="Email Address"
+          editable={false}
+          selectTextOnFocus={false}
+        />
+        <AppGap height={24} />
         <TypedController
-          name="email"
+          name="oldPassword"
           defaultValue=""
           rules={{
-            required: 'Email wajib diisi',
-            pattern: {
-              value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-              message: 'Email tidak valid',
+            validate: (value) => {
+              if (value.length === 0) return true;
+              return value.length >= 6 || 'Password lama minimal 6 abjad';
             },
           }}
           render={(renderProps) => (
             <AppTextInput
               {...renderProps}
               onChangeText={(text) => renderProps.onChange(text)}
-              label="Email Address"
+              label="Password"
+              placeholder="Password lama..."
+              secureTextEntry
               autoCapitalize="none"
-              keyboardType="email-address"
               returnKeyType="next"
             />
           )}
         />
-        <AppGap height={24} />
+        <AppGap height={12} />
         <TypedController
-          name="password"
+          name="newPassword"
           defaultValue=""
-          rules={{ required: 'Password wajib diisi' }}
+          rules={{
+            validate: (value) => {
+              if (value.length === 0) return true;
+              return value.length >= 6 || 'Password baru minimal 6 abjad';
+            },
+          }}
           render={(renderProps) => (
             <AppTextInput
               {...renderProps}
               onChangeText={(text) => renderProps.onChange(text)}
-              label="Password"
+              placeholder="Password baru..."
               secureTextEntry
               autoCapitalize="none"
               returnKeyType="done"
@@ -107,9 +189,10 @@ const EditUserProfileScreen: FC = () => {
           style={styles.submitButton}
           title="Save Profile"
           color="accent"
-          onPress={navigation.goBack}
+          onPress={handleSubmit(onSubmit, onValidationError)}
         />
       </ScrollView>
+      {formState.isSubmitting && <AppLoadingIndicator />}
     </View>
   );
 };

@@ -16,7 +16,6 @@ import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
 import { UploadPhotoScreenNavProp } from '../../../global-types/navigation';
-import { PickedPhoto } from '../../../global-types/patient';
 import withStatusBar from '../../../hoc/withStatusBar';
 import useIsMounted from '../../../hooks/useIsMounted';
 import { selectUserAuth } from '../../../store/reducers/auth';
@@ -30,12 +29,12 @@ const UploadPhotoScreen: FC = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const userAuth = useAppSelector(selectUserAuth);
-  const [pickedPhoto, setPickedPhoto] = useState<PickedPhoto>();
+  const [pickedPhoto, setPickedPhoto] = useState<string | null>(null);
 
   const uploadNewPhoto = async () => {
     try {
       setIsLoading(true);
-      unwrapResult(await dispatch(uploadPhoto(pickedPhoto!)));
+      unwrapResult(await dispatch(uploadPhoto({ newPhoto: pickedPhoto! })));
       navigation.replace('HomeTab');
     } catch (error) {
       showMessage({
@@ -66,18 +65,15 @@ const UploadPhotoScreen: FC = () => {
       base64: true,
     });
     if (!pickResult.cancelled) {
-      setPickedPhoto({
-        uri: pickResult.uri,
-        base64: pickResult.base64!,
-      });
+      setPickedPhoto(`data:image;base64, ${pickResult.base64}`);
     }
   }, []);
 
   let photo: JSX.Element;
-  if (pickedPhoto?.uri) {
+  if (pickedPhoto) {
     photo = (
       <>
-        <Image source={{ uri: pickedPhoto.uri }} style={styles.photo} />
+        <Image source={{ uri: pickedPhoto }} style={styles.photo} />
         <RemovePhoto style={styles.actionPhoto} />
       </>
     );
@@ -109,7 +105,7 @@ const UploadPhotoScreen: FC = () => {
           <AppButton
             title="Upload and Continue"
             color="accent"
-            disabled={!pickedPhoto?.uri}
+            disabled={!pickedPhoto}
             onPress={uploadNewPhoto}
           />
           <AppLink style={styles.skipLink} onPress={() => navigation.replace('HomeTab')}>

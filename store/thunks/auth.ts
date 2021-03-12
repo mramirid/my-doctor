@@ -1,11 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import firebase from '../../config/firebase';
-import Patient, {
-  PickedPhoto,
-  SignInFormValues,
-  SignUpFormValues,
-} from '../../global-types/patient';
+import Patient, { SignInFormValues, SignUpFormValues } from '../../global-types/patient';
 import { AppThunkAPIConfig } from '../types';
 
 interface FirePatient {
@@ -43,20 +39,21 @@ export const signUp = createAsyncThunk<Patient, SignUpFormValues, AppThunkAPICon
   }
 );
 
-interface UploadPhotoReturned {
+interface UploadPhotoPayload {
   newPhoto: string;
 }
 
-export const uploadPhoto = createAsyncThunk<UploadPhotoReturned, PickedPhoto, AppThunkAPIConfig>(
+export const uploadPhoto = createAsyncThunk<
+  UploadPhotoPayload,
+  UploadPhotoPayload,
+  AppThunkAPIConfig
+>(
   'auth/uploadPhoto',
   async (payload, thunkAPI) => {
     try {
       const patientUid = thunkAPI.getState().auth.uid;
-      const photo = `data:image;base64, ${payload.base64}`;
-      await firebase.database().ref(`users/${patientUid}`).update({ photo });
-      return {
-        newPhoto: photo,
-      };
+      await firebase.database().ref(`users/${patientUid}`).update({ photo: payload.newPhoto });
+      return { newPhoto: payload.newPhoto };
     } catch (err) {
       return thunkAPI.rejectWithValue({
         message: err.message || 'Terjadi kesalahan, coba lagi nanti',
@@ -102,5 +99,39 @@ export const signIn = createAsyncThunk<Patient, SignInFormValues, AppThunkAPICon
         message: err.message || 'Terjadi kesalahan, coba lagi nanti',
       });
     }
+  }
+);
+
+interface UpdateProfilePayload {
+  fullName: string;
+  occupation: string;
+  photo: string | null;
+}
+
+export const updateProfile = createAsyncThunk<
+  UpdateProfilePayload,
+  UpdateProfilePayload,
+  AppThunkAPIConfig
+>(
+  'auth/updateProfile',
+  async (payload, thunkAPI) => {
+    try {
+      const patientUid = thunkAPI.getState().auth.uid;
+      await firebase
+        .database()
+        .ref(`users/${patientUid}`)
+        .update({ ...payload });
+      return payload;
+    } catch (err) {
+      return thunkAPI.rejectWithValue({
+        message: err.message || 'Terjadi kesalahan, coba lagi nanti',
+      });
+    }
+  },
+  {
+    condition: (_, thunkAPI) => {
+      const { uid } = thunkAPI.getState().auth;
+      return !!uid;
+    },
   }
 );

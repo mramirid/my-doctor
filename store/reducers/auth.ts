@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import Patient from '../../global-types/patient';
-import { signIn, signUp, uploadPhoto } from '../thunks/auth';
+import { signIn, signUp, updateProfile, uploadPhoto } from '../thunks/auth';
 import { RootState } from '../types';
 
 const initialState: Patient = {
@@ -42,6 +42,11 @@ const authSlice = createSlice({
       })
       .addCase(uploadPhoto.fulfilled, (state, { payload }) => {
         state.photo = payload.newPhoto;
+      })
+      .addCase(updateProfile.fulfilled, (state, { payload }) => {
+        state.fullName = payload.fullName;
+        state.occupation = payload.occupation;
+        state.photo = payload.photo;
       });
   },
 });

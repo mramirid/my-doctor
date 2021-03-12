@@ -4,21 +4,23 @@ import React, { FC, useEffect } from 'react';
 
 import firebase from '../config/firebase';
 import { StartupScreenNavProp } from '../global-types/navigation';
-import { useAppDispatch } from '../store/types';
+import { selectIsAuth } from '../store/reducers/auth';
+import { useAppDispatch, useAppSelector } from '../store/types';
 
 const StartupScreen: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<StartupScreenNavProp>();
 
+  const isAuth = useAppSelector(selectIsAuth);
+
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        navigation.replace('HomeTab');
-      } else {
-        navigation.replace('GetStartedScreen');
-      }
-    });
-  }, [dispatch, navigation]);
+    const patient = firebase.auth().currentUser;
+    if (patient && isAuth) {
+      navigation.replace('HomeTab');
+    } else {
+      navigation.replace('GetStartedScreen');
+    }
+  }, [dispatch, isAuth, navigation]);
 
   return <AppLoading />;
 };

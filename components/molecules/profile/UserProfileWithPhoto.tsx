@@ -1,5 +1,8 @@
-import React, { FC, memo } from 'react';
-import { Image, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import React, { FC, memo, useCallback } from 'react';
+import { Alert, Image, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import RemovePhoto from '../../../assets/icons/RemovePhoto';
 import Colors from '../../../constants/colors';
@@ -13,25 +16,68 @@ interface ReadonlyProps {
 }
 
 interface EditProps {
-  patient: Patient;
   isEdit: true;
-  onRemoveAvatar: () => void;
+  photo: string | null;
+  onPhotoTaken(pickedPhoto: string | null): void;
   style?: ViewStyle;
 }
 
 const UserProfileWithPhoto: FC<ReadonlyProps | EditProps> = (props) => {
-  const userPohoto = props.patient.photo
-    ? { uri: props.patient.photo }
-    : require('../../../assets/illustrations/user-photo-null.png');
+  const pickPhoto = useCallback(async () => {
+    const permission = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+    if (!permission.granted) {
+      Alert.alert(
+        'Izin Akses Diperlukan',
+        'Perizinan akses ke penyimpanan diperlukan untuk mengambil gambar',
+        [{ text: 'OK' }]
+      );
+      return;
+    }
+
+    const pickResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.5,
+      base64: true,
+    });
+    if (props.isEdit && !pickResult.cancelled) {
+      props.onPhotoTaken(`data:image;base64, ${pickResult.base64}`);
+    }
+  }, [props]);
 
   return (
     <View style={{ ...styles.container, ...props.style }}>
-      <View style={styles.avatarContainer}>
-        <Image style={styles.avatar} source={userPohoto} />
-        {props.isEdit && <RemovePhoto style={styles.removePhotoIcon} />}
-      </View>
-      {!props.isEdit && <Text style={styles.fullName}>{props.patient.fullName}</Text>}
-      {!props.isEdit && <Text style={styles.occupation}>{props.patient.occupation}</Text>}
+      {props.isEdit ? (
+        <View style={styles.avatarContainer}>
+          <TouchableOpacity onPress={pickPhoto}>
+            <Image
+              style={styles.avatar}
+              source={
+                props.photo
+                  ? { uri: props.photo }
+                  : require('../../../assets/illustrations/user-photo-null.png')
+              }
+            />
+          </TouchableOpacity>
+          <RemovePhoto style={styles.removePhotoIcon} onPress={() => props.onPhotoTaken(null)} />
+        </View>
+      ) : (
+        <>
+          <View style={styles.avatarContainer}>
+            <Image
+              style={styles.avatar}
+              source={
+                props.patient.photo
+                  ? { uri: props.patient.photo }
+                  : require('../../../assets/illustrations/user-photo-null.png')
+              }
+            />
+          </View>
+          <Text style={styles.fullName}>{props.patient.fullName}</Text>
+          <Text style={styles.occupation}>{props.patient.occupation}</Text>
+        </>
+      )}
     </View>
   );
 };

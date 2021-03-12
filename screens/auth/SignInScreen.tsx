@@ -34,6 +34,7 @@ const SignInScreen: FC = () => {
         dispatch(logout());
         unwrapResult(await dispatch(signIn(data)));
         reset();
+        navigation.replace('HomeTab');
       } catch (error) {
         showMessage({
           message: error.message,
@@ -41,7 +42,7 @@ const SignInScreen: FC = () => {
         });
       }
     },
-    [dispatch, reset]
+    [dispatch, navigation, reset]
   );
 
   const onValidationError = useCallback<SubmitErrorHandler<SignInFormValues>>((errors) => {
