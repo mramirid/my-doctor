@@ -1,4 +1,4 @@
-import React, { createContext, FC, useState } from 'react';
+import React, { createContext, FC, useCallback, useState } from 'react';
 
 import AppLoadingIndicator from '../../components/molecules/AppLoadingIndicator';
 
@@ -12,8 +12,8 @@ export const AppLoadingIndicatorContext = createContext<ContextType>(undefined!)
 export const AppLoadingIndicatorContextProvider: FC = (props) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const showLoading = () => setIsLoading(true);
-  const hideLoading = () => setIsLoading(false);
+  const showLoading = useCallback(() => setIsLoading(true), []);
+  const hideLoading = useCallback(() => setIsLoading(false), []);
 
   return (
     <AppLoadingIndicatorContext.Provider value={{ showLoading, hideLoading }}>

@@ -1,22 +1,25 @@
+import { format } from 'date-fns';
 import React, { FC } from 'react';
 import { View, StyleSheet, Text, Image, ViewStyle } from 'react-native';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
+import { News } from '../../global-types/news';
 import AppBorderedItem from '../atoms/AppBorderedItem';
 
 interface NewsItemProps {
   style?: ViewStyle;
+  news: News;
   onPress(): void;
 }
 
 const NewsItem: FC<NewsItemProps> = (props) => (
   <AppBorderedItem style={{ ...styles.container, ...(props.style ?? {}) }} onPress={props.onPress}>
     <View style={styles.newsHeading}>
-      <Text style={styles.title}>Is it safe to stay at home during coronavirus?</Text>
-      <Text style={styles.date}>Today</Text>
+      <Text style={styles.title}>{props.news.title}</Text>
+      <Text style={styles.date}>{format(new Date(props.news.date), 'eeee')}</Text>
     </View>
-    <Image style={styles.image} source={require('../../assets/dummies/news-building.png')} />
+    <Image style={styles.image} source={{ uri: props.news.imageUrl }} />
   </AppBorderedItem>
 );
 

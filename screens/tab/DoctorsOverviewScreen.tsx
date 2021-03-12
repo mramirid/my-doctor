@@ -1,6 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { FC } from 'react';
+import firebase from 'firebase';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 
 import AppGap from '../../components/atoms/AppGap';
 import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
@@ -14,9 +16,11 @@ import { topRatedDoctors } from '../../constants/dummies/doctors';
 import Fonts from '../../constants/fonts';
 import { DoctorCategory as IDoctorCategory } from '../../global-types/doctor';
 import { DoctorsOverviewScreenNavProp } from '../../global-types/navigation';
+import { FireNews, News } from '../../global-types/news';
 import withStatusBar from '../../hoc/withStatusBar';
 import { selectUserAuth } from '../../store/reducers/auth';
 import { useAppSelector } from '../../store/types';
+import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
 
 const doctorCategories: IDoctorCategory[] = [
   {
@@ -37,9 +41,40 @@ const doctorCategories: IDoctorCategory[] = [
   },
 ];
 
+interface FireGetNews {
+  [id: string]: FireNews;
+}
+
+async function fetchNews() {
+  const data = await firebase.database().ref('news').once('value');
+  const fetchedNews: FireGetNews = data.val();
+  const news = Object.keys(fetchedNews).map<News>((key) => ({ id: key, ...fetchedNews[key] }));
+  return news;
+}
+
 const DoctorsOverviewScreen: FC = () => {
-  const userAuth = useAppSelector(selectUserAuth);
   const navigation = useNavigation<DoctorsOverviewScreenNavProp>();
+  const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
+
+  const userAuth = useAppSelector(selectUserAuth);
+  const [news, setNews] = useState<News[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        showLoading();
+        const [news] = await Promise.all([fetchNews()]);
+        setNews(news);
+      } catch (error) {
+        showMessage({
+          message: error.message || 'Tidak dapat menjangkau server',
+          type: 'danger',
+        });
+      } finally {
+        hideLoading();
+      }
+    })();
+  }, [hideLoading, showLoading]);
 
   return (
     <AppTabScreen style={styles.screen} withScrollView>
@@ -79,9 +114,9 @@ const DoctorsOverviewScreen: FC = () => {
       </View>
       <AppGap height={30} />
       <Text style={styles.sectionLabel}>Good News</Text>
-      <NewsItem style={styles.newsItem} onPress={() => null} />
-      <NewsItem style={styles.newsItem} onPress={() => null} />
-      <NewsItem style={styles.newsItem} onPress={() => null} />
+      {news.map((item) => (
+        <NewsItem style={styles.newsItem} key={item.id} news={item} onPress={() => null} />
+      ))}
     </AppTabScreen>
   );
 };
