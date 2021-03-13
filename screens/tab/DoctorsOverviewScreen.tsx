@@ -14,13 +14,13 @@ import Colors from '../../constants/colors';
 import DoctorSpecialist from '../../constants/doctor-specialist';
 import { topRatedDoctors } from '../../constants/dummies/doctors';
 import Fonts from '../../constants/fonts';
+import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
 import { DoctorCategory as IDoctorCategory } from '../../global-types/doctor';
 import { DoctorsOverviewScreenNavProp } from '../../global-types/navigation';
 import { FireNews, News } from '../../global-types/news';
 import withStatusBar from '../../hoc/withStatusBar';
 import { selectUserAuth } from '../../store/reducers/auth';
 import { useAppSelector } from '../../store/types';
-import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
 
 interface FireGetNews {
   [id: string]: FireNews;

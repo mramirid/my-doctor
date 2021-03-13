@@ -9,11 +9,11 @@ import ListItemBordered from '../components/molecules/ListItemBordered';
 import Header from '../components/molecules/header/Header';
 import UserProfileWithPhoto from '../components/molecules/profile/UserProfileWithPhoto';
 import Colors from '../constants/colors';
+import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
 import { UserProfileScreenNavProp } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
 import { logout, selectUserAuth } from '../store/reducers/auth';
 import { useAppDispatch, useAppSelector } from '../store/types';
-import { AppLoadingIndicatorContext } from './contexts/app-loading-indicator';
 
 const UserProfileScreen: FC = () => {
   const dispatch = useAppDispatch();

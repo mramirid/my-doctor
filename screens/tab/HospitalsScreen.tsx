@@ -8,8 +8,8 @@ import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
 import HospitalItem from '../../components/molecules/HospitalItem';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
+import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
 import Hospital, { FireHospitals } from '../../global-types/hospital';
-import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
 
 interface FireGetHospitals {
   [id: string]: FireHospitals;

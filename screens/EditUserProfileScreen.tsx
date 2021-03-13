@@ -13,13 +13,13 @@ import AppTextInput from '../components/atoms/AppTextInput';
 import Header from '../components/molecules/header/Header';
 import UserProfileWithPhoto from '../components/molecules/profile/UserProfileWithPhoto';
 import Colors from '../constants/colors';
+import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
 import { EditUserProfileScreenNavProp } from '../global-types/navigation';
 import { SignUpFormValues } from '../global-types/patient';
 import withStatusBar from '../hoc/withStatusBar';
 import { selectUserAuth } from '../store/reducers/auth';
 import { updateProfile } from '../store/thunks/auth';
 import { useAppDispatch, useAppSelector } from '../store/types';
-import { AppLoadingIndicatorContext } from './contexts/app-loading-indicator';
 
 interface FormValues {
   fullName: string;

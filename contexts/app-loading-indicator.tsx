@@ -1,6 +1,6 @@
 import React, { createContext, FC, useCallback, useState } from 'react';
 
-import AppLoadingIndicator from '../../components/molecules/AppLoadingIndicator';
+import AppLoadingIndicator from '../components/molecules/AppLoadingIndicator';
 
 interface ContextType {
   showLoading: () => void;

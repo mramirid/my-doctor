@@ -11,13 +11,13 @@ import AppGap from '../../../components/atoms/AppGap';
 import AppTextInput from '../../../components/atoms/AppTextInput';
 import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
+import { AppLoadingIndicatorContext } from '../../../contexts/app-loading-indicator';
 import { SignUpScreenNavProp } from '../../../global-types/navigation';
 import { SignUpFormValues } from '../../../global-types/patient';
 import withStatusBar from '../../../hoc/withStatusBar';
 import { logout } from '../../../store/reducers/auth';
 import { signUp } from '../../../store/thunks/auth';
 import { useAppDispatch } from '../../../store/types';
-import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
 
 const SignUpScreen: FC = () => {
   const dispatch = useAppDispatch();

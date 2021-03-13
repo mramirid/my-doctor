@@ -12,13 +12,13 @@ import AppLink from '../../../components/atoms/AppLink';
 import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
+import { AppLoadingIndicatorContext } from '../../../contexts/app-loading-indicator';
 import { UploadPhotoScreenNavProp } from '../../../global-types/navigation';
 import withStatusBar from '../../../hoc/withStatusBar';
 import usePhotoPicker from '../../../hooks/usePhotoPicker';
 import { selectUserAuth } from '../../../store/reducers/auth';
 import { uploadPhoto } from '../../../store/thunks/auth';
 import { useAppDispatch, useAppSelector } from '../../../store/types';
-import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
 
 const UploadPhotoScreen: FC = () => {
   const dispatch = useAppDispatch();

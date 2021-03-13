@@ -13,13 +13,13 @@ import AppLink from '../../components/atoms/AppLink';
 import AppTextInput from '../../components/atoms/AppTextInput';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
+import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
 import { SignInScreenNavProp } from '../../global-types/navigation';
 import { SignInFormValues } from '../../global-types/patient';
 import withStatusBar from '../../hoc/withStatusBar';
 import { logout } from '../../store/reducers/auth';
 import { signIn } from '../../store/thunks/auth';
 import { useAppDispatch } from '../../store/types';
-import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
 
 const SignInScreen: FC = () => {
   const dispatch = useAppDispatch();
