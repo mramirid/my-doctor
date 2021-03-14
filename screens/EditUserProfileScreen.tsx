@@ -11,20 +11,19 @@ import AppButton from '../components/atoms/AppButton';
 import AppGap from '../components/atoms/AppGap';
 import AppTextInput from '../components/atoms/AppTextInput';
 import Header from '../components/molecules/header/Header';
-import UserProfileWithPhoto from '../components/molecules/profile/UserProfileWithPhoto';
+import UserProfileHeadline from '../components/molecules/profile/UserProfileHeadline';
 import Colors from '../constants/colors';
 import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
 import { EditUserProfileScreenNavProp } from '../global-types/navigation';
-import { SignUpFormValues } from '../global-types/patient';
 import withStatusBar from '../hoc/withStatusBar';
 import { selectUserAuth } from '../store/reducers/auth';
 import { updateProfile } from '../store/thunks/auth';
 import { useAppDispatch, useAppSelector } from '../store/types';
 
 interface FormValues {
+  photo: string | null;
   fullName: string;
   occupation: string;
-  photo: string | null;
   oldPassword: string;
   newPassword: string;
 }
@@ -35,7 +34,15 @@ const EditUserProfileScreen: FC = () => {
   const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
 
   const userAuth = useAppSelector(selectUserAuth);
-  const { control, formState, handleSubmit, reset } = useForm<FormValues>();
+  const { control, formState, handleSubmit, reset } = useForm<FormValues>({
+    defaultValues: {
+      photo: userAuth.photo,
+      fullName: userAuth.fullName!,
+      occupation: userAuth.occupation!,
+      oldPassword: '',
+      newPassword: '',
+    },
+  });
   const TypedController = useTypedController<FormValues>({ control });
 
   const onSubmit = useCallback<SubmitHandler<FormValues>>(
@@ -82,7 +89,7 @@ const EditUserProfileScreen: FC = () => {
     [dispatch, hideLoading, navigation, reset, showLoading, userAuth.email]
   );
 
-  const onValidationError = useCallback<SubmitErrorHandler<SignUpFormValues>>((errors) => {
+  const onValidationError = useCallback<SubmitErrorHandler<FormValues>>((errors) => {
     for (const field in errors) {
       if (errors.hasOwnProperty(field)) {
         showMessage({
@@ -100,9 +107,8 @@ const EditUserProfileScreen: FC = () => {
       <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
         <TypedController
           name="photo"
-          defaultValue={userAuth.photo}
           render={(renderProps) => (
-            <UserProfileWithPhoto
+            <UserProfileHeadline
               style={styles.profileWithPhoto}
               isEdit
               photo={renderProps.value}
@@ -112,7 +118,6 @@ const EditUserProfileScreen: FC = () => {
         />
         <TypedController
           name="fullName"
-          defaultValue={userAuth.fullName ?? ''}
           rules={{ required: 'Nama lengkap wajib diisi' }}
           render={(renderProps) => (
             <AppTextInput
@@ -127,7 +132,6 @@ const EditUserProfileScreen: FC = () => {
         <AppGap height={24} />
         <TypedController
           name="occupation"
-          defaultValue={userAuth.occupation ?? ''}
           rules={{ required: 'Pekerjaan wajib diisi' }}
           render={(renderProps) => (
             <AppTextInput
@@ -149,7 +153,6 @@ const EditUserProfileScreen: FC = () => {
         <AppGap height={24} />
         <TypedController
           name="oldPassword"
-          defaultValue=""
           rules={{
             validate: (value) => {
               if (value.length === 0) return true;
@@ -171,7 +174,6 @@ const EditUserProfileScreen: FC = () => {
         <AppGap height={12} />
         <TypedController
           name="newPassword"
-          defaultValue=""
           rules={{
             validate: (value) => {
               if (value.length === 0) return true;

@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
-import Doctor from '../../global-types/doctor';
+import { Doctor } from '../../global-types/user';
 
 interface TopRatedDoctorItemProps {
   style?: ViewStyle;
@@ -15,10 +15,10 @@ interface TopRatedDoctorItemProps {
 
 const TopRatedDoctorItem: FC<TopRatedDoctorItemProps> = (props) => (
   <TouchableOpacity style={{ ...styles.container, ...(props.style ?? {}) }} onPress={props.onPress}>
-    <Image style={styles.avatar} source={{ uri: props.doctor.photoUrl }} />
+    <Image style={styles.avatar} source={{ uri: props.doctor.photo! }} />
     <View style={styles.profile}>
-      <Text style={styles.name}>{props.doctor.name}</Text>
-      <Text style={styles.specialist}>{props.doctor.specialist}</Text>
+      <Text style={styles.name}>{props.doctor.fullName}</Text>
+      <Text style={styles.occupation}>{props.doctor.occupation}</Text>
     </View>
     <View style={styles.rating}>
       <Ionicons name="star" size={16} color={Colors.Gold} />
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.NunitoSemiBold,
     color: Colors.Dark,
   },
-  specialist: {
+  occupation: {
     fontSize: 12,
     fontFamily: Fonts.NunitoRegular,
     color: Colors.Grey2,

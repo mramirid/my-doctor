@@ -51,7 +51,7 @@ const UploadPhotoScreen: FC = () => {
     photo = (
       <>
         <Image source={{ uri: pickedPhoto }} style={styles.photo} />
-        <RemovePhoto style={styles.actionPhoto} />
+        <RemovePhoto style={styles.actionPhoto} onPress={() => setPickedPhoto(null)} />
       </>
     );
   } else {

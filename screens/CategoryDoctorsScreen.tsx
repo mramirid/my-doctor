@@ -6,18 +6,19 @@ import AppGap from '../components/atoms/AppGap';
 import ListItemBordered from '../components/molecules/ListItemBordered';
 import Header from '../components/molecules/header/Header';
 import Colors from '../constants/colors';
-import doctors from '../constants/dummies/doctors';
 import Fonts from '../constants/fonts';
 import {
   CategoryDoctorsScreenNavProp,
   CategoryDoctorsScreenRouteProp,
 } from '../global-types/navigation';
+import { Doctor } from '../global-types/user';
 import withStatusBar from '../hoc/withStatusBar';
+
+const filteredDoctors: Doctor[] = [];
 
 const CategoryDoctorsScreen: FC = () => {
   const navigation = useNavigation<CategoryDoctorsScreenNavProp>();
   const { params } = useRoute<CategoryDoctorsScreenRouteProp>();
-  const filteredDoctors = doctors.filter((doctor) => doctor.specialist === params.category);
 
   let bodyContent: JSX.Element;
   if (filteredDoctors.length === 0) {
@@ -30,9 +31,9 @@ const CategoryDoctorsScreen: FC = () => {
         renderItem={({ item }) => (
           <ListItemBordered
             style={styles.doctorItem}
-            title={item.name}
+            title={item.fullName}
             description={item.gender}
-            avatar={<Image style={styles.avatar} source={{ uri: item.photoUrl }} />}
+            avatar={<Image style={styles.avatar} source={{ uri: item.photo! }} />}
             withArrowIcon
             onPress={() => navigation.navigate('ChatRoomScreen', { doctor: item })}
           />

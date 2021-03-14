@@ -5,15 +5,12 @@ import { StyleSheet, Text, Image, FlatList } from 'react-native';
 import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
 import ListItemBordered from '../../components/molecules/ListItemBordered';
 import Colors from '../../constants/colors';
-import DoctorSpecialist from '../../constants/doctor-specialist';
-import doctors from '../../constants/dummies/doctors';
 import Fonts from '../../constants/fonts';
 import { MessagesScreenNavProp } from '../../global-types/navigation';
+import { Doctor } from '../../global-types/user';
 import withStatusBar from '../../hoc/withStatusBar';
 
-const pedriaticians = doctors.filter(
-  (doctor) => doctor.specialist === DoctorSpecialist.Pediatrician
-);
+const pedriaticians: Doctor[] = [];
 
 const MessagesScreen: FC = () => {
   const navigation = useNavigation<MessagesScreenNavProp>();
@@ -26,9 +23,9 @@ const MessagesScreen: FC = () => {
         renderItem={({ item }) => (
           <ListItemBordered
             style={styles.messageItem}
-            key={item.id}
-            title={item.name}
-            avatar={<Image style={styles.avatar} source={{ uri: item.photoUrl }} />}
+            key={item.uid}
+            title={item.fullName}
+            avatar={<Image style={styles.avatar} source={{ uri: item.photo! }} />}
             description="Baik ibu, terima kasih banyak atas wakt..."
             onPress={() => navigation.navigate('ChatRoomScreen', { doctor: item })}
           />

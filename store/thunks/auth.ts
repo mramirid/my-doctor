@@ -1,18 +1,49 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import firebase from '../../config/firebase';
-import Patient, { SignInFormValues, SignUpFormValues } from '../../global-types/patient';
+import {
+  AuthState,
+  DoctorSignUpFormValues,
+  PatientSignUpFormValues,
+  SignInFormValues,
+} from '../../global-types/user';
 import { AppThunkAPIConfig } from '../types';
 
-interface FirePatient {
-  fullName: string;
-  email: string;
-  occupation: string;
-  photo: string | null;
-}
+export const signUpPatient = createAsyncThunk<
+  AuthState,
+  PatientSignUpFormValues,
+  AppThunkAPIConfig
+>('auth/signUpPatient', async (payload, thunkAPI) => {
+  try {
+    const userCredential = await firebase
+      .auth()
+      .createUserWithEmailAndPassword(payload.email, payload.password);
 
-export const signUp = createAsyncThunk<Patient, SignUpFormValues, AppThunkAPIConfig>(
-  'auth/signUp',
+    const user = userCredential.user;
+    await firebase.database().ref(`users/${user!.uid}`).set({
+      email: payload.email,
+      fullName: payload.fullName,
+      occupation: payload.occupation,
+      isDoctor: false,
+    });
+
+    return {
+      uid: user!.uid,
+      fullName: payload.fullName,
+      email: payload.email,
+      occupation: payload.occupation,
+      photo: null,
+      isDoctor: false,
+    };
+  } catch (err) {
+    return thunkAPI.rejectWithValue({
+      message: err.message || 'Terjadi kesalahan, coba lagi nanti',
+    });
+  }
+});
+
+export const signUpDoctor = createAsyncThunk<AuthState, DoctorSignUpFormValues, AppThunkAPIConfig>(
+  'auth/signUpDoctor',
   async (payload, thunkAPI) => {
     try {
       const userCredential = await firebase
@@ -20,16 +51,25 @@ export const signUp = createAsyncThunk<Patient, SignUpFormValues, AppThunkAPICon
         .createUserWithEmailAndPassword(payload.email, payload.password);
 
       const user = userCredential.user;
-      const createdPatient: FirePatient = {
+      await firebase.database().ref(`users/${user!.uid}`).set({
+        fullName: payload.fullName,
+        occupation: payload.occupation,
+        almamater: payload.almamater,
+        credentialId: payload.credentialId,
+        gender: payload.gender,
+        email: payload.email,
+        workplace: payload.workplace,
+        rating: 0,
+        isDoctor: true,
+      });
+
+      return {
+        uid: user!.uid,
         fullName: payload.fullName,
         email: payload.email,
         occupation: payload.occupation,
         photo: null,
-      };
-      await firebase.database().ref(`users/${user!.uid}`).set(createdPatient);
-      return {
-        uid: user!.uid,
-        ...createdPatient,
+        isDoctor: false,
       };
     } catch (err) {
       return thunkAPI.rejectWithValue({
@@ -51,8 +91,8 @@ export const uploadPhoto = createAsyncThunk<
   'auth/uploadPhoto',
   async (payload, thunkAPI) => {
     try {
-      const patientUid = thunkAPI.getState().auth.uid;
-      await firebase.database().ref(`users/${patientUid}`).update({ photo: payload.newPhoto });
+      const userUID = thunkAPI.getState().auth.uid;
+      await firebase.database().ref(`users/${userUID}`).update({ photo: payload.newPhoto });
       return { newPhoto: payload.newPhoto };
     } catch (err) {
       return thunkAPI.rejectWithValue({
@@ -68,7 +108,16 @@ export const uploadPhoto = createAsyncThunk<
   }
 );
 
-export const signIn = createAsyncThunk<Patient, SignInFormValues, AppThunkAPIConfig>(
+interface SignInResponse {
+  fullName: string;
+  email: string;
+  occupation: string;
+  password: string;
+  isDoctor: boolean;
+  photo?: string;
+}
+
+export const signIn = createAsyncThunk<AuthState, SignInFormValues, AppThunkAPIConfig>(
   'auth/signIn',
   async (payload, thunkAPI) => {
     try {
@@ -77,22 +126,34 @@ export const signIn = createAsyncThunk<Patient, SignInFormValues, AppThunkAPICon
         .signInWithEmailAndPassword(payload.email, payload.password);
 
       const user = userCredential.user;
-      const fetchedPatient = await new Promise<FirePatient>((resolve, reject) => {
+      const fetchedUser = await new Promise<SignInResponse>((resolve, reject) => {
         firebase
           .database()
           .ref(`users/${user!.uid}`)
-          .once(
-            'value',
-            (data) => {
-              resolve(data.val());
-            },
-            (error) => reject(error)
-          );
+          .once('value', (data) => resolve(data.val()), reject);
       });
+
+      const { signInAsDoctor } = thunkAPI.getState().userMode;
+      if (signInAsDoctor && !fetchedUser.isDoctor) {
+        firebase.auth().signOut();
+        return thunkAPI.rejectWithValue({
+          message: 'Anda bukan seorang dokter. Silahkan masuk menggunakan mode pasien',
+        });
+      }
+      if (!signInAsDoctor && fetchedUser.isDoctor) {
+        firebase.auth().signOut();
+        return thunkAPI.rejectWithValue({
+          message: 'Anda adalah seorang dokter. Silahkan masuk menggunakan mode dokter',
+        });
+      }
 
       return {
         uid: user!.uid,
-        ...fetchedPatient,
+        isDoctor: fetchedUser.isDoctor,
+        fullName: fetchedUser.fullName,
+        email: fetchedUser.email,
+        occupation: fetchedUser.occupation,
+        photo: fetchedUser.photo ?? null,
       };
     } catch (err) {
       return thunkAPI.rejectWithValue({
@@ -116,10 +177,10 @@ export const updateProfile = createAsyncThunk<
   'auth/updateProfile',
   async (payload, thunkAPI) => {
     try {
-      const patientUid = thunkAPI.getState().auth.uid;
+      const userUID = thunkAPI.getState().auth.uid;
       await firebase
         .database()
-        .ref(`users/${patientUid}`)
+        .ref(`users/${userUID}`)
         .update({ ...payload });
       return payload;
     } catch (err) {

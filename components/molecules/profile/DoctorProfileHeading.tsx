@@ -7,18 +7,25 @@ import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
 import Gender from '../../../constants/gender';
 
-interface DoctorProfileWithPhotoProps {
-  name?: string;
-  description?: string;
-  photoUrl: string;
+interface DoctorProfileHeadingProps {
+  name: string;
+  occupation: string;
   gender: Gender;
+  photo: string | null;
   style?: ViewStyle;
 }
 
-const DoctorProfileWithPhoto: FC<DoctorProfileWithPhotoProps> = (props) => (
+const DoctorProfileHeading: FC<DoctorProfileHeadingProps> = (props) => (
   <View style={{ ...styles.container, ...props.style }}>
     <View style={styles.avatarContainer}>
-      <Image style={styles.avatar} source={{ uri: props.photoUrl }} />
+      <Image
+        style={styles.avatar}
+        source={
+          props.photo
+            ? { uri: props.photo }
+            : require('../../../assets/illustrations/user-photo-null.png')
+        }
+      />
       {props.gender === Gender.Male ? (
         <MaleSymbol style={styles.genderIcon} />
       ) : (
@@ -26,7 +33,7 @@ const DoctorProfileWithPhoto: FC<DoctorProfileWithPhotoProps> = (props) => (
       )}
     </View>
     {props.name && <Text style={styles.name}>{props.name}</Text>}
-    {props.description && <Text style={styles.description}>{props.description}</Text>}
+    {props.occupation && <Text style={styles.occupation}>{props.occupation}</Text>}
   </View>
 );
 
@@ -60,7 +67,7 @@ const styles = StyleSheet.create({
     color: Colors.Dark,
     marginTop: 16,
   },
-  description: {
+  occupation: {
     fontSize: 16,
     fontFamily: Fonts.NunitoRegular,
     color: Colors.Grey2,
@@ -68,4 +75,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(DoctorProfileWithPhoto);
+export default memo(DoctorProfileHeading);

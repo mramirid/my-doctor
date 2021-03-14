@@ -5,7 +5,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
-import Doctor from '../../../global-types/doctor';
+import { Doctor } from '../../../global-types/user';
 
 interface ProfileHeaderProps {
   doctor: Doctor;
@@ -19,10 +19,10 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ doctor }) => {
         <Ionicons name="arrow-back" size={24} color={Colors.White} />
       </TouchableOpacity>
       <View style={styles.profile}>
-        <Text style={styles.name}>{doctor.name}</Text>
-        <Text style={styles.specialist}>{doctor.specialist}</Text>
+        <Text style={styles.name}>{doctor.fullName}</Text>
+        <Text style={styles.occupation}>{doctor.occupation}</Text>
       </View>
-      <Image style={styles.avatar} source={{ uri: doctor.photoUrl }} />
+      <Image style={styles.avatar} source={{ uri: doctor.photo! }} />
     </View>
   );
 };
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     color: Colors.White,
     fontSize: 20,
   },
-  specialist: {
+  occupation: {
     fontFamily: Fonts.NunitoRegular,
     color: Colors.Grey4,
     fontSize: 14,

@@ -15,25 +15,30 @@ import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
 import { SignInScreenNavProp } from '../../global-types/navigation';
-import { SignInFormValues } from '../../global-types/patient';
+import { SignInFormValues } from '../../global-types/user';
 import withStatusBar from '../../hoc/withStatusBar';
-import { logout } from '../../store/reducers/auth';
+import { selectSignInAsDoctor } from '../../store/reducers/user-mode';
 import { signIn } from '../../store/thunks/auth';
-import { useAppDispatch } from '../../store/types';
+import { useAppDispatch, useAppSelector } from '../../store/types';
 
 const SignInScreen: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<SignInScreenNavProp>();
   const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
 
-  const { control, handleSubmit, formState, reset } = useForm<SignInFormValues>();
+  const signInAsDoctor = useAppSelector(selectSignInAsDoctor);
+  const { control, handleSubmit, formState, reset } = useForm<SignInFormValues>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
   const TypedController = useTypedController<SignInFormValues>({ control });
 
   const onSubmit = useCallback<SubmitHandler<SignInFormValues>>(
     async (data) => {
       try {
         showLoading();
-        dispatch(logout());
         unwrapResult(await dispatch(signIn(data)));
         reset();
         navigation.replace('HomeTab');
@@ -66,11 +71,12 @@ const SignInScreen: FC = () => {
       style={styles.screen}
       contentContainerStyle={styles.screenContent}
       showsVerticalScrollIndicator={false}>
-      <AppLogo />
-      <Text style={styles.title}>Masuk dan mulai berkonsultasi</Text>
+      <AppLogo color={signInAsDoctor ? Colors.Red : Colors.Green3} />
+      <Text style={styles.title}>
+        {signInAsDoctor ? 'Masuk sebagai dokter' : 'Masuk dan mulai berkonsultasi'}
+      </Text>
       <TypedController
         name="email"
-        defaultValue=""
         rules={{
           required: 'Email wajib diisi',
           pattern: {
@@ -92,7 +98,6 @@ const SignInScreen: FC = () => {
       <AppGap height={24} />
       <TypedController
         name="password"
-        defaultValue=""
         rules={{ required: 'Password wajib diisi' }}
         render={(renderProps) => (
           <AppTextInput
@@ -114,7 +119,11 @@ const SignInScreen: FC = () => {
         disabled={formState.isSubmitting}
         onPress={handleSubmit(onSubmit, onValidationError)}
       />
-      <AppLink style={styles.signUpLink} onPress={() => navigation.navigate('SignUpScreen')}>
+      <AppLink
+        style={styles.signUpLink}
+        onPress={() => {
+          navigation.navigate(signInAsDoctor ? 'DoctorSignUpScreen' : 'PatientSignUpScreen');
+        }}>
         Create New Account
       </AppLink>
       <AppGap height={64} />

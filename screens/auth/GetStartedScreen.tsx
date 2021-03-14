@@ -1,8 +1,11 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
-import React, { FC, useLayoutEffect } from 'react';
-import { ImageBackground, StyleSheet, View, Text, Platform } from 'react-native';
+import React, { FC, useEffect } from 'react';
+import { ImageBackground, Platform, StyleSheet, Text, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import AppLogo from '../../assets/icons/AppLogo';
 import AppButton from '../../components/atoms/AppButton';
@@ -10,33 +13,51 @@ import AppGap from '../../components/atoms/AppGap';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import { GetStartedScreenNavProp } from '../../global-types/navigation';
-import { selectIsAuth } from '../../store/reducers/auth';
-import { useAppSelector } from '../../store/types';
+import { selectSignInAsDoctor, toggleUserMode } from '../../store/reducers/user-mode';
+import { useAppDispatch, useAppSelector } from '../../store/types';
 
 const GetStartedScreen: FC = () => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation<GetStartedScreenNavProp>();
 
-  const isAuth = useAppSelector(selectIsAuth);
+  const signInAsDoctor = useAppSelector(selectSignInAsDoctor);
 
-  useLayoutEffect(() => {
-    if (isAuth) {
-      navigation.replace('HomeTab');
-    }
-  }, [isAuth, navigation]);
+  useEffect(() => {
+    showMessage({
+      message: signInAsDoctor ? 'Mode Dokter' : 'Mode Pasien',
+      backgroundColor: signInAsDoctor ? Colors.Red : Colors.Green3,
+      titleStyle: styles.flashMessageTitle,
+    });
+  }, [signInAsDoctor]);
 
   return (
     <ImageBackground
       style={styles.screen}
       source={require('../../assets/illustrations/get-started-bg.png')}>
       <View>
-        <AppLogo />
-        <Text style={styles.text}>Konsultasi dengan dokter jadi lebih mudah &amp; fleksibel</Text>
+        <AppLogo color={signInAsDoctor ? Colors.Red : Colors.Green3} />
+        <Text style={styles.text}>
+          {signInAsDoctor
+            ? 'Layani Konsultasi Pasien jadi lebih mudah & fleksibel'
+            : 'Konsultasi dengan dokter jadi lebih mudah & fleksibel'}
+        </Text>
       </View>
       <View>
+        <TouchableOpacity style={styles.switchContainer}>
+          <MaterialCommunityIcons
+            name="account-switch-outline"
+            size={28}
+            color={Colors.White}
+            onPress={() => dispatch(toggleUserMode())}
+          />
+        </TouchableOpacity>
+        <AppGap height={16} />
         <AppButton
           title="Get Started"
           color="accent"
-          onPress={() => navigation.navigate('SignUpScreen')}
+          onPress={() => {
+            navigation.navigate(signInAsDoctor ? 'DoctorSignUpScreen' : 'PatientSignUpScreen');
+          }}
         />
         <AppGap height={16} />
         <AppButton
@@ -57,11 +78,19 @@ const styles = StyleSheet.create({
     paddingTop: 40 + (Platform.OS === 'ios' ? 0 : Constants.statusBarHeight),
     justifyContent: 'space-between',
   },
+  switchContainer: {
+    alignItems: 'center',
+  },
   text: {
     fontFamily: Fonts.NunitoSemiBold,
     fontSize: 28,
     color: Colors.White,
     marginTop: 90,
+  },
+  flashMessageTitle: {
+    fontSize: 18,
+    textAlign: 'center',
+    fontFamily: Fonts.NunitoSemiBold,
   },
 });
 

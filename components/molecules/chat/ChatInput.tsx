@@ -5,7 +5,7 @@ import { StyleSheet, View, ViewStyle } from 'react-native';
 
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
-import Doctor from '../../../global-types/doctor';
+import { Doctor } from '../../../global-types/user';
 import AppCard from '../../atoms/AppCard';
 import AppTextInput from '../../atoms/AppTextInput';
 import SendButton from './SendButton';
@@ -37,7 +37,7 @@ const ChatInput: FC<ChatInputProps> = (props) => {
               style={styles.input}
               autoCapitalize="sentences"
               returnKeyType="done"
-              placeholder={`Tulis pesan untuk ${props.doctor.name.split(' ')[0]}`}
+              placeholder={`Tulis pesan untuk ${props.doctor.fullName.split(' ')[0]}`}
             />
           )}
         />

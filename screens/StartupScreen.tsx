@@ -14,12 +14,13 @@ const StartupScreen: FC = () => {
   const isAuth = useAppSelector(selectIsAuth);
 
   useEffect(() => {
-    const patient = firebase.auth().currentUser;
-    if (patient && isAuth) {
-      navigation.replace('HomeTab');
-    } else {
-      navigation.replace('GetStartedScreen');
-    }
+    return firebase.auth().onAuthStateChanged((user) => {
+      if (user && isAuth) {
+        navigation.replace('HomeTab');
+      } else {
+        navigation.replace('GetStartedScreen');
+      }
+    });
   }, [dispatch, isAuth, navigation]);
 
   return <AppLoading />;

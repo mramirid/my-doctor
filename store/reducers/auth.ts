@@ -1,14 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import Patient from '../../global-types/patient';
-import { signIn, signUp, updateProfile, uploadPhoto } from '../thunks/auth';
+import { AuthState } from '../../global-types/user';
+import { signIn, signUpDoctor, signUpPatient, updateProfile, uploadPhoto } from '../thunks/auth';
 import { RootState } from '../types';
 
-const initialState: Patient = {
+const initialState: AuthState = {
   uid: null,
-  email: null,
   fullName: null,
   occupation: null,
+  email: null,
+  isDoctor: false,
   photo: null,
 };
 
@@ -16,29 +17,20 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    logout(state) {
-      state.uid = null;
-      state.fullName = null;
-      state.occupation = null;
-      state.email = null;
-      state.photo = null;
+    signOut(state) {
+      Object.assign(state, initialState);
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(signUp.fulfilled, (state, { payload }) => {
-        state.uid = payload.uid;
-        state.email = payload.email;
-        state.fullName = payload.fullName;
-        state.occupation = payload.occupation;
-        state.photo = payload.photo;
+      .addCase(signUpPatient.fulfilled, (state, { payload }) => {
+        Object.assign(state, payload);
+      })
+      .addCase(signUpDoctor.fulfilled, (state, { payload }) => {
+        Object.assign(state, payload);
       })
       .addCase(signIn.fulfilled, (state, { payload }) => {
-        state.uid = payload.uid;
-        state.fullName = payload.fullName;
-        state.occupation = payload.occupation;
-        state.email = payload.email;
-        state.photo = payload.photo;
+        Object.assign(state, payload);
       })
       .addCase(uploadPhoto.fulfilled, (state, { payload }) => {
         state.photo = payload.newPhoto;
@@ -51,12 +43,12 @@ const authSlice = createSlice({
   },
 });
 
-export const selectUserAuth = (state: RootState) => state.auth;
-export const selectHasPhoto = (state: RootState) => state.auth.photo;
+export const selectUserAuth = ({ auth }: RootState) => auth;
+export const selectHasPhoto = ({ auth }: RootState) => auth.photo;
 export const selectIsAuth = ({ auth }: RootState) => {
   return !!auth.uid && !!auth.fullName && !!auth.occupation && !!auth.email;
 };
 
-export const { logout } = authSlice.actions;
+export const { signOut } = authSlice.actions;
 
 export default authSlice.reducer;

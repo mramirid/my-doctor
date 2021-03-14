@@ -5,11 +5,12 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import RemovePhoto from '../../../assets/icons/RemovePhoto';
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
-import Patient from '../../../global-types/patient';
 import usePhotoPicker from '../../../hooks/usePhotoPicker';
 
 interface ReadonlyProps {
-  patient: Patient;
+  fullName: string;
+  occupation: string;
+  photo: string | null;
   isEdit: false;
   style?: ViewStyle;
 }
@@ -21,11 +22,14 @@ interface EditProps {
   style?: ViewStyle;
 }
 
-const UserProfileWithPhoto: FC<ReadonlyProps | EditProps> = (props) => {
+const UserProfileHeadline: FC<ReadonlyProps | EditProps> = (props) => {
   const { pickPhoto } = usePhotoPicker();
 
   const startPickPhoto = useCallback(async () => {
-    if (props.isEdit) props.onPhotoTaken(await pickPhoto());
+    if (props.isEdit) {
+      const pickedPhoto = await pickPhoto();
+      if (pickedPhoto) props.onPhotoTaken(pickedPhoto);
+    }
   }, [pickPhoto, props]);
 
   return (
@@ -50,14 +54,14 @@ const UserProfileWithPhoto: FC<ReadonlyProps | EditProps> = (props) => {
             <Image
               style={styles.avatar}
               source={
-                props.patient.photo
-                  ? { uri: props.patient.photo }
+                props.photo
+                  ? { uri: props.photo }
                   : require('../../../assets/illustrations/user-photo-null.png')
               }
             />
           </View>
-          <Text style={styles.fullName}>{props.patient.fullName}</Text>
-          <Text style={styles.occupation}>{props.patient.occupation}</Text>
+          <Text style={styles.fullName}>{props.fullName}</Text>
+          <Text style={styles.occupation}>{props.occupation}</Text>
         </>
       )}
     </View>
@@ -104,4 +108,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(UserProfileWithPhoto);
+export default memo(UserProfileHeadline);

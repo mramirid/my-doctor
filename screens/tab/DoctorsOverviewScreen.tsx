@@ -12,12 +12,11 @@ import NewsItem from '../../components/molecules/NewsItem';
 import TopRatedDoctorItem from '../../components/molecules/TopRatedDoctorItem';
 import Colors from '../../constants/colors';
 import DoctorSpecialist from '../../constants/doctor-specialist';
-import { topRatedDoctors } from '../../constants/dummies/doctors';
 import Fonts from '../../constants/fonts';
 import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
-import { DoctorCategory as IDoctorCategory } from '../../global-types/doctor';
 import { DoctorsOverviewScreenNavProp } from '../../global-types/navigation';
 import { FireNews, News } from '../../global-types/news';
+import { DoctorCategory as IDoctorCategory } from '../../global-types/user';
 import withStatusBar from '../../hoc/withStatusBar';
 import { selectUserAuth } from '../../store/reducers/auth';
 import { useAppSelector } from '../../store/types';
@@ -76,7 +75,12 @@ const DoctorsOverviewScreen: FC = () => {
   return (
     <AppTabScreen style={styles.screen} withScrollView>
       <View style={styles.padX16}>
-        <HomeProfile patient={userAuth} onPress={() => navigation.navigate('UserProfileScreen')} />
+        <HomeProfile
+          fullName={userAuth.fullName!}
+          occupation={userAuth.occupation!}
+          photo={userAuth.photo}
+          onPress={() => navigation.navigate('UserProfileScreen')}
+        />
         <Text style={styles.welcomeText}>Mau konsultasi dengan siapa hari ini?</Text>
       </View>
       <View>
@@ -100,7 +104,7 @@ const DoctorsOverviewScreen: FC = () => {
       <AppGap height={30} />
       <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
       <View style={styles.padX16}>
-        {topRatedDoctors.map((doctor) => (
+        {([] as any).map((doctor: any) => (
           <TopRatedDoctorItem
             key={doctor.id}
             style={styles.topRatedDoctor}

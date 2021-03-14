@@ -4,10 +4,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
-import Patient from '../../global-types/patient';
 
 interface HomeProfileProps {
-  patient: Patient;
+  fullName: string;
+  occupation: string;
+  photo?: string | null;
   onPress(): void;
 }
 
@@ -16,14 +17,14 @@ const HomeProfile: FC<HomeProfileProps> = (props) => (
     <Image
       style={styles.avatar}
       source={
-        props.patient.photo
-          ? { uri: props.patient.photo }
+        props.photo
+          ? { uri: props.photo }
           : require('../../assets/illustrations/user-photo-null.png')
       }
     />
     <View>
-      <Text style={styles.name}>{props.patient.fullName}</Text>
-      <Text style={styles.occupation}>{props.patient.occupation}</Text>
+      <Text style={styles.name}>{props.fullName}</Text>
+      <Text style={styles.occupation}>{props.occupation}</Text>
     </View>
   </TouchableOpacity>
 );
@@ -42,13 +43,11 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 16,
     fontFamily: Fonts.NunitoSemiBold,
-    textTransform: 'capitalize',
   },
   occupation: {
     fontSize: 12,
     color: Colors.Grey2,
     fontFamily: Fonts.NunitoSemiBold,
-    textTransform: 'capitalize',
   },
 });
 

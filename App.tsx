@@ -2,17 +2,19 @@ import 'react-native-gesture-handler';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 import React, { FC } from 'react';
+import { LogBox } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import { enableScreens } from 'react-native-screens';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import Fonts from './constants/fonts';
-import AppNavigator from './navigation';
 import { AppLoadingIndicatorContextProvider } from './contexts/app-loading-indicator';
+import AppNavigator from './navigation';
 import { store, persistor } from './store';
 
 enableScreens();
+LogBox.ignoreLogs(['https://github.com/facebook/react-native/issues/12981']);
 
 const App: FC = () => {
   const [isFontsLoaded] = useFonts({

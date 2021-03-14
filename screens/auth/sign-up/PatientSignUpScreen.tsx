@@ -12,30 +12,36 @@ import AppTextInput from '../../../components/atoms/AppTextInput';
 import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
 import { AppLoadingIndicatorContext } from '../../../contexts/app-loading-indicator';
-import { SignUpScreenNavProp } from '../../../global-types/navigation';
-import { SignUpFormValues } from '../../../global-types/patient';
+import { PatientSignUpScreenNavProp } from '../../../global-types/navigation';
+import { PatientSignUpFormValues } from '../../../global-types/user';
 import withStatusBar from '../../../hoc/withStatusBar';
-import { logout } from '../../../store/reducers/auth';
-import { signUp } from '../../../store/thunks/auth';
+import { signUpPatient } from '../../../store/thunks/auth';
 import { useAppDispatch } from '../../../store/types';
 
 const SignUpScreen: FC = () => {
   const dispatch = useAppDispatch();
-  const navigation = useNavigation<SignUpScreenNavProp>();
+  const navigation = useNavigation<PatientSignUpScreenNavProp>();
   const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
 
-  const { control, handleSubmit, formState, reset } = useForm<SignUpFormValues>();
-  const TypedController = useTypedController<SignUpFormValues>({ control });
+  const { control, handleSubmit, formState, reset } = useForm<PatientSignUpFormValues>({
+    defaultValues: {
+      email: '',
+      fullName: '',
+      occupation: '',
+      password: '',
+    },
+  });
+  const TypedController = useTypedController<PatientSignUpFormValues>({ control });
 
-  const onSubmit = useCallback<SubmitHandler<SignUpFormValues>>(
+  const onSubmit = useCallback<SubmitHandler<PatientSignUpFormValues>>(
     async (data) => {
       try {
         showLoading();
-        dispatch(logout());
-        unwrapResult(await dispatch(signUp(data)));
+        unwrapResult(await dispatch(signUpPatient(data)));
         reset();
         navigation.navigate('UploadPhotoScreen');
       } catch (error) {
+        console.log(error.message);
         showMessage({
           message: error.message,
           type: 'danger',
@@ -47,7 +53,7 @@ const SignUpScreen: FC = () => {
     [dispatch, hideLoading, navigation, reset, showLoading]
   );
 
-  const onValidationError = useCallback<SubmitErrorHandler<SignUpFormValues>>((errors) => {
+  const onValidationError = useCallback<SubmitErrorHandler<PatientSignUpFormValues>>((errors) => {
     for (const field in errors) {
       if (errors.hasOwnProperty(field)) {
         showMessage({
@@ -62,10 +68,9 @@ const SignUpScreen: FC = () => {
   return (
     <View style={styles.screen}>
       <Header title="Daftar Akun" type="flat" onBackButtonPressed={navigation.goBack} />
-      <ScrollView contentContainerStyle={styles.body} showsVerticalScrollIndicator={false}>
+      <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
         <TypedController
           name="fullName"
-          defaultValue=""
           rules={{ required: 'Nama lengkap wajib diisi' }}
           render={(renderProps) => (
             <AppTextInput
@@ -80,7 +85,6 @@ const SignUpScreen: FC = () => {
         <AppGap height={24} />
         <TypedController
           name="occupation"
-          defaultValue=""
           rules={{ required: 'Pekerjaan wajib diisi' }}
           render={(renderProps) => (
             <AppTextInput
@@ -95,7 +99,6 @@ const SignUpScreen: FC = () => {
         <AppGap height={24} />
         <TypedController
           name="email"
-          defaultValue=""
           rules={{
             required: 'Email wajib diisi',
             pattern: {
@@ -117,7 +120,6 @@ const SignUpScreen: FC = () => {
         <AppGap height={24} />
         <TypedController
           name="password"
-          defaultValue=""
           rules={{
             required: 'Password wajib diisi',
             minLength: {

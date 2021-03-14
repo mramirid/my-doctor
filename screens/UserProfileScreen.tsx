@@ -7,12 +7,12 @@ import { showMessage } from 'react-native-flash-message';
 
 import ListItemBordered from '../components/molecules/ListItemBordered';
 import Header from '../components/molecules/header/Header';
-import UserProfileWithPhoto from '../components/molecules/profile/UserProfileWithPhoto';
+import UserProfileHeadline from '../components/molecules/profile/UserProfileHeadline';
 import Colors from '../constants/colors';
 import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
 import { UserProfileScreenNavProp } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
-import { logout, selectUserAuth } from '../store/reducers/auth';
+import { signOut, selectUserAuth } from '../store/reducers/auth';
 import { useAppDispatch, useAppSelector } from '../store/types';
 
 const UserProfileScreen: FC = () => {
@@ -22,11 +22,11 @@ const UserProfileScreen: FC = () => {
 
   const userAuth = useAppSelector(selectUserAuth);
 
-  const signOut = async () => {
+  const startSignOut = async () => {
     try {
       showLoading();
       await firebase.auth().signOut();
-      dispatch(logout());
+      dispatch(signOut());
       navigation.replace('GetStartedScreen');
     } catch (error) {
       showMessage({
@@ -42,7 +42,13 @@ const UserProfileScreen: FC = () => {
     <View style={styles.screen}>
       <Header title="Profile" type="flat" onBackButtonPressed={navigation.goBack} />
       <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
-        <UserProfileWithPhoto style={styles.profileWithPhoto} isEdit={false} patient={userAuth} />
+        <UserProfileHeadline
+          style={styles.profileWithPhoto}
+          isEdit={false}
+          fullName={userAuth.fullName!}
+          occupation={userAuth.occupation!}
+          photo={userAuth.photo}
+        />
         <ListItemBordered
           style={styles.settingItem}
           title="Edit Profile"
@@ -77,7 +83,7 @@ const UserProfileScreen: FC = () => {
             <MaterialCommunityIcons name="note-text-outline" size={24} color={Colors.Green2} />
           }
           withArrowIcon
-          onPress={signOut}
+          onPress={startSignOut}
         />
       </ScrollView>
     </View>

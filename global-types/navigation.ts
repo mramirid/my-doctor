@@ -3,16 +3,16 @@ import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import DoctorSpecialist from '../constants/doctor-specialist';
-import Doctor from './doctor';
+import { Doctor } from './user';
 
-/*
- * App Stack
- */
+/* ---------------- App Stack ---------------- */
+
 export type AppStackParamList = {
   StartupScreen: undefined;
   GetStartedScreen: undefined;
   SignInScreen: undefined;
-  SignUpScreen: undefined;
+  PatientSignUpScreen: undefined;
+  DoctorSignUpScreen: undefined;
   UploadPhotoScreen: undefined;
   HomeTab: undefined;
   CategoryDoctorsScreen: { category: DoctorSpecialist };
@@ -26,7 +26,15 @@ export type StartupScreenNavProp = StackNavigationProp<AppStackParamList, 'GetSt
 
 export type GetStartedScreenNavProp = StackNavigationProp<AppStackParamList, 'GetStartedScreen'>;
 
-export type SignUpScreenNavProp = StackNavigationProp<AppStackParamList, 'SignUpScreen'>;
+export type PatientSignUpScreenNavProp = StackNavigationProp<
+  AppStackParamList,
+  'PatientSignUpScreen'
+>;
+
+export type DoctorSignUpScreenNavProp = StackNavigationProp<
+  AppStackParamList,
+  'DoctorSignUpScreen'
+>;
 
 export type SignInScreenNavProp = StackNavigationProp<AppStackParamList, 'SignInScreen'>;
 
@@ -53,9 +61,8 @@ export type EditUserProfileScreenNavProp = StackNavigationProp<
   'EditUserProfileScreen'
 >;
 
-/*
- * Home Bottom Tabs
- */
+/* ---------------- Home Bottom Tabs ---------------- */
+
 export type HomeTabParamList = {
   DoctorsOverviewScreen: undefined;
   MessagesScreen: undefined;
