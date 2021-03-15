@@ -13,22 +13,24 @@ interface TopRatedDoctorItemProps {
   onPress(): void;
 }
 
-const TopRatedDoctorItem: FC<TopRatedDoctorItemProps> = (props) => (
-  <TouchableOpacity style={{ ...styles.container, ...(props.style ?? {}) }} onPress={props.onPress}>
-    <Image style={styles.avatar} source={{ uri: props.doctor.photo! }} />
-    <View style={styles.profile}>
-      <Text style={styles.name}>{props.doctor.fullName}</Text>
-      <Text style={styles.occupation}>{props.doctor.occupation}</Text>
-    </View>
-    <View style={styles.rating}>
-      <Ionicons name="star" size={16} color={Colors.Gold} />
-      <Ionicons name="star" size={16} color={Colors.Gold} />
-      <Ionicons name="star" size={16} color={Colors.Gold} />
-      <Ionicons name="star" size={16} color={Colors.Gold} />
-      <Ionicons name="star" size={16} color={Colors.Gold} />
-    </View>
-  </TouchableOpacity>
-);
+const TopRatedDoctorItem: FC<TopRatedDoctorItemProps> = (props) => {
+  const stars: JSX.Element[] = [];
+  for (let i = 0; i < props.doctor.rating; i++) {
+    stars.push(<Ionicons key={i} name="star" size={16} color={Colors.Gold} />);
+  }
+  return (
+    <TouchableOpacity
+      style={{ ...styles.container, ...(props.style ?? {}) }}
+      onPress={props.onPress}>
+      <Image style={styles.avatar} source={{ uri: props.doctor.photo! }} />
+      <View style={styles.profile}>
+        <Text style={styles.name}>{props.doctor.fullName}</Text>
+        <Text style={styles.occupation}>{props.doctor.occupation}</Text>
+      </View>
+      <View style={styles.rating}>{stars}</View>
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

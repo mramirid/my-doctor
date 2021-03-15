@@ -16,7 +16,7 @@ import Fonts from '../../constants/fonts';
 import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
 import { PatientHomeScreenNavProp } from '../../global-types/navigation';
 import { FireNews, News } from '../../global-types/news';
-import { DoctorCategory as IDoctorCategory } from '../../global-types/user';
+import { Doctor, DoctorCategory as IDoctorCategory, FireDoctor } from '../../global-types/user';
 import withStatusBar from '../../hoc/withStatusBar';
 import { selectUserAuth } from '../../store/reducers/auth';
 import { useAppSelector } from '../../store/types';
@@ -46,21 +46,46 @@ async function fetchDoctorCategories() {
   return categories;
 }
 
+interface FireGetDoctors {
+  [id: string]: FireDoctor;
+}
+
+async function fetchTopRatedDoctors() {
+  const data = await firebase
+    .database()
+    .ref('users')
+    .orderByChild('rating')
+    .limitToLast(3)
+    .once('value');
+  const fetchedTopDoctors: FireGetDoctors = data.val();
+  const topDoctors = Object.keys(fetchedTopDoctors).map<Doctor>((key) => ({
+    uid: key,
+    ...fetchedTopDoctors[key],
+  }));
+  return topDoctors;
+}
+
 const PatientHomeScreen: FC = () => {
   const navigation = useNavigation<PatientHomeScreenNavProp>();
   const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
 
   const userAuth = useAppSelector(selectUserAuth);
-  const [news, setNews] = useState<News[]>([]);
   const [doctorCategories, setDoctorCategories] = useState<IDoctorCategory[]>([]);
+  const [topRatedDoctors, setTopRatedDoctors] = useState<Doctor[]>([]);
+  const [news, setNews] = useState<News[]>([]);
 
   useEffect(() => {
     (async () => {
       try {
         showScreenLoading();
-        const [news, doctorCategories] = await Promise.all([fetchNews(), fetchDoctorCategories()]);
-        setNews(news);
+        const [news, doctorCategories, topRatedDoctors] = await Promise.all([
+          fetchNews(),
+          fetchDoctorCategories(),
+          fetchTopRatedDoctors(),
+        ]);
         setDoctorCategories(doctorCategories);
+        setTopRatedDoctors(topRatedDoctors);
+        setNews(news);
       } catch (error) {
         showMessage({
           message: error.message || 'Gagal menjangkau server',
@@ -104,9 +129,9 @@ const PatientHomeScreen: FC = () => {
       <AppGap height={30} />
       <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
       <View style={styles.padX16}>
-        {([] as any).map((doctor: any) => (
+        {topRatedDoctors.map((doctor) => (
           <TopRatedDoctorItem
-            key={doctor.id}
+            key={doctor.uid}
             style={styles.topRatedDoctor}
             doctor={doctor}
             onPress={() => navigation.navigate('DoctorDetailScreen', { doctor })}
