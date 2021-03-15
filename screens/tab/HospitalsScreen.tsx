@@ -1,14 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import firebase from 'firebase';
-import React, { FC, useContext, useEffect, useState } from 'react';
-import { ImageBackground, StyleSheet, Text, View, FlatList } from 'react-native';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { FlatList, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
 import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
 import HospitalItem from '../../components/molecules/HospitalItem';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
-import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
 import Hospital, { FireHospitals } from '../../global-types/hospital';
 
 interface FireGetHospitals {
@@ -26,25 +25,26 @@ async function fetchHospitals() {
 }
 
 const HospitalsScreen: FC = () => {
-  const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
-
+  const [fetchLoading, setFetchLoading] = useState(false);
   const [hospitals, setHospitals] = useState<Hospital[]>([]);
 
+  const startFetchHospitals = useCallback(async () => {
+    try {
+      setFetchLoading(true);
+      setHospitals(await fetchHospitals());
+    } catch (error) {
+      showMessage({
+        message: error.message || 'Gagal memuat rumah sakit terdekat',
+        type: 'danger',
+      });
+    } finally {
+      setFetchLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
-    (async () => {
-      try {
-        showLoading();
-        setHospitals(await fetchHospitals());
-      } catch (error) {
-        showMessage({
-          message: error.message || 'Gagal memuat rumah sakit terdekat',
-          type: 'danger',
-        });
-      } finally {
-        hideLoading();
-      }
-    })();
-  }, [hideLoading, showLoading]);
+    startFetchHospitals();
+  }, [startFetchHospitals]);
 
   return (
     <AppTabScreen style={styles.screen}>
@@ -58,6 +58,8 @@ const HospitalsScreen: FC = () => {
         <FlatList
           contentContainerStyle={styles.listHospitals}
           showsVerticalScrollIndicator={false}
+          refreshing={fetchLoading}
+          onRefresh={startFetchHospitals}
           data={hospitals}
           renderItem={({ item }) => <HospitalItem hospital={item} onPress={() => null} />}
         />

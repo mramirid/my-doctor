@@ -30,7 +30,7 @@ async function fetchNews() {
 
 const DoctorHomeScreen: FC = () => {
   const navigation = useNavigation<DoctorHomeScreenNavProp>();
-  const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
+  const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
 
   const userAuth = useAppSelector(selectUserAuth);
   const [news, setNews] = useState<News[]>([]);
@@ -38,7 +38,7 @@ const DoctorHomeScreen: FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        showLoading();
+        showScreenLoading();
         setNews(await fetchNews());
       } catch (error) {
         showMessage({
@@ -46,10 +46,10 @@ const DoctorHomeScreen: FC = () => {
           type: 'danger',
         });
       } finally {
-        hideLoading();
+        hideScreenLoading();
       }
     })();
-  }, [hideLoading, showLoading]);
+  }, [hideScreenLoading, showScreenLoading]);
 
   return (
     <AppTabScreen style={styles.screen} withScrollView>

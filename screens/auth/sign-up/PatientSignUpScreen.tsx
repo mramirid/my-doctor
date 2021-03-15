@@ -21,7 +21,7 @@ import { useAppDispatch } from '../../../store/types';
 const SignUpScreen: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<PatientSignUpScreenNavProp>();
-  const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
+  const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
 
   const { control, handleSubmit, formState, reset } = useForm<PatientSignUpFormValues>({
     defaultValues: {
@@ -36,7 +36,7 @@ const SignUpScreen: FC = () => {
   const onSubmit = useCallback<SubmitHandler<PatientSignUpFormValues>>(
     async (data) => {
       try {
-        showLoading();
+        showScreenLoading();
         unwrapResult(await dispatch(signUpPatient(data)));
         reset();
         navigation.navigate('UploadPhotoScreen');
@@ -47,10 +47,10 @@ const SignUpScreen: FC = () => {
           type: 'danger',
         });
       } finally {
-        hideLoading();
+        hideScreenLoading();
       }
     },
-    [dispatch, hideLoading, navigation, reset, showLoading]
+    [dispatch, hideScreenLoading, navigation, reset, showScreenLoading]
   );
 
   const onValidationError = useCallback<SubmitErrorHandler<PatientSignUpFormValues>>((errors) => {
@@ -78,7 +78,6 @@ const SignUpScreen: FC = () => {
               onChangeText={(text) => renderProps.onChange(text)}
               label="Nama Lengkap"
               autoCapitalize="words"
-              returnKeyType="next"
             />
           )}
         />
@@ -92,7 +91,6 @@ const SignUpScreen: FC = () => {
               onChangeText={(text) => renderProps.onChange(text)}
               label="Pekerjaan"
               autoCapitalize="words"
-              returnKeyType="next"
             />
           )}
         />
@@ -113,7 +111,6 @@ const SignUpScreen: FC = () => {
               label="Email Address"
               autoCapitalize="none"
               keyboardType="email-address"
-              returnKeyType="next"
             />
           )}
         />
@@ -134,7 +131,6 @@ const SignUpScreen: FC = () => {
               label="Password"
               secureTextEntry
               autoCapitalize="none"
-              returnKeyType="done"
             />
           )}
         />

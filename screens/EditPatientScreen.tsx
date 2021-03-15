@@ -31,7 +31,7 @@ interface FormValues {
 const EditPatientScreen: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<EditPatientScreenNavProp>();
-  const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
+  const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
 
   const userAuth = useAppSelector(selectUserAuth);
   const { control, formState, handleSubmit, reset } = useForm<FormValues>({
@@ -48,7 +48,7 @@ const EditPatientScreen: FC = () => {
   const onSubmit = useCallback<SubmitHandler<FormValues>>(
     async (data) => {
       try {
-        showLoading();
+        showScreenLoading();
         if (!!data.oldPassword && !!data.newPassword) {
           const credential = firebase.auth.EmailAuthProvider.credential(
             userAuth.email!,
@@ -83,10 +83,10 @@ const EditPatientScreen: FC = () => {
           type: 'danger',
         });
       } finally {
-        hideLoading();
+        hideScreenLoading();
       }
     },
-    [dispatch, hideLoading, navigation, reset, showLoading, userAuth.email]
+    [dispatch, hideScreenLoading, navigation, reset, showScreenLoading, userAuth.email]
   );
 
   const onValidationError = useCallback<SubmitErrorHandler<FormValues>>((errors) => {
@@ -125,7 +125,6 @@ const EditPatientScreen: FC = () => {
               onChangeText={(text) => renderProps.onChange(text)}
               label="Nama Lengkap"
               autoCapitalize="words"
-              returnKeyType="next"
             />
           )}
         />
@@ -139,7 +138,6 @@ const EditPatientScreen: FC = () => {
               onChangeText={(text) => renderProps.onChange(text)}
               label="Pekerjaan"
               autoCapitalize="words"
-              returnKeyType="next"
             />
           )}
         />
@@ -167,7 +165,6 @@ const EditPatientScreen: FC = () => {
               placeholder="Password lama..."
               secureTextEntry
               autoCapitalize="none"
-              returnKeyType="next"
             />
           )}
         />
@@ -187,7 +184,6 @@ const EditPatientScreen: FC = () => {
               placeholder="Password baru..."
               secureTextEntry
               autoCapitalize="none"
-              returnKeyType="done"
             />
           )}
         />

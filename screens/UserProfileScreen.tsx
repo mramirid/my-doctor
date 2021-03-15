@@ -18,13 +18,13 @@ import { useAppDispatch, useAppSelector } from '../store/types';
 const UserProfileScreen: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<UserProfileScreenNavProp>();
-  const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
+  const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
 
   const userAuth = useAppSelector(selectUserAuth);
 
   const startSignOut = async () => {
     try {
-      showLoading();
+      showScreenLoading();
       await firebase.auth().signOut();
       dispatch(signOut());
       navigation.replace('GetStartedScreen');
@@ -34,7 +34,7 @@ const UserProfileScreen: FC = () => {
         type: 'danger',
       });
     } finally {
-      hideLoading();
+      hideScreenLoading();
     }
   };
 

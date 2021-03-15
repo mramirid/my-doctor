@@ -48,7 +48,7 @@ async function fetchDoctorCategories() {
 
 const PatientHomeScreen: FC = () => {
   const navigation = useNavigation<PatientHomeScreenNavProp>();
-  const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
+  const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
 
   const userAuth = useAppSelector(selectUserAuth);
   const [news, setNews] = useState<News[]>([]);
@@ -57,7 +57,7 @@ const PatientHomeScreen: FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        showLoading();
+        showScreenLoading();
         const [news, doctorCategories] = await Promise.all([fetchNews(), fetchDoctorCategories()]);
         setNews(news);
         setDoctorCategories(doctorCategories);
@@ -67,10 +67,10 @@ const PatientHomeScreen: FC = () => {
           type: 'danger',
         });
       } finally {
-        hideLoading();
+        hideScreenLoading();
       }
     })();
-  }, [hideLoading, showLoading]);
+  }, [hideScreenLoading, showScreenLoading]);
 
   return (
     <AppTabScreen style={styles.screen} withScrollView>

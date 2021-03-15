@@ -32,7 +32,7 @@ const HomeTab: FC = () => {
           options={{
             tabBarLabel: 'Home',
             tabBarIcon: (props) => (
-              <MaterialCommunityIcons name="home" size={24} color={props.color} />
+              <MaterialCommunityIcons name="home-outline" size={24} color={props.color} />
             ),
           }}
         />

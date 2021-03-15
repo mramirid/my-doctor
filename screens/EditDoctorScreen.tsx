@@ -38,7 +38,7 @@ async function fetchDoctorData(uid: string) {
 const EditDoctorScreen: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<EditDoctorScreenNavProp>();
-  const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
+  const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
 
   const userAuth = useAppSelector(selectUserAuth);
   const { control, formState, handleSubmit, reset } = useForm<FormValues>();
@@ -47,7 +47,7 @@ const EditDoctorScreen: FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        showLoading();
+        showScreenLoading();
         const fetchedDoctorData = await fetchDoctorData(userAuth.uid!);
         reset({ ...fetchedDoctorData });
       } catch (error) {
@@ -56,15 +56,15 @@ const EditDoctorScreen: FC = () => {
           type: 'danger',
         });
       } finally {
-        hideLoading();
+        hideScreenLoading();
       }
     })();
-  }, [hideLoading, reset, showLoading, userAuth.uid]);
+  }, [hideScreenLoading, reset, showScreenLoading, userAuth.uid]);
 
   const onSubmit = useCallback<SubmitHandler<FormValues>>(
     async (data) => {
       try {
-        showLoading();
+        showScreenLoading();
         if (!!data.oldPassword && !!data.newPassword) {
           const credential = firebase.auth.EmailAuthProvider.credential(
             userAuth.email!,
@@ -99,10 +99,10 @@ const EditDoctorScreen: FC = () => {
           type: 'danger',
         });
       } finally {
-        hideLoading();
+        hideScreenLoading();
       }
     },
-    [dispatch, hideLoading, navigation, reset, showLoading, userAuth.email]
+    [dispatch, hideScreenLoading, navigation, reset, showScreenLoading, userAuth.email]
   );
 
   const onValidationError = useCallback<SubmitErrorHandler<FormValues>>((errors) => {
@@ -143,7 +143,6 @@ const EditDoctorScreen: FC = () => {
               onChangeText={(text) => renderProps.onChange(text)}
               label="Nama Lengkap"
               autoCapitalize="words"
-              returnKeyType="next"
             />
           )}
         />
@@ -172,7 +171,6 @@ const EditDoctorScreen: FC = () => {
               onChangeText={(text) => renderProps.onChange(text)}
               label="Universitas"
               autoCapitalize="words"
-              returnKeyType="next"
             />
           )}
         />
@@ -186,7 +184,6 @@ const EditDoctorScreen: FC = () => {
               {...renderProps}
               onChangeText={(text) => renderProps.onChange(text)}
               label="Nomor STR"
-              returnKeyType="next"
             />
           )}
         />
@@ -201,7 +198,6 @@ const EditDoctorScreen: FC = () => {
               onChangeText={(text) => renderProps.onChange(text)}
               label="Alamat Rumah Sakit"
               autoCapitalize="words"
-              returnKeyType="next"
             />
           )}
         />
@@ -244,7 +240,6 @@ const EditDoctorScreen: FC = () => {
               placeholder="Password lama..."
               secureTextEntry
               autoCapitalize="none"
-              returnKeyType="next"
             />
           )}
         />
@@ -265,7 +260,6 @@ const EditDoctorScreen: FC = () => {
               placeholder="Password baru..."
               secureTextEntry
               autoCapitalize="none"
-              returnKeyType="done"
             />
           )}
         />

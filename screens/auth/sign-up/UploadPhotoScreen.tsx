@@ -24,7 +24,7 @@ const UploadPhotoScreen: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<UploadPhotoScreenNavProp>();
   const { pickPhoto } = usePhotoPicker();
-  const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
+  const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
 
   const userAuth = useAppSelector(selectUserAuth);
   const [pickedPhoto, setPickedPhoto] = useState<string | null>(null);
@@ -33,7 +33,7 @@ const UploadPhotoScreen: FC = () => {
 
   const uploadNewPhoto = async () => {
     try {
-      showLoading();
+      showScreenLoading();
       unwrapResult(await dispatch(uploadPhoto({ newPhoto: pickedPhoto! })));
       navigation.replace('HomeTab');
     } catch (error) {
@@ -42,7 +42,7 @@ const UploadPhotoScreen: FC = () => {
         type: 'danger',
       });
     } finally {
-      hideLoading();
+      hideScreenLoading();
     }
   };
 

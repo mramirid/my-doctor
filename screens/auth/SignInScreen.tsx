@@ -24,7 +24,7 @@ import { useAppDispatch, useAppSelector } from '../../store/types';
 const SignInScreen: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<SignInScreenNavProp>();
-  const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
+  const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
 
   const signInAsDoctor = useAppSelector(selectSignInAsDoctor);
   const { control, handleSubmit, formState, reset } = useForm<SignInFormValues>({
@@ -38,7 +38,7 @@ const SignInScreen: FC = () => {
   const onSubmit = useCallback<SubmitHandler<SignInFormValues>>(
     async (data) => {
       try {
-        showLoading();
+        showScreenLoading();
         unwrapResult(await dispatch(signIn(data)));
         reset();
         navigation.replace('HomeTab');
@@ -48,10 +48,10 @@ const SignInScreen: FC = () => {
           type: 'danger',
         });
       } finally {
-        hideLoading();
+        hideScreenLoading();
       }
     },
-    [dispatch, hideLoading, navigation, reset, showLoading]
+    [dispatch, hideScreenLoading, navigation, reset, showScreenLoading]
   );
 
   const onValidationError = useCallback<SubmitErrorHandler<SignInFormValues>>((errors) => {
@@ -91,7 +91,6 @@ const SignInScreen: FC = () => {
             label="Email Address"
             autoCapitalize="none"
             keyboardType="email-address"
-            returnKeyType="next"
           />
         )}
       />
@@ -106,7 +105,6 @@ const SignInScreen: FC = () => {
             label="Password"
             secureTextEntry
             autoCapitalize="none"
-            returnKeyType="done"
           />
         )}
       />

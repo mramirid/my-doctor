@@ -24,7 +24,7 @@ import { useAppDispatch } from '../../../store/types';
 const DoctorSignUpScreen: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<DoctorSignUpScreenNavProp>();
-  const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
+  const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
 
   const { control, handleSubmit, formState, reset } = useForm<DoctorSignUpFormValues>({
     defaultValues: {
@@ -43,7 +43,7 @@ const DoctorSignUpScreen: FC = () => {
   const onSubmit = useCallback<SubmitHandler<DoctorSignUpFormValues>>(
     async (data) => {
       try {
-        showLoading();
+        showScreenLoading();
         unwrapResult(await dispatch(signUpDoctor(data)));
         reset();
         navigation.navigate('UploadPhotoScreen');
@@ -53,10 +53,10 @@ const DoctorSignUpScreen: FC = () => {
           type: 'danger',
         });
       } finally {
-        hideLoading();
+        hideScreenLoading();
       }
     },
-    [dispatch, hideLoading, navigation, reset, showLoading]
+    [dispatch, hideScreenLoading, navigation, reset, showScreenLoading]
   );
 
   const onValidationError = useCallback<SubmitErrorHandler<DoctorSignUpFormValues>>((errors) => {
@@ -84,7 +84,6 @@ const DoctorSignUpScreen: FC = () => {
               onChangeText={(text) => renderProps.onChange(text)}
               label="Nama Lengkap"
               autoCapitalize="words"
-              returnKeyType="next"
             />
           )}
         />
@@ -111,7 +110,6 @@ const DoctorSignUpScreen: FC = () => {
               onChangeText={(text) => renderProps.onChange(text)}
               label="Universitas"
               autoCapitalize="words"
-              returnKeyType="next"
             />
           )}
         />
@@ -124,7 +122,6 @@ const DoctorSignUpScreen: FC = () => {
               {...renderProps}
               onChangeText={(text) => renderProps.onChange(text)}
               label="Nomor STR"
-              returnKeyType="next"
             />
           )}
         />
@@ -138,7 +135,6 @@ const DoctorSignUpScreen: FC = () => {
               onChangeText={(text) => renderProps.onChange(text)}
               label="Alamat Rumah Sakit"
               autoCapitalize="words"
-              returnKeyType="next"
             />
           )}
         />
@@ -172,7 +168,6 @@ const DoctorSignUpScreen: FC = () => {
               label="Email Address"
               autoCapitalize="none"
               keyboardType="email-address"
-              returnKeyType="next"
             />
           )}
         />
@@ -193,7 +188,6 @@ const DoctorSignUpScreen: FC = () => {
               label="Password"
               secureTextEntry
               autoCapitalize="none"
-              returnKeyType="done"
             />
           )}
         />
