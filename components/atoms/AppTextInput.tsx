@@ -55,6 +55,8 @@ const styles = StyleSheet.create({
     padding: 12,
     borderWidth: 1,
     borderRadius: 10,
+    fontFamily: Fonts.NunitoRegular,
+    fontSize: 16,
   },
 });
 

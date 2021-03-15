@@ -4,6 +4,7 @@ import firebase from '../../config/firebase';
 import {
   AuthState,
   DoctorSignUpFormValues,
+  FireDoctor,
   PatientSignUpFormValues,
   SignInFormValues,
 } from '../../global-types/user';
@@ -51,7 +52,7 @@ export const signUpDoctor = createAsyncThunk<AuthState, DoctorSignUpFormValues, 
         .createUserWithEmailAndPassword(payload.email, payload.password);
 
       const user = userCredential.user;
-      await firebase.database().ref(`users/${user!.uid}`).set({
+      const createdDoctor: FireDoctor = {
         fullName: payload.fullName,
         occupation: payload.occupation,
         almamater: payload.almamater,
@@ -61,15 +62,16 @@ export const signUpDoctor = createAsyncThunk<AuthState, DoctorSignUpFormValues, 
         workplace: payload.workplace,
         rating: 0,
         isDoctor: true,
-      });
+      };
+      await firebase.database().ref(`users/${user!.uid}`).set(createdDoctor);
 
       return {
         uid: user!.uid,
-        fullName: payload.fullName,
-        email: payload.email,
-        occupation: payload.occupation,
+        fullName: createdDoctor.fullName,
+        email: createdDoctor.email,
+        occupation: createdDoctor.occupation,
         photo: null,
-        isDoctor: false,
+        isDoctor: true,
       };
     } catch (err) {
       return thunkAPI.rejectWithValue({

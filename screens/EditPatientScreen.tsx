@@ -14,7 +14,7 @@ import Header from '../components/molecules/header/Header';
 import UserProfileHeadline from '../components/molecules/profile/UserProfileHeadline';
 import Colors from '../constants/colors';
 import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
-import { EditUserProfileScreenNavProp } from '../global-types/navigation';
+import { EditPatientScreenNavProp } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
 import { selectUserAuth } from '../store/reducers/auth';
 import { updateProfile } from '../store/thunks/auth';
@@ -28,9 +28,9 @@ interface FormValues {
   newPassword: string;
 }
 
-const EditUserProfileScreen: FC = () => {
+const EditPatientScreen: FC = () => {
   const dispatch = useAppDispatch();
-  const navigation = useNavigation<EditUserProfileScreenNavProp>();
+  const navigation = useNavigation<EditPatientScreenNavProp>();
   const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
 
   const userAuth = useAppSelector(selectUserAuth);
@@ -221,4 +221,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withStatusBar(EditUserProfileScreen, 'dark', Colors.White);
+export default withStatusBar(EditPatientScreen, 'dark', Colors.White);

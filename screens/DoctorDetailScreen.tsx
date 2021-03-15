@@ -7,15 +7,12 @@ import Header from '../components/molecules/header/Header';
 import DoctorProfileHeading from '../components/molecules/profile/DoctorProfileHeading';
 import DoctorProfileInfoItem from '../components/molecules/profile/DoctorProfileInfoItem';
 import Colors from '../constants/colors';
-import {
-  DoctorProfileScreenNavProp,
-  DoctorProfileScreenRouteProp,
-} from '../global-types/navigation';
+import { DoctorDetailScreenNavProp, DoctorDetailScreenRouteProp } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
 
-const DoctorProfileScreen: FC = () => {
-  const navigation = useNavigation<DoctorProfileScreenNavProp>();
-  const { params } = useRoute<DoctorProfileScreenRouteProp>();
+const DoctorDetailScreen: FC = () => {
+  const navigation = useNavigation<DoctorDetailScreenNavProp>();
+  const { params } = useRoute<DoctorDetailScreenRouteProp>();
 
   return (
     <View style={styles.screen}>
@@ -76,4 +73,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withStatusBar(DoctorProfileScreen, 'dark', Colors.White);
+export default withStatusBar(DoctorDetailScreen, 'dark', Colors.White);

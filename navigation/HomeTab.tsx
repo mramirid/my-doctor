@@ -17,7 +17,6 @@ const Tab = createBottomTabNavigator<HomeTabParamList>();
 
 const HomeTab: FC = () => {
   const signInAsDoctor = useAppSelector(selectSignInAsDoctor);
-
   return (
     <Tab.Navigator
       tabBar={AppBottomTabBar}

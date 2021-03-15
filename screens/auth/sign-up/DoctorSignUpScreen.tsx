@@ -5,7 +5,6 @@ import React, { FC, useCallback, useContext } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
-import { $enum } from 'ts-enum-util';
 
 import AppButton from '../../../components/atoms/AppButton';
 import AppGap from '../../../components/atoms/AppGap';
@@ -13,22 +12,14 @@ import AppPickerInput from '../../../components/atoms/AppPickerInput';
 import AppTextInput from '../../../components/atoms/AppTextInput';
 import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
-import DoctorSpecialist from '../../../constants/doctor-specialist';
-import Gender from '../../../constants/gender';
+import DoctorSpecialist, { specialistOptions } from '../../../constants/doctor-specialist';
+import Gender, { genderOptions } from '../../../constants/gender';
 import { AppLoadingIndicatorContext } from '../../../contexts/app-loading-indicator';
-import { SelectOption } from '../../../global-types/input';
 import { DoctorSignUpScreenNavProp } from '../../../global-types/navigation';
 import { DoctorSignUpFormValues } from '../../../global-types/user';
 import withStatusBar from '../../../hoc/withStatusBar';
 import { signUpDoctor } from '../../../store/thunks/auth';
 import { useAppDispatch } from '../../../store/types';
-
-const specialistOptions: SelectOption[] = $enum(DoctorSpecialist).map((value, key) => ({
-  key,
-  value,
-}));
-
-const genderOptions: SelectOption[] = $enum(Gender).map((value, key) => ({ value, key }));
 
 const DoctorSignUpScreen: FC = () => {
   const dispatch = useAppDispatch();
@@ -127,7 +118,7 @@ const DoctorSignUpScreen: FC = () => {
         <AppGap height={24} />
         <TypedController
           name="credentialId"
-          rules={{ required: 'Universitas wajib diisi' }}
+          rules={{ required: 'Nomor STR wajib diisi' }}
           render={(renderProps) => (
             <AppTextInput
               {...renderProps}

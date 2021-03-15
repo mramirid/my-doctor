@@ -45,17 +45,21 @@ export interface DoctorSignUpFormValues {
   gender: Gender;
 }
 
-export interface Doctor {
-  uid: string;
+export interface FireDoctor {
   fullName: string;
-  occupation: DoctorSpecialist;
+  occupation: string;
   almamater: string;
   credentialId: string;
   workplace: string;
-  gender: Gender;
+  gender: string;
   email: string;
   photo: string | null;
+  isDoctor: true;
   rating: number;
+}
+
+export interface Doctor extends FireDoctor {
+  uid: string;
 }
 
 export interface DoctorCategory {

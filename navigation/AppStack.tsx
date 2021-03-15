@@ -4,8 +4,9 @@ import React, { FC } from 'react';
 import { AppStackParamList } from '../global-types/navigation';
 import CategoryDoctorsScreen from '../screens/CategoryDoctorsScreen';
 import ChatRoomScreen from '../screens/ChatRoomScreen';
-import DoctorProfileScreen from '../screens/DoctorProfileScreen';
-import EditUserProfileScreen from '../screens/EditUserProfileScreen';
+import DoctorDetailScreen from '../screens/DoctorDetailScreen';
+import EditDoctorScreen from '../screens/EditDoctorScreen';
+import EditPatientScreen from '../screens/EditPatientScreen';
 import StartupScreen from '../screens/StartupScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import GetStartedScreen from '../screens/auth/GetStartedScreen';
@@ -17,23 +18,22 @@ import HomeTab from './HomeTab';
 
 const Stack = createStackNavigator<AppStackParamList>();
 
-const AppStack: FC = () => {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="StartupScreen" component={StartupScreen} />
-      <Stack.Screen name="GetStartedScreen" component={GetStartedScreen} />
-      <Stack.Screen name="SignInScreen" component={SignInScreen} />
-      <Stack.Screen name="PatientSignUpScreen" component={PatientSignUpScreen} />
-      <Stack.Screen name="DoctorSignUpScreen" component={DoctorSignUpScreen} />
-      <Stack.Screen name="UploadPhotoScreen" component={UploadPhotoScreen} />
-      <Stack.Screen name="HomeTab" component={HomeTab} />
-      <Stack.Screen name="CategoryDoctorsScreen" component={CategoryDoctorsScreen} />
-      <Stack.Screen name="ChatRoomScreen" component={ChatRoomScreen} />
-      <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
-      <Stack.Screen name="EditUserProfileScreen" component={EditUserProfileScreen} />
-      <Stack.Screen name="DoctorProfileScreen" component={DoctorProfileScreen} />
-    </Stack.Navigator>
-  );
-};
+const AppStack: FC = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="StartupScreen" component={StartupScreen} />
+    <Stack.Screen name="GetStartedScreen" component={GetStartedScreen} />
+    <Stack.Screen name="SignInScreen" component={SignInScreen} />
+    <Stack.Screen name="PatientSignUpScreen" component={PatientSignUpScreen} />
+    <Stack.Screen name="DoctorSignUpScreen" component={DoctorSignUpScreen} />
+    <Stack.Screen name="UploadPhotoScreen" component={UploadPhotoScreen} />
+    <Stack.Screen name="HomeTab" component={HomeTab} />
+    <Stack.Screen name="CategoryDoctorsScreen" component={CategoryDoctorsScreen} />
+    <Stack.Screen name="ChatRoomScreen" component={ChatRoomScreen} />
+    <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
+    <Stack.Screen name="EditPatientScreen" component={EditPatientScreen} />
+    <Stack.Screen name="EditDoctorScreen" component={EditDoctorScreen} />
+    <Stack.Screen name="DoctorDetailScreen" component={DoctorDetailScreen} />
+  </Stack.Navigator>
+);
 
 export default AppStack;

@@ -18,8 +18,9 @@ export type AppStackParamList = {
   CategoryDoctorsScreen: { category: DoctorSpecialist };
   ChatRoomScreen: { doctor: Doctor };
   UserProfileScreen: undefined;
-  EditUserProfileScreen: undefined;
-  DoctorProfileScreen: { doctor: Doctor };
+  EditPatientScreen: undefined;
+  EditDoctorScreen: undefined;
+  DoctorDetailScreen: { doctor: Doctor };
 };
 
 export type StartupScreenNavProp = StackNavigationProp<AppStackParamList, 'GetStartedScreen'>;
@@ -50,16 +51,15 @@ export type ChatRoomScreenRouteProp = RouteProp<AppStackParamList, 'ChatRoomScre
 
 export type UserProfileScreenNavProp = StackNavigationProp<AppStackParamList, 'UserProfileScreen'>;
 
-export type DoctorProfileScreenRouteProp = RouteProp<AppStackParamList, 'DoctorProfileScreen'>;
-export type DoctorProfileScreenNavProp = StackNavigationProp<
+export type DoctorDetailScreenRouteProp = RouteProp<AppStackParamList, 'DoctorDetailScreen'>;
+export type DoctorDetailScreenNavProp = StackNavigationProp<
   AppStackParamList,
-  'DoctorProfileScreen'
+  'DoctorDetailScreen'
 >;
 
-export type EditUserProfileScreenNavProp = StackNavigationProp<
-  AppStackParamList,
-  'EditUserProfileScreen'
->;
+export type EditPatientScreenNavProp = StackNavigationProp<AppStackParamList, 'EditPatientScreen'>;
+
+export type EditDoctorScreenNavProp = StackNavigationProp<AppStackParamList, 'EditDoctorScreen'>;
 
 /* ---------------- Home Bottom Tabs ---------------- */
 

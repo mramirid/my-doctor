@@ -38,6 +38,14 @@ const UserProfileScreen: FC = () => {
     }
   };
 
+  const editProfile = () => {
+    if (userAuth.isDoctor) {
+      navigation.navigate('EditDoctorScreen');
+    } else {
+      navigation.navigate('EditPatientScreen');
+    }
+  };
+
   return (
     <View style={styles.screen}>
       <Header title="Profile" type="flat" onBackButtonPressed={navigation.goBack} />
@@ -57,7 +65,7 @@ const UserProfileScreen: FC = () => {
             <MaterialCommunityIcons name="account-circle-outline" size={24} color={Colors.Green2} />
           }
           withArrowIcon
-          onPress={() => navigation.navigate('EditUserProfileScreen')}
+          onPress={editProfile}
         />
         <ListItemBordered
           style={styles.settingItem}

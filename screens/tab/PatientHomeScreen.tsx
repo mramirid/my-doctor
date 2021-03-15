@@ -109,7 +109,7 @@ const PatientHomeScreen: FC = () => {
             key={doctor.id}
             style={styles.topRatedDoctor}
             doctor={doctor}
-            onPress={() => navigation.navigate('DoctorProfileScreen', { doctor })}
+            onPress={() => navigation.navigate('DoctorDetailScreen', { doctor })}
           />
         ))}
       </View>

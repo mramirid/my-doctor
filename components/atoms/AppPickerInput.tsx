@@ -19,8 +19,10 @@ const AppPickerInput = forwardRef<Picker, AppPickerInputProps>((props, ref) => (
     <View style={styles.pickerContainer}>
       <Picker
         {...props}
+        mode="dropdown"
         style={styles.picker}
         ref={ref}
+        itemStyle={styles.pickerItem}
         selectedValue={props.selectedValue}
         onValueChange={props.onValueChange}>
         {props.options.map(({ key, value }) => (
@@ -47,6 +49,10 @@ const styles = StyleSheet.create({
   },
   picker: {
     height: 45,
+  },
+  pickerItem: {
+    fontFamily: Fonts.NunitoRegular,
+    fontSize: 16,
   },
 });
 

@@ -1,3 +1,7 @@
+import { $enum } from 'ts-enum-util';
+
+import { SelectOption } from '../global-types/input';
+
 enum DoctorSpecialist {
   GeneralPractitioner = 'Dokter Umum',
   Pediatrician = 'Dokter Anak',
@@ -32,5 +36,10 @@ enum DoctorSpecialist {
   PediatricSurgeon = 'Dokter Bedah Anak',
   ThoracicSurgeon = 'Dokter Bedah Thorax',
 }
+
+export const specialistOptions: SelectOption[] = $enum(DoctorSpecialist).map((value, key) => ({
+  key,
+  value,
+}));
 
 export default DoctorSpecialist;
