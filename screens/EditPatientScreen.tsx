@@ -1,7 +1,6 @@
 import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/core';
 import { unwrapResult } from '@reduxjs/toolkit';
-import firebase from 'firebase';
 import React, { FC, useCallback, useContext } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -12,6 +11,7 @@ import AppGap from '../components/atoms/AppGap';
 import AppTextInput from '../components/atoms/AppTextInput';
 import Header from '../components/molecules/header/Header';
 import UserProfileHeadline from '../components/molecules/profile/UserProfileHeadline';
+import firebase from '../config/firebase';
 import Colors from '../constants/colors';
 import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
 import { EditPatientScreenNavProp } from '../global-types/navigation';

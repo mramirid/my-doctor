@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import firebase from 'firebase';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { FlatList, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
 import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
 import HospitalItem from '../../components/molecules/HospitalItem';
+import firebase from '../../config/firebase';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import Hospital, { FireHospitals } from '../../global-types/hospital';

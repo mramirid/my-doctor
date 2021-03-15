@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import firebase from 'firebase';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -8,6 +7,7 @@ import AppGap from '../../components/atoms/AppGap';
 import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
 import HomeProfile from '../../components/molecules/HomeProfile';
 import NewsItem from '../../components/molecules/NewsItem';
+import firebase from '../../config/firebase';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';

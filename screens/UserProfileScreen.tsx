@@ -1,6 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
-import firebase from 'firebase';
 import React, { FC, useContext } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -8,6 +7,7 @@ import { showMessage } from 'react-native-flash-message';
 import ListItemBordered from '../components/molecules/ListItemBordered';
 import Header from '../components/molecules/header/Header';
 import UserProfileHeadline from '../components/molecules/profile/UserProfileHeadline';
+import firebase from '../config/firebase';
 import Colors from '../constants/colors';
 import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
 import { UserProfileScreenNavProp } from '../global-types/navigation';

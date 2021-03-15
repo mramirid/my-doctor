@@ -5,6 +5,7 @@ import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
 import AppGap from '../components/atoms/AppGap';
 import ListItemBordered from '../components/molecules/ListItemBordered';
 import Header from '../components/molecules/header/Header';
+import firebase from '../config/firebase';
 import Colors from '../constants/colors';
 import Fonts from '../constants/fonts';
 import {
@@ -15,6 +16,13 @@ import { Doctor } from '../global-types/user';
 import withStatusBar from '../hoc/withStatusBar';
 
 const filteredDoctors: Doctor[] = [];
+
+async function fetchDoctorsByCategory() {
+  const data = await firebase.database().ref('news').once('value');
+  const fetchedNews: FireGetNews = data.val();
+  const news = Object.keys(fetchedNews).map<News>((key) => ({ id: key, ...fetchedNews[key] }));
+  return news;
+}
 
 const CategoryDoctorsScreen: FC = () => {
   const navigation = useNavigation<CategoryDoctorsScreenNavProp>();

@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import firebase from 'firebase';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -10,6 +9,7 @@ import DoctorCategoryItem from '../../components/molecules/DoctorCategoryItem';
 import HomeProfile from '../../components/molecules/HomeProfile';
 import NewsItem from '../../components/molecules/NewsItem';
 import TopRatedDoctorItem from '../../components/molecules/TopRatedDoctorItem';
+import firebase from '../../config/firebase';
 import Colors from '../../constants/colors';
 import DoctorSpecialist from '../../constants/doctor-specialist';
 import Fonts from '../../constants/fonts';
