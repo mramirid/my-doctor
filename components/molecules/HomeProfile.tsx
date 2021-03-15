@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Text, Image, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Colors from '../../constants/colors';
@@ -10,10 +10,11 @@ interface HomeProfileProps {
   occupation: string;
   photo?: string | null;
   onPress(): void;
+  style?: ViewStyle;
 }
 
 const HomeProfile: FC<HomeProfileProps> = (props) => (
-  <TouchableOpacity style={styles.container} onPress={props.onPress}>
+  <TouchableOpacity style={{ ...styles.container, ...props.style }} onPress={props.onPress}>
     <Image
       style={styles.avatar}
       source={

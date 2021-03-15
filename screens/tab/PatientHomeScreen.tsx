@@ -14,7 +14,7 @@ import Colors from '../../constants/colors';
 import DoctorSpecialist from '../../constants/doctor-specialist';
 import Fonts from '../../constants/fonts';
 import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
-import { DoctorsOverviewScreenNavProp } from '../../global-types/navigation';
+import { PatientHomeScreenNavProp } from '../../global-types/navigation';
 import { FireNews, News } from '../../global-types/news';
 import { DoctorCategory as IDoctorCategory } from '../../global-types/user';
 import withStatusBar from '../../hoc/withStatusBar';
@@ -46,8 +46,8 @@ async function fetchDoctorCategories() {
   return categories;
 }
 
-const DoctorsOverviewScreen: FC = () => {
-  const navigation = useNavigation<DoctorsOverviewScreenNavProp>();
+const PatientHomeScreen: FC = () => {
+  const navigation = useNavigation<PatientHomeScreenNavProp>();
   const { showLoading, hideLoading } = useContext(AppLoadingIndicatorContext);
 
   const userAuth = useAppSelector(selectUserAuth);
@@ -154,4 +154,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withStatusBar(DoctorsOverviewScreen, 'dark', Colors.White);
+export default withStatusBar(PatientHomeScreen, 'dark', Colors.White);

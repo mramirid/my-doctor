@@ -64,13 +64,19 @@ export type EditUserProfileScreenNavProp = StackNavigationProp<
 /* ---------------- Home Bottom Tabs ---------------- */
 
 export type HomeTabParamList = {
-  DoctorsOverviewScreen: undefined;
+  PatientHomeScreen: undefined;
+  DoctorHomeScreen: undefined;
   MessagesScreen: undefined;
   HospitalsScreen: undefined;
 };
 
-export type DoctorsOverviewScreenNavProp = CompositeNavigationProp<
-  BottomTabNavigationProp<HomeTabParamList, 'DoctorsOverviewScreen'>,
+export type PatientHomeScreenNavProp = CompositeNavigationProp<
+  BottomTabNavigationProp<HomeTabParamList, 'PatientHomeScreen'>,
+  StackNavigationProp<AppStackParamList>
+>;
+
+export type DoctorHomeScreenNavProp = CompositeNavigationProp<
+  BottomTabNavigationProp<HomeTabParamList, 'DoctorHomeScreen'>,
   StackNavigationProp<AppStackParamList>
 >;
 
