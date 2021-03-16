@@ -18,6 +18,7 @@ import { PatientHomeScreenNavProp } from '../../global-types/navigation';
 import { FireNews, News } from '../../global-types/news';
 import { Doctor, DoctorCategory as IDoctorCategory, FireGetDoctors } from '../../global-types/user';
 import withStatusBar from '../../hoc/withStatusBar';
+import useMounted from '../../hooks/useMounted';
 import { selectUserAuth } from '../../store/reducers/auth';
 import { useAppSelector } from '../../store/types';
 
@@ -74,6 +75,7 @@ async function fetchTopRatedDoctors() {
 const PatientHomeScreen: FC = () => {
   const navigation = useNavigation<PatientHomeScreenNavProp>();
   const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
+  const { runInMounted } = useMounted();
 
   const userAuth = useAppSelector(selectUserAuth);
   const [doctorCategories, setDoctorCategories] = useState<IDoctorCategory[]>([]);
@@ -89,9 +91,11 @@ const PatientHomeScreen: FC = () => {
           fetchDoctorCategories(),
           fetchTopRatedDoctors(),
         ]);
-        setDoctorCategories(doctorCategories);
-        setTopRatedDoctors(topRatedDoctors);
-        setNews(news);
+        runInMounted(() => {
+          setDoctorCategories(doctorCategories);
+          setTopRatedDoctors(topRatedDoctors);
+          setNews(news);
+        });
       } catch (error) {
         showMessage({
           message: error.message || 'Gagal menjangkau server',
@@ -101,7 +105,7 @@ const PatientHomeScreen: FC = () => {
         hideScreenLoading();
       }
     })();
-  }, [hideScreenLoading, showScreenLoading]);
+  }, [hideScreenLoading, runInMounted, showScreenLoading]);
 
   return (
     <AppTabScreen style={styles.screen} withScrollView>

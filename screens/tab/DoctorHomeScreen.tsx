@@ -14,6 +14,7 @@ import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator
 import { DoctorHomeScreenNavProp } from '../../global-types/navigation';
 import { FireNews, News } from '../../global-types/news';
 import withStatusBar from '../../hoc/withStatusBar';
+import useMounted from '../../hooks/useMounted';
 import { selectUserAuth } from '../../store/reducers/auth';
 import { useAppSelector } from '../../store/types';
 
@@ -39,6 +40,7 @@ async function fetchNews() {
 const DoctorHomeScreen: FC = () => {
   const navigation = useNavigation<DoctorHomeScreenNavProp>();
   const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
+  const { runInMounted } = useMounted();
 
   const userAuth = useAppSelector(selectUserAuth);
   const [news, setNews] = useState<News[]>([]);
@@ -47,7 +49,8 @@ const DoctorHomeScreen: FC = () => {
     (async () => {
       try {
         showScreenLoading();
-        setNews(await fetchNews());
+        const news = await fetchNews();
+        runInMounted(() => setNews(news));
       } catch (error) {
         showMessage({
           message: error.message || 'Gagal menjangkau server',
@@ -57,7 +60,7 @@ const DoctorHomeScreen: FC = () => {
         hideScreenLoading();
       }
     })();
-  }, [hideScreenLoading, showScreenLoading]);
+  }, [hideScreenLoading, runInMounted, showScreenLoading]);
 
   return (
     <AppTabScreen style={styles.screen} withScrollView>

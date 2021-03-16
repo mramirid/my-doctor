@@ -51,7 +51,7 @@ export interface FireDoctor {
   almamater: string;
   credentialId: string;
   workplace: string;
-  gender: string;
+  gender: Gender;
   email: string;
   photo: string | null;
   isDoctor: true;

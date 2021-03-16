@@ -16,6 +16,7 @@ import {
 } from '../global-types/navigation';
 import { Doctor, FireGetDoctors } from '../global-types/user';
 import withStatusBar from '../hoc/withStatusBar';
+import useMounted from '../hooks/useMounted';
 
 async function fetchDoctorsByCategory(specialist: DoctorSpecialist) {
   const data = await firebase
@@ -38,6 +39,7 @@ async function fetchDoctorsByCategory(specialist: DoctorSpecialist) {
 const CategoryDoctorsScreen: FC = () => {
   const navigation = useNavigation<CategoryDoctorsScreenNavProp>();
   const { params } = useRoute<CategoryDoctorsScreenRouteProp>();
+  const { runInMounted } = useMounted();
 
   const [fetchLoading, setFetchLoading] = useState(false);
   const [doctors, setDoctors] = useState<Doctor[]>([]);
@@ -45,16 +47,17 @@ const CategoryDoctorsScreen: FC = () => {
   const startFetchHospitals = useCallback(async () => {
     try {
       setFetchLoading(true);
-      setDoctors(await fetchDoctorsByCategory(params.category.name));
+      const doctors = await fetchDoctorsByCategory(params.category.name);
+      runInMounted(() => setDoctors(doctors));
     } catch (error) {
       showMessage({
         message: error.message || 'Gagal memuat rumah sakit terdekat',
         type: 'danger',
       });
     } finally {
-      setFetchLoading(false);
+      runInMounted(() => setFetchLoading(false));
     }
-  }, [params.category.name]);
+  }, [params.category.name, runInMounted]);
 
   useEffect(() => {
     startFetchHospitals();

@@ -9,6 +9,7 @@ import firebase from '../../config/firebase';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import Hospital, { FireHospitals } from '../../global-types/hospital';
+import useMounted from '../../hooks/useMounted';
 
 interface FireGetHospitals {
   [id: string]: FireHospitals;
@@ -26,22 +27,25 @@ async function fetchHospitals() {
 }
 
 const HospitalsScreen: FC = () => {
+  const { runInMounted } = useMounted();
+
   const [fetchLoading, setFetchLoading] = useState(false);
   const [hospitals, setHospitals] = useState<Hospital[]>([]);
 
   const startFetchHospitals = useCallback(async () => {
     try {
       setFetchLoading(true);
-      setHospitals(await fetchHospitals());
+      const hospitals = await fetchHospitals();
+      runInMounted(() => setHospitals(hospitals));
     } catch (error) {
       showMessage({
         message: error.message || 'Gagal memuat rumah sakit terdekat',
         type: 'danger',
       });
     } finally {
-      setFetchLoading(false);
+      runInMounted(() => setFetchLoading(false));
     }
-  }, []);
+  }, [runInMounted]);
 
   useEffect(() => {
     startFetchHospitals();

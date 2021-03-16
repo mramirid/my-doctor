@@ -67,15 +67,8 @@ const EditPatientScreen: FC = () => {
             })
           )
         );
-        reset({
-          ...data,
-          oldPassword: '',
-          newPassword: '',
-        });
-        showMessage({
-          message: 'Profile berhasil diperbaharui',
-          type: 'success',
-        });
+        reset({ ...data, oldPassword: '', newPassword: '' });
+        showMessage({ message: 'Profile berhasil diperbaharui', type: 'success' });
         navigation.goBack();
       } catch (error) {
         showMessage({
