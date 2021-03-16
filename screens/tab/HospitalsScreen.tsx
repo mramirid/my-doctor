@@ -16,7 +16,8 @@ interface FireGetHospitals {
 
 async function fetchHospitals() {
   const data = await firebase.database().ref('hospitals').once('value');
-  const fetchedHospitals: FireGetHospitals = data.val();
+  const fetchedHospitals: FireGetHospitals | null = data.val();
+  if (!fetchedHospitals) return [];
   const hospitals = Object.keys(fetchedHospitals).map<Hospital>((key) => ({
     id: key,
     ...fetchedHospitals[key],
@@ -61,6 +62,7 @@ const HospitalsScreen: FC = () => {
           refreshing={fetchLoading}
           onRefresh={startFetchHospitals}
           data={hospitals}
+          ListEmptyComponent={<Text style={styles.textEmpty}>Belum ada rumah sakit terdekat</Text>}
           renderItem={({ item }) => <HospitalItem hospital={item} onPress={() => null} />}
         />
       </View>
@@ -100,6 +102,12 @@ const styles = StyleSheet.create({
   listHospitals: {
     marginTop: 14,
     paddingBottom: 30,
+  },
+  textEmpty: {
+    marginTop: 14,
+    textAlign: 'center',
+    fontFamily: Fonts.NunitoRegular,
+    color: Colors.Dark,
   },
 });
 

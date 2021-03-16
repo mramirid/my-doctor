@@ -58,6 +58,10 @@ export interface FireDoctor {
   rating: number;
 }
 
+export interface FireGetDoctors {
+  [id: string]: FireDoctor;
+}
+
 export interface Doctor extends FireDoctor {
   uid: string;
 }

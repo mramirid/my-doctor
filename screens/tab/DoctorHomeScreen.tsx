@@ -22,8 +22,16 @@ interface FireGetNews {
 }
 
 async function fetchNews() {
-  const data = await firebase.database().ref('news').once('value');
-  const fetchedNews: FireGetNews = data.val();
+  const data = await firebase
+    .database()
+    .ref('news')
+    .orderByChild('date')
+    .limitToLast(3)
+    .once('value');
+
+  const fetchedNews: FireGetNews | null = data.val();
+  if (!fetchedNews) return [];
+
   const news = Object.keys(fetchedNews).map<News>((key) => ({ id: key, ...fetchedNews[key] }));
   return news;
 }

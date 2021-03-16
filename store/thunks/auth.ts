@@ -62,6 +62,7 @@ export const signUpDoctor = createAsyncThunk<AuthState, DoctorSignUpFormValues, 
         workplace: payload.workplace,
         rating: 0,
         isDoctor: true,
+        photo: null,
       };
       await firebase.database().ref(`users/${user!.uid}`).set(createdDoctor);
 

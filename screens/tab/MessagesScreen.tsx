@@ -25,7 +25,16 @@ const MessagesScreen: FC = () => {
             style={styles.messageItem}
             key={item.uid}
             title={item.fullName}
-            avatar={<Image style={styles.avatar} source={{ uri: item.photo! }} />}
+            avatar={
+              <Image
+                style={styles.avatar}
+                source={
+                  item.photo
+                    ? { uri: item.photo }
+                    : require('../../assets/illustrations/user-photo-null.png')
+                }
+              />
+            }
             description="Baik ibu, terima kasih banyak atas wakt..."
             onPress={() => navigation.navigate('ChatRoomScreen', { doctor: item })}
           />

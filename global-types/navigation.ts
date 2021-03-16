@@ -2,8 +2,7 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import DoctorSpecialist from '../constants/doctor-specialist';
-import { Doctor } from './user';
+import { Doctor, DoctorCategory } from './user';
 
 /* ---------------- App Stack ---------------- */
 
@@ -15,7 +14,7 @@ export type AppStackParamList = {
   DoctorSignUpScreen: undefined;
   UploadPhotoScreen: undefined;
   HomeTab: undefined;
-  CategoryDoctorsScreen: { category: DoctorSpecialist };
+  CategoryDoctorsScreen: { category: DoctorCategory };
   ChatRoomScreen: { doctor: Doctor };
   UserProfileScreen: undefined;
   EditPatientScreen: undefined;

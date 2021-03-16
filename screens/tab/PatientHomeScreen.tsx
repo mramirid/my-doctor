@@ -16,7 +16,7 @@ import Fonts from '../../constants/fonts';
 import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
 import { PatientHomeScreenNavProp } from '../../global-types/navigation';
 import { FireNews, News } from '../../global-types/news';
-import { Doctor, DoctorCategory as IDoctorCategory, FireDoctor } from '../../global-types/user';
+import { Doctor, DoctorCategory as IDoctorCategory, FireGetDoctors } from '../../global-types/user';
 import withStatusBar from '../../hoc/withStatusBar';
 import { selectUserAuth } from '../../store/reducers/auth';
 import { useAppSelector } from '../../store/types';
@@ -26,8 +26,14 @@ interface FireGetNews {
 }
 
 async function fetchNews() {
-  const data = await firebase.database().ref('news').once('value');
-  const fetchedNews: FireGetNews = data.val();
+  const data = await firebase
+    .database()
+    .ref('news')
+    .orderByChild('date')
+    .limitToLast(3)
+    .once('value');
+  const fetchedNews: FireGetNews | null = data.val();
+  if (!fetchedNews) return [];
   const news = Object.keys(fetchedNews).map<News>((key) => ({ id: key, ...fetchedNews[key] }));
   return news;
 }
@@ -38,16 +44,13 @@ interface FireGetDoctorCategories {
 
 async function fetchDoctorCategories() {
   const data = await firebase.database().ref('doctorCategories').once('value');
-  const fetchedCategories: FireGetDoctorCategories = data.val();
+  const fetchedCategories: FireGetDoctorCategories | null = data.val();
+  if (!fetchedCategories) return [];
   const categories = Object.keys(fetchedCategories).map<IDoctorCategory>((key) => ({
     id: key,
     name: fetchedCategories[key],
   }));
   return categories;
-}
-
-interface FireGetDoctors {
-  [id: string]: FireDoctor;
 }
 
 async function fetchTopRatedDoctors() {
@@ -57,7 +60,10 @@ async function fetchTopRatedDoctors() {
     .orderByChild('rating')
     .limitToLast(3)
     .once('value');
-  const fetchedTopDoctors: FireGetDoctors = data.val();
+
+  const fetchedTopDoctors: FireGetDoctors | null = data.val();
+  if (!fetchedTopDoctors) return [];
+
   const topDoctors = Object.keys(fetchedTopDoctors).map<Doctor>((key) => ({
     uid: key,
     ...fetchedTopDoctors[key],
@@ -119,7 +125,7 @@ const PatientHomeScreen: FC = () => {
               key={category.id}
               category={category.name}
               onPress={() => {
-                navigation.navigate('CategoryDoctorsScreen', { category: category.name });
+                navigation.navigate('CategoryDoctorsScreen', { category });
               }}
             />
           ))}

@@ -14,6 +14,7 @@ import AppNavigator from './navigation';
 import { store, persistor } from './store';
 
 enableScreens();
+
 LogBox.ignoreLogs(['https://github.com/facebook/react-native/issues/12981']);
 
 const App: FC = () => {
