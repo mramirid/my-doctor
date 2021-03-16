@@ -6,6 +6,7 @@ import {
   Text,
   NativeSyntheticEvent,
   TextInputFocusEventData,
+  TextStyle,
 } from 'react-native';
 
 import Colors from '../../constants/colors';
@@ -33,7 +34,11 @@ const AppTextInput = forwardRef<TextInput, AppTextInputProps>((props, ref) => {
       {props.label && <Text style={styles.label}>{props.label}</Text>}
       <TextInput
         {...props}
-        style={{ ...styles.input, borderColor }}
+        style={{
+          ...styles.input,
+          ...((props.style ?? {}) as TextStyle),
+          borderColor,
+        }}
         ref={ref}
         onFocus={onFocus}
         onBlur={onBlur}

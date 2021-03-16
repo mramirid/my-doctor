@@ -8,8 +8,8 @@ import ListItemBordered from '../components/molecules/ListItemBordered';
 import Header from '../components/molecules/header/Header';
 import firebase from '../config/firebase';
 import Colors from '../constants/colors';
-import DoctorSpecialist from '../constants/doctor-specialist';
 import Fonts from '../constants/fonts';
+import { DoctorSpecialist } from '../constants/user';
 import {
   CategoryDoctorsScreenNavProp,
   CategoryDoctorsScreenRouteProp,
@@ -18,7 +18,7 @@ import { Doctor, FireGetDoctors } from '../global-types/user';
 import withStatusBar from '../hoc/withStatusBar';
 import useMounted from '../hooks/useMounted';
 
-async function fetchDoctorsByCategory(specialist: DoctorSpecialist) {
+async function fetchDoctorsByCategory(specialist: DoctorSpecialist | string) {
   const data = await firebase
     .database()
     .ref('users')

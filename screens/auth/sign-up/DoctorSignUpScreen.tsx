@@ -12,8 +12,12 @@ import AppPickerInput from '../../../components/atoms/AppPickerInput';
 import AppTextInput from '../../../components/atoms/AppTextInput';
 import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
-import DoctorSpecialist, { specialistOptions } from '../../../constants/doctor-specialist';
-import Gender, { genderOptions } from '../../../constants/gender';
+import {
+  DoctorSpecialist,
+  specialistOptions,
+  Gender,
+  genderOptions,
+} from '../../../constants/user';
 import { AppLoadingIndicatorContext } from '../../../contexts/app-loading-indicator';
 import { DoctorSignUpScreenNavProp } from '../../../global-types/navigation';
 import { DoctorSignUpFormValues } from '../../../global-types/user';

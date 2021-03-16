@@ -2,7 +2,14 @@ import { $enum } from 'ts-enum-util';
 
 import { SelectOption } from '../global-types/input';
 
-enum DoctorSpecialist {
+export enum Gender {
+  Male = 'Pria',
+  Female = 'Wanita',
+}
+
+export const genderOptions: SelectOption[] = $enum(Gender).map((value, key) => ({ value, key }));
+
+export enum DoctorSpecialist {
   GeneralPractitioner = 'Dokter Umum',
   Pediatrician = 'Dokter Anak',
   Dentist = 'Dokter Gigi',
@@ -41,5 +48,3 @@ export const specialistOptions: SelectOption[] = $enum(DoctorSpecialist).map((va
   key,
   value,
 }));
-
-export default DoctorSpecialist;

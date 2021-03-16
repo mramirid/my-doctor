@@ -1,5 +1,4 @@
-import DoctorSpecialist from '../constants/doctor-specialist';
-import Gender from '../constants/gender';
+import { DoctorSpecialist, Gender } from '../constants/user';
 
 export interface SignInFormValues {
   email: string;
@@ -68,5 +67,5 @@ export interface Doctor extends FireDoctor {
 
 export interface DoctorCategory {
   id: string;
-  name: DoctorSpecialist;
+  name: DoctorSpecialist | string;
 }

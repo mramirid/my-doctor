@@ -5,7 +5,7 @@ import FemaleSymbol from '../../../assets/icons/FemaleSymbol';
 import MaleSymbol from '../../../assets/icons/MaleSymbol';
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
-import Gender from '../../../constants/gender';
+import { Gender } from '../../../constants/user';
 
 interface DoctorProfileHeadingProps {
   name: string;

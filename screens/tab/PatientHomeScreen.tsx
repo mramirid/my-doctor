@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { FC, useContext, useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
+import { FlatList } from 'react-native-gesture-handler';
 
 import AppGap from '../../components/atoms/AppGap';
 import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
@@ -11,12 +12,12 @@ import NewsItem from '../../components/molecules/NewsItem';
 import TopRatedDoctorItem from '../../components/molecules/TopRatedDoctorItem';
 import firebase from '../../config/firebase';
 import Colors from '../../constants/colors';
-import DoctorSpecialist from '../../constants/doctor-specialist';
 import Fonts from '../../constants/fonts';
+import { specialistOptions } from '../../constants/user';
 import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
 import { PatientHomeScreenNavProp } from '../../global-types/navigation';
 import { FireNews, News } from '../../global-types/news';
-import { Doctor, DoctorCategory as IDoctorCategory, FireGetDoctors } from '../../global-types/user';
+import { Doctor, FireGetDoctors } from '../../global-types/user';
 import withStatusBar from '../../hoc/withStatusBar';
 import useMounted from '../../hooks/useMounted';
 import { selectUserAuth } from '../../store/reducers/auth';
@@ -37,21 +38,6 @@ async function fetchNews() {
   if (!fetchedNews) return [];
   const news = Object.keys(fetchedNews).map<News>((key) => ({ id: key, ...fetchedNews[key] }));
   return news;
-}
-
-interface FireGetDoctorCategories {
-  [id: string]: DoctorSpecialist;
-}
-
-async function fetchDoctorCategories() {
-  const data = await firebase.database().ref('doctorCategories').once('value');
-  const fetchedCategories: FireGetDoctorCategories | null = data.val();
-  if (!fetchedCategories) return [];
-  const categories = Object.keys(fetchedCategories).map<IDoctorCategory>((key) => ({
-    id: key,
-    name: fetchedCategories[key],
-  }));
-  return categories;
 }
 
 async function fetchTopRatedDoctors() {
@@ -78,7 +64,6 @@ const PatientHomeScreen: FC = () => {
   const { runInMounted } = useMounted();
 
   const userAuth = useAppSelector(selectUserAuth);
-  const [doctorCategories, setDoctorCategories] = useState<IDoctorCategory[]>([]);
   const [topRatedDoctors, setTopRatedDoctors] = useState<Doctor[]>([]);
   const [news, setNews] = useState<News[]>([]);
 
@@ -86,13 +71,8 @@ const PatientHomeScreen: FC = () => {
     (async () => {
       try {
         showScreenLoading();
-        const [news, doctorCategories, topRatedDoctors] = await Promise.all([
-          fetchNews(),
-          fetchDoctorCategories(),
-          fetchTopRatedDoctors(),
-        ]);
+        const [news, topRatedDoctors] = await Promise.all([fetchNews(), fetchTopRatedDoctors()]);
         runInMounted(() => {
-          setDoctorCategories(doctorCategories);
           setTopRatedDoctors(topRatedDoctors);
           setNews(news);
         });
@@ -118,24 +98,29 @@ const PatientHomeScreen: FC = () => {
         />
         <Text style={styles.welcomeText}>Mau konsultasi dengan siapa hari ini?</Text>
       </View>
-      <View>
-        <ScrollView
-          horizontal
-          contentContainerStyle={styles.categoriesContent}
-          showsHorizontalScrollIndicator={false}>
-          <AppGap width={16} />
-          {doctorCategories.map((category) => (
-            <DoctorCategoryItem
-              key={category.id}
-              category={category.name}
-              onPress={() => {
-                navigation.navigate('CategoryDoctorsScreen', { category });
-              }}
-            />
-          ))}
-          <AppGap width={6} />
-        </ScrollView>
-      </View>
+      <FlatList
+        horizontal
+        contentContainerStyle={styles.categoriesContent}
+        showsHorizontalScrollIndicator={false}
+        data={specialistOptions}
+        renderItem={({ item, index }) => {
+          return (
+            <>
+              <AppGap width={16} />
+              <DoctorCategoryItem
+                key={item.key}
+                category={item.value}
+                onPress={() =>
+                  navigation.navigate('CategoryDoctorsScreen', {
+                    category: { id: item.key, name: item.value },
+                  })
+                }
+              />
+              {index === specialistOptions.length - 1 && <AppGap width={16} />}
+            </>
+          );
+        }}
+      />
       <AppGap height={30} />
       <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
       <View style={styles.padX16}>

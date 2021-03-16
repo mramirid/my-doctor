@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import GeneralPractitioner from '../../assets/icons/doctor-categories/GeneralPractitioner';
@@ -6,12 +6,12 @@ import Medicine from '../../assets/icons/doctor-categories/Medicine';
 import Pediatrician from '../../assets/icons/doctor-categories/Pediatrician';
 import Psychiatrist from '../../assets/icons/doctor-categories/Psychiatrist';
 import Colors from '../../constants/colors';
-import DoctorSpecialist from '../../constants/doctor-specialist';
 import Fonts from '../../constants/fonts';
+import { DoctorSpecialist } from '../../constants/user';
 import AppCard from '../atoms/AppCard';
 
 interface DoctorCategoryItemProps {
-  category: DoctorSpecialist;
+  category: DoctorSpecialist | string;
   onPress(): void;
 }
 
@@ -38,8 +38,12 @@ const DoctorCategoryItem: FC<DoctorCategoryItemProps> = (props) => {
     <AppCard style={styles.container}>
       <TouchableOpacity style={styles.content} onPress={props.onPress}>
         <View style={styles.icon}>{icon}</View>
-        <Text style={styles.label}>Saya butuh</Text>
-        <Text style={styles.name}>{props.category}</Text>
+        <View>
+          <Text style={styles.label}>Saya butuh</Text>
+          <Text style={styles.name} numberOfLines={1}>
+            {props.category}
+          </Text>
+        </View>
       </TouchableOpacity>
     </AppCard>
   );
@@ -51,10 +55,11 @@ const styles = StyleSheet.create({
     height: 130,
     backgroundColor: Colors.Green1,
     alignSelf: 'flex-start',
-    marginRight: 10,
   },
   content: {
+    flex: 1,
     padding: 12,
+    justifyContent: 'space-between',
   },
   icon: {
     marginBottom: 28,
@@ -71,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DoctorCategoryItem;
+export default memo(DoctorCategoryItem);
