@@ -41,6 +41,7 @@ const SignInScreen: FC = () => {
         showScreenLoading();
         unwrapResult(await dispatch(signIn(data)));
         reset();
+        navigation.popToTop();
         navigation.replace('HomeTab');
       } catch (error) {
         showMessage({

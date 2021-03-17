@@ -35,6 +35,7 @@ const UploadPhotoScreen: FC = () => {
     try {
       showScreenLoading();
       unwrapResult(await dispatch(uploadPhoto({ newPhoto: pickedPhoto! })));
+      navigation.popToTop();
       navigation.replace('HomeTab');
     } catch (error) {
       showMessage({

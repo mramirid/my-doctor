@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { FC, useContext, useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { FC, useEffect, useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 import { FlatList } from 'react-native-gesture-handler';
 
@@ -14,7 +14,6 @@ import firebase from '../../config/firebase';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import { specialistOptions } from '../../constants/user';
-import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
 import { PatientHomeScreenNavProp } from '../../global-types/navigation';
 import { FireNews, News } from '../../global-types/news';
 import { Doctor, FireGetDoctors } from '../../global-types/user';
@@ -60,32 +59,34 @@ async function fetchTopRatedDoctors() {
 
 const PatientHomeScreen: FC = () => {
   const navigation = useNavigation<PatientHomeScreenNavProp>();
-  const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
   const { runInMounted } = useMounted();
 
   const userAuth = useAppSelector(selectUserAuth);
-  const [topRatedDoctors, setTopRatedDoctors] = useState<Doctor[]>([]);
-  const [news, setNews] = useState<News[]>([]);
+  const [topRatedDoctors, setTopRatedDoctors] = useState({
+    isFetching: true,
+    data: [] as Doctor[],
+  });
+  const [news, setNews] = useState({
+    isFetching: true,
+    data: [] as News[],
+  });
 
   useEffect(() => {
     (async () => {
       try {
-        showScreenLoading();
         const [news, topRatedDoctors] = await Promise.all([fetchNews(), fetchTopRatedDoctors()]);
         runInMounted(() => {
-          setTopRatedDoctors(topRatedDoctors);
-          setNews(news);
+          setTopRatedDoctors({ isFetching: false, data: topRatedDoctors });
+          setNews({ isFetching: false, data: news });
         });
       } catch (error) {
         showMessage({
           message: error.message || 'Gagal menjangkau server',
           type: 'danger',
         });
-      } finally {
-        hideScreenLoading();
       }
     })();
-  }, [hideScreenLoading, runInMounted, showScreenLoading]);
+  }, [runInMounted]);
 
   return (
     <AppTabScreen style={styles.screen} withScrollView>
@@ -124,20 +125,32 @@ const PatientHomeScreen: FC = () => {
       <AppGap height={30} />
       <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
       <View style={styles.padX16}>
-        {topRatedDoctors.map((doctor) => (
-          <TopRatedDoctorItem
-            key={doctor.uid}
-            style={styles.topRatedDoctor}
-            doctor={doctor}
-            onPress={() => navigation.navigate('DoctorDetailScreen', { doctor })}
-          />
-        ))}
+        {topRatedDoctors.isFetching ? (
+          <View style={styles.fetchLoadingContainer}>
+            <ActivityIndicator size="large" color={Colors.Green3} />
+          </View>
+        ) : (
+          topRatedDoctors.data.map((doctor) => (
+            <TopRatedDoctorItem
+              key={doctor.uid}
+              style={styles.topRatedDoctor}
+              doctor={doctor}
+              onPress={() => navigation.navigate('DoctorDetailScreen', { doctor })}
+            />
+          ))
+        )}
       </View>
       <AppGap height={30} />
       <Text style={styles.sectionLabel}>Good News</Text>
-      {news.map((item) => (
-        <NewsItem style={styles.newsItem} key={item.id} news={item} onPress={() => null} />
-      ))}
+      {topRatedDoctors.isFetching ? (
+        <View style={styles.fetchLoadingContainer}>
+          <ActivityIndicator size="large" color={Colors.Green3} />
+        </View>
+      ) : (
+        news.data.map((item) => (
+          <NewsItem style={styles.newsItem} key={item.id} news={item} onPress={() => null} />
+        ))
+      )}
     </AppTabScreen>
   );
 };
@@ -165,6 +178,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: Fonts.NunitoSemiBold,
     color: Colors.Dark,
+  },
+  fetchLoadingContainer: {
+    height: 150,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   topRatedDoctor: {
     marginTop: 16,
