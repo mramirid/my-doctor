@@ -14,11 +14,8 @@ const SendButton: FC<SendButtonProps> = (props) => {
   const buttonColor = !props.disabled ? Colors.Blue : Colors.Grey1;
   const iconColor = !props.disabled ? Colors.White : Colors.Grey2;
   return (
-    <AppCard style={{ ...styles.buttonContainer, backgroundColor: buttonColor }}>
-      <TouchableOpacity
-        disabled={props.disabled}
-        style={styles.buttonContent}
-        onPress={props.onPress}>
+    <TouchableOpacity disabled={props.disabled} onPress={props.onPress}>
+      <AppCard style={{ ...styles.buttonContent, backgroundColor: buttonColor }}>
         <Svg width={34} height={34} viewBox="0 0 34 34" fill="none">
           <Path
             fillRule="evenodd"
@@ -27,18 +24,15 @@ const SendButton: FC<SendButtonProps> = (props) => {
             fill={iconColor}
           />
         </Svg>
-      </TouchableOpacity>
-    </AppCard>
+      </AppCard>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
+  buttonContent: {
     height: 45,
     width: 45,
-  },
-  buttonContent: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 3,

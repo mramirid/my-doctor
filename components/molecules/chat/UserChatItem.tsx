@@ -7,17 +7,17 @@ import Fonts from '../../../constants/fonts';
 import Chat from '../../../global-types/chat';
 import AppCard from '../../atoms/AppCard';
 
-interface MyChatItemProps {
+interface UserChatItemProps {
   chat: Chat;
   style?: ViewStyle;
 }
 
-const MyChatItem: FC<MyChatItemProps> = (props) => (
+const UserChatItem: FC<UserChatItemProps> = (props) => (
   <View style={{ ...styles.container, ...props.style }}>
     <AppCard style={styles.messageContainer}>
-      <Text style={styles.message}>{props.chat.message}</Text>
+      <Text style={styles.message}>{props.chat.content}</Text>
     </AppCard>
-    <Text style={styles.date}>{format(props.chat.date, 'hh:mm a')}</Text>
+    <Text style={styles.timestamp}>{format(props.chat.timestamp, 'hh:mm a')}</Text>
   </View>
 );
 
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.NunitoRegular,
     color: Colors.Dark,
   },
-  date: {
+  timestamp: {
     fontSize: 11,
     fontFamily: Fonts.NunitoRegular,
     color: Colors.Grey2,
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyChatItem;
+export default UserChatItem;

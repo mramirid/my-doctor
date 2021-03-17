@@ -7,19 +7,22 @@ import Fonts from '../../../constants/fonts';
 import Chat from '../../../global-types/chat';
 import AppCard from '../../atoms/AppCard';
 
-interface OtherChatItemProps {
+interface PartnerChatItemProps {
   chat: Chat;
   style?: ViewStyle;
 }
 
-const OtherChatItem: FC<OtherChatItemProps> = (props) => (
+const PartnerChatItem: FC<PartnerChatItemProps> = (props) => (
   <View style={{ ...styles.container, ...props.style }}>
-    <Image style={styles.avatar} source={{ uri: props.chat.sender.photoUrl }} />
+    <Image
+      style={styles.avatar}
+      source={require('../../../assets/illustrations/user-photo-null.png')}
+    />
     <View>
       <AppCard style={styles.messageCard}>
-        <Text style={styles.message}>{props.chat.message}</Text>
+        <Text style={styles.message}>{props.chat.content}</Text>
       </AppCard>
-      <Text style={styles.date}>{format(props.chat.date, 'hh:mm a')}</Text>
+      <Text style={styles.timestamp}>{format(props.chat.timestamp, 'hh:mm a')}</Text>
     </View>
   </View>
 );
@@ -47,7 +50,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.NunitoRegular,
     color: Colors.White,
   },
-  date: {
+  timestamp: {
     fontSize: 11,
     fontFamily: Fonts.NunitoRegular,
     color: Colors.Grey2,
@@ -55,4 +58,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OtherChatItem;
+export default PartnerChatItem;
