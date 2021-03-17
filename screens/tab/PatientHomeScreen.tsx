@@ -142,7 +142,7 @@ const PatientHomeScreen: FC = () => {
       </View>
       <AppGap height={30} />
       <Text style={styles.sectionLabel}>Good News</Text>
-      {topRatedDoctors.isFetching ? (
+      {news.isFetching ? (
         <View style={styles.fetchLoadingContainer}>
           <ActivityIndicator size="large" color={Colors.Green3} />
         </View>

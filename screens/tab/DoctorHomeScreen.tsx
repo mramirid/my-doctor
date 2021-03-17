@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { FC, useContext, useEffect, useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import React, { FC, useEffect, useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
 import AppGap from '../../components/atoms/AppGap';
@@ -10,7 +10,6 @@ import NewsItem from '../../components/molecules/NewsItem';
 import firebase from '../../config/firebase';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
-import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
 import { DoctorHomeScreenNavProp } from '../../global-types/navigation';
 import { FireNews, News } from '../../global-types/news';
 import withStatusBar from '../../hoc/withStatusBar';
@@ -39,28 +38,27 @@ async function fetchNews() {
 
 const DoctorHomeScreen: FC = () => {
   const navigation = useNavigation<DoctorHomeScreenNavProp>();
-  const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
   const { runInMounted } = useMounted();
 
   const userAuth = useAppSelector(selectUserAuth);
-  const [news, setNews] = useState<News[]>([]);
+  const [news, setNews] = useState({
+    isFetching: true,
+    data: [] as News[],
+  });
 
   useEffect(() => {
     (async () => {
       try {
-        showScreenLoading();
         const news = await fetchNews();
-        runInMounted(() => setNews(news));
+        runInMounted(() => setNews({ isFetching: false, data: news }));
       } catch (error) {
         showMessage({
           message: error.message || 'Gagal menjangkau server',
           type: 'danger',
         });
-      } finally {
-        hideScreenLoading();
       }
     })();
-  }, [hideScreenLoading, runInMounted, showScreenLoading]);
+  }, [runInMounted]);
 
   return (
     <AppTabScreen style={styles.screen} withScrollView>
@@ -73,9 +71,15 @@ const DoctorHomeScreen: FC = () => {
       />
       <AppGap height={30} />
       <Text style={styles.sectionLabel}>Good News</Text>
-      {news.map((item) => (
-        <NewsItem style={styles.newsItem} key={item.id} news={item} onPress={() => null} />
-      ))}
+      {news.isFetching ? (
+        <View style={styles.fetchLoadingContainer}>
+          <ActivityIndicator size="large" color={Colors.Green3} />
+        </View>
+      ) : (
+        news.data.map((item) => (
+          <NewsItem style={styles.newsItem} key={item.id} news={item} onPress={() => null} />
+        ))
+      )}
     </AppTabScreen>
   );
 };
@@ -100,6 +104,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: Fonts.NunitoSemiBold,
     color: Colors.Dark,
+  },
+  fetchLoadingContainer: {
+    height: 150,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   newsItem: {
     marginTop: 16,
