@@ -1,42 +1,82 @@
-import { useNavigation } from '@react-navigation/core';
-import React, { FC } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import firebase from 'firebase';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { StyleSheet, Text, Image, FlatList } from 'react-native';
 
 import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
 import ListItemBordered from '../../components/molecules/ListItemBordered';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
+import { ChatHistory, FireChatHistories } from '../../global-types/chatting';
 import { MessagesScreenNavProp } from '../../global-types/navigation';
-import { Doctor } from '../../global-types/user';
+import { Doctor, FireDoctor, FirePatient, Patient } from '../../global-types/user';
 import withStatusBar from '../../hoc/withStatusBar';
-
-const pedriaticians: Doctor[] = [];
+import { selectUserAuth } from '../../store/reducers/auth';
+import { useAppSelector } from '../../store/types';
 
 const MessagesScreen: FC = () => {
   const navigation = useNavigation<MessagesScreenNavProp>();
+
+  const userAuth = useAppSelector(selectUserAuth);
+  const [chatHistories, setChatHistories] = useState<ChatHistory[]>([]);
+
+  const onChatHistoriesReceived = useCallback(async (data: firebase.database.DataSnapshot) => {
+    const fireChatHistories: FireChatHistories | null = data.val();
+    let chatHistories: ChatHistory[] = [];
+    if (fireChatHistories) {
+      chatHistories = await Promise.all(
+        Object.keys(fireChatHistories).map<Promise<ChatHistory>>(async (chatRoomId) => {
+          const data = await firebase
+            .database()
+            .ref(`users/${fireChatHistories[chatRoomId].partnerUid}`)
+            .once('value');
+          const fireUser: FirePatient | FireDoctor = data.val();
+          const partner: Patient | Doctor = {
+            uid: fireChatHistories[chatRoomId].partnerUid,
+            ...fireUser,
+          };
+          return {
+            chatId: chatRoomId,
+            lastChatContent: fireChatHistories[chatRoomId].lastChatContent,
+            lastChatTimestamp: fireChatHistories[chatRoomId].lastChatTimestamp,
+            partner,
+          };
+        })
+      );
+    }
+    setChatHistories(chatHistories);
+  }, []);
+
+  useEffect(() => {
+    const userMessagesRef = firebase.database().ref(`messages/${userAuth.uid}`);
+    userMessagesRef.on('value', onChatHistoriesReceived);
+    return () => userMessagesRef.off('value', onChatHistoriesReceived);
+  }, [onChatHistoriesReceived, userAuth.uid]);
+
   return (
     <AppTabScreen style={styles.screen}>
       <Text style={styles.title}>Messages</Text>
       <FlatList
-        data={pedriaticians}
         style={styles.list}
+        data={chatHistories}
+        keyExtractor={(item) => item.chatId}
+        ListEmptyComponent={<Text style={styles.textEmpty}>Mulailah berkonsultasi</Text>}
         renderItem={({ item }) => (
           <ListItemBordered
             style={styles.messageItem}
-            key={item.uid}
-            title={item.fullName}
+            title={item.partner.fullName}
             avatar={
               <Image
                 style={styles.avatar}
                 source={
-                  item.photo
-                    ? { uri: item.photo }
+                  item.partner.photo
+                    ? { uri: item.partner.photo }
                     : require('../../assets/illustrations/user-photo-null.png')
                 }
               />
             }
-            description="Baik ibu, terima kasih banyak atas wakt..."
-            onPress={() => navigation.navigate('ChatRoomScreen', { doctor: item })}
+            description={item.lastChatContent}
+            onPress={() => navigation.navigate('ChatRoomScreen', { partner: item.partner })}
           />
         )}
       />
@@ -64,6 +104,12 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 1,
+  },
+  textEmpty: {
+    marginTop: 20,
+    textAlign: 'center',
+    fontFamily: Fonts.NunitoRegular,
+    color: Colors.Dark,
   },
   messageItem: {
     marginTop: 16,

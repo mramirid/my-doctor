@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState } from 'react';
-import { StyleSheet, View, ViewStyle } from 'react-native';
+import { Keyboard, StyleSheet, View, ViewStyle } from 'react-native';
 
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
@@ -19,6 +19,7 @@ const ChatInput: FC<ChatInputProps> = (props) => {
   const onChatSend = useCallback(() => {
     props.onSend(chatContent);
     setChatContent('');
+    Keyboard.dismiss();
   }, [chatContent, props]);
 
   return (

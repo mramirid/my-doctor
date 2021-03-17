@@ -1,34 +1,24 @@
 import { DoctorSpecialist, Gender } from '../constants/user';
 
-export interface SignInFormValues {
-  email: string;
-  password: string;
-}
-
-export interface AuthState {
-  uid: string | null;
-  fullName: string | null;
-  occupation: string | null;
-  email: string | null;
-  photo: string | null;
-  isDoctor: boolean;
-}
-
 /* ---------------- Patient ---------------- */
 
 export interface PatientSignUpFormValues {
   fullName: string;
-  occupation: DoctorSpecialist | string;
+  occupation: string;
   email: string;
   password: string;
 }
 
-export interface Patient {
+export interface FirePatient {
   fullName: string;
-  email: string;
   occupation: string;
+  email: string;
   photo: string | null;
   isDoctor: false;
+}
+
+export interface Patient extends FirePatient {
+  uid: string;
 }
 
 /* ---------------- Doctor ---------------- */
@@ -68,4 +58,20 @@ export interface Doctor extends FireDoctor {
 export interface DoctorCategory {
   id: string;
   name: DoctorSpecialist | string;
+}
+
+/* ---------------- Generic User ---------------- */
+
+export interface SignInFormValues {
+  email: string;
+  password: string;
+}
+
+export interface AuthState {
+  uid: string | null;
+  fullName: string | null;
+  occupation: string | null;
+  email: string | null;
+  photo: string | null;
+  isDoctor: boolean;
 }

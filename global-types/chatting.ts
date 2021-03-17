@@ -1,3 +1,5 @@
+import { Doctor, Patient } from './user';
+
 export enum ChatType {
   Text,
   Image,
@@ -20,8 +22,19 @@ export interface Chat extends FireChat {
   id: string;
 }
 
-export interface ChatHistory {
+export interface FireChatHistory {
   lastChatContent: string;
   lastChatTimestamp: number;
   partnerUid: string;
+}
+
+export interface FireChatHistories {
+  [chatId: string]: FireChatHistory;
+}
+
+export interface ChatHistory {
+  chatId: string;
+  lastChatContent: string;
+  lastChatTimestamp: number;
+  partner: Patient | Doctor;
 }

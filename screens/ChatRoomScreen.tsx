@@ -1,7 +1,7 @@
 import { useRoute } from '@react-navigation/core';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, Text, SectionList } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
@@ -12,7 +12,7 @@ import ProfileHeader from '../components/molecules/header/ProfileHeader';
 import firebase from '../config/firebase';
 import Colors from '../constants/colors';
 import Fonts from '../constants/fonts';
-import { Chat, ChatType, FireAllChat, FireChat, ChatHistory } from '../global-types/chatting';
+import { Chat, ChatType, FireAllChat, FireChat, FireChatHistory } from '../global-types/chatting';
 import { ChatRoomScreenRouteProp } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
 import useMounted from '../hooks/useMounted';
@@ -31,29 +31,34 @@ const ChatRoomScreen: FC = () => {
   const userAuth = useAppSelector(selectUserAuth);
   const [sendLoading, setSendLoading] = useState(false);
   const [chatsByDay, setChatsByDay] = useState<ChatsByDay[] | null>(null);
-  const { current: chatRoomId } = useRef(`${userAuth.uid!}_${params.doctor.uid}`);
+  const { current: chatRoomId } = useRef(
+    userAuth.isDoctor
+      ? `${params.partner.uid}_${userAuth.uid!}`
+      : `${userAuth.uid!}_${params.partner.uid}`
+  );
+
+  const onAllChatReceived = useCallback((data) => {
+    const fireAllChat: FireAllChat | null = data.val();
+    let chatsByDay: ChatsByDay[] | null = null;
+    if (fireAllChat) {
+      chatsByDay = Object.keys(fireAllChat).map((dayDate) => ({
+        title: dayDate,
+        data: Object.keys(fireAllChat[dayDate])
+          .map((chatId) => ({
+            id: chatId,
+            ...fireAllChat[dayDate][chatId],
+          }))
+          .reverse(),
+      }));
+    }
+    setChatsByDay(chatsByDay);
+  }, []);
 
   useEffect(() => {
-    firebase
-      .database()
-      .ref(`chats/${chatRoomId}/allChat`)
-      .on('value', (data) => {
-        runInMounted(() => {
-          const fireAllChat: FireAllChat | null = data.val();
-          let chatsByDay: ChatsByDay[] | null = null;
-          if (fireAllChat) {
-            chatsByDay = Object.keys(fireAllChat).map((dayDate) => ({
-              title: dayDate,
-              data: Object.keys(fireAllChat[dayDate]).map((chatId) => ({
-                id: chatId,
-                ...fireAllChat[dayDate][chatId],
-              })),
-            }));
-          }
-          setChatsByDay(chatsByDay);
-        });
-      });
-  }, [chatRoomId, runInMounted]);
+    const roomChatRef = firebase.database().ref(`chats/${chatRoomId}/allChat`);
+    roomChatRef.on('value', onAllChatReceived);
+    return () => roomChatRef.off('value', onAllChatReceived);
+  }, [chatRoomId, onAllChatReceived]);
 
   const sendChat = async (chatContent: string) => {
     const createdChat: FireChat = {
@@ -62,12 +67,12 @@ const ChatRoomScreen: FC = () => {
       type: ChatType.Text,
       content: chatContent,
     };
-    const userChatHistory: ChatHistory = {
+    const userChatHistory: FireChatHistory = {
       lastChatContent: createdChat.content,
       lastChatTimestamp: createdChat.timestamp,
-      partnerUid: params.doctor.uid,
+      partnerUid: params.partner.uid,
     };
-    const doctorChatHistory: ChatHistory = {
+    const doctorChatHistory: FireChatHistory = {
       lastChatContent: createdChat.content,
       lastChatTimestamp: createdChat.timestamp,
       partnerUid: userAuth.uid!,
@@ -82,7 +87,7 @@ const ChatRoomScreen: FC = () => {
         firebase.database().ref(`messages/${userAuth.uid}/${chatRoomId}`).set(userChatHistory),
         firebase
           .database()
-          .ref(`messages/${params.doctor.uid}/${chatRoomId}`)
+          .ref(`messages/${params.partner.uid}/${chatRoomId}`)
           .set(doctorChatHistory),
       ]);
     } catch (error) {
@@ -94,12 +99,15 @@ const ChatRoomScreen: FC = () => {
 
   return (
     <>
-      <ProfileHeader doctor={params.doctor} />
+      <ProfileHeader partner={params.partner} />
       <View style={styles.screen}>
         <SectionList
+          inverted
+          contentContainerStyle={styles.sectionListContent}
+          showsVerticalScrollIndicator={false}
           sections={chatsByDay ?? []}
           ListEmptyComponent={<Text style={styles.textEmpty}>Mulai chat sekarang</Text>}
-          renderSectionHeader={({ section }) => (
+          renderSectionFooter={({ section }) => (
             <Text style={styles.dateText}>
               {format(new Date(section.title), 'PPPP', { locale: id })}
             </Text>
@@ -112,14 +120,14 @@ const ChatRoomScreen: FC = () => {
               return (
                 <PartnerChatItem
                   style={styles.chatItem}
-                  photo={isUserChat ? userAuth.photo : params.doctor.photo}
+                  photo={isUserChat ? userAuth.photo : params.partner.photo}
                   chat={item}
                 />
               );
             }
           }}
         />
-        <ChatInput partnerName={params.doctor.fullName} disabled={sendLoading} onSend={sendChat} />
+        <ChatInput partnerName={params.partner.fullName} disabled={sendLoading} onSend={sendChat} />
       </View>
     </>
   );
@@ -131,13 +139,14 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingHorizontal: 20,
   },
+  sectionListContent: {
+    flexGrow: 1,
+    justifyContent: 'flex-end',
+  },
   textEmpty: {
     textAlign: 'center',
     fontFamily: Fonts.NunitoRegular,
     color: Colors.Dark,
-  },
-  chats: {
-    flex: 1,
   },
   dateText: {
     textAlign: 'center',

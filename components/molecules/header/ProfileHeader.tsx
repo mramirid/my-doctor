@@ -5,13 +5,13 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
-import { Doctor } from '../../../global-types/user';
+import { Doctor, Patient } from '../../../global-types/user';
 
 interface ProfileHeaderProps {
-  doctor: Doctor;
+  partner: Patient | Doctor;
 }
 
-const ProfileHeader: FC<ProfileHeaderProps> = ({ doctor }) => {
+const ProfileHeader: FC<ProfileHeaderProps> = ({ partner }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -19,10 +19,10 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ doctor }) => {
         <Ionicons name="arrow-back" size={24} color={Colors.White} />
       </TouchableOpacity>
       <View style={styles.profile}>
-        <Text style={styles.name}>{doctor.fullName}</Text>
-        <Text style={styles.occupation}>{doctor.occupation}</Text>
+        <Text style={styles.name}>{partner.fullName}</Text>
+        <Text style={styles.occupation}>{partner.occupation}</Text>
       </View>
-      <Image style={styles.avatar} source={{ uri: doctor.photo! }} />
+      <Image style={styles.avatar} source={{ uri: partner.photo! }} />
     </View>
   );
 };

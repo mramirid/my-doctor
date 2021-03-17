@@ -44,7 +44,7 @@ const DoctorDetailScreen: FC = () => {
           style={styles.button}
           title="Start Consultation"
           color="accent"
-          onPress={() => navigation.navigate('ChatRoomScreen', { doctor: params.doctor })}
+          onPress={() => navigation.navigate('ChatRoomScreen', { partner: params.doctor })}
         />
       </ScrollView>
     </View>
