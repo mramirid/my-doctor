@@ -1,7 +1,7 @@
 import { useRoute } from '@react-navigation/core';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, Text, SectionList } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
@@ -12,7 +12,7 @@ import ProfileHeader from '../components/molecules/header/ProfileHeader';
 import firebase from '../config/firebase';
 import Colors from '../constants/colors';
 import Fonts from '../constants/fonts';
-import Chat, { ChatType, FireAllChat, FireChat } from '../global-types/chat';
+import { Chat, ChatType, FireAllChat, FireChat, ChatHistory } from '../global-types/chatting';
 import { ChatRoomScreenRouteProp } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
 import useMounted from '../hooks/useMounted';
@@ -31,11 +31,12 @@ const ChatRoomScreen: FC = () => {
   const userAuth = useAppSelector(selectUserAuth);
   const [sendLoading, setSendLoading] = useState(false);
   const [chatsByDay, setChatsByDay] = useState<ChatsByDay[] | null>(null);
+  const { current: chatRoomId } = useRef(`${userAuth.uid!}_${params.doctor.uid}`);
 
   useEffect(() => {
     firebase
       .database()
-      .ref(`chats/${userAuth.uid}_${params.doctor.uid}/allChat`)
+      .ref(`chats/${chatRoomId}/allChat`)
       .on('value', (data) => {
         runInMounted(() => {
           const fireAllChat: FireAllChat | null = data.val();
@@ -52,35 +53,44 @@ const ChatRoomScreen: FC = () => {
           setChatsByDay(chatsByDay);
         });
       });
-  }, [params.doctor.uid, runInMounted, userAuth.uid]);
+  }, [chatRoomId, runInMounted]);
 
-  const sendChat = useCallback(
-    async (chatContent) => {
-      const createdChat: FireChat = {
-        senderUid: userAuth.uid!,
-        timestamp: new Date().getTime(),
-        type: ChatType.Text,
-        content: chatContent,
-      };
-      try {
-        setSendLoading(true);
-        await firebase
+  const sendChat = async (chatContent: string) => {
+    const createdChat: FireChat = {
+      senderUid: userAuth.uid!,
+      timestamp: new Date().getTime(),
+      type: ChatType.Text,
+      content: chatContent,
+    };
+    const userChatHistory: ChatHistory = {
+      lastChatContent: createdChat.content,
+      lastChatTimestamp: createdChat.timestamp,
+      partnerUid: params.doctor.uid,
+    };
+    const doctorChatHistory: ChatHistory = {
+      lastChatContent: createdChat.content,
+      lastChatTimestamp: createdChat.timestamp,
+      partnerUid: userAuth.uid!,
+    };
+    try {
+      setSendLoading(true);
+      await Promise.all([
+        firebase
           .database()
-          .ref(
-            `chats/${userAuth.uid}_${params.doctor.uid}/allChat/${format(
-              createdChat.timestamp,
-              'yyyy-MM-dd'
-            )}`
-          )
-          .push(createdChat);
-      } catch (error) {
-        showMessage({ message: 'Tidak dapat mengirim pesan, coba lagi nanti', type: 'danger' });
-      } finally {
-        runInMounted(() => setSendLoading(false));
-      }
-    },
-    [params.doctor.uid, runInMounted, userAuth.uid]
-  );
+          .ref(`chats/${chatRoomId}/allChat/${format(createdChat.timestamp, 'yyyy-MM-dd')}`)
+          .push(createdChat),
+        firebase.database().ref(`messages/${userAuth.uid}/${chatRoomId}`).set(userChatHistory),
+        firebase
+          .database()
+          .ref(`messages/${params.doctor.uid}/${chatRoomId}`)
+          .set(doctorChatHistory),
+      ]);
+    } catch (error) {
+      showMessage({ message: 'Tidak dapat mengirim pesan, coba lagi nanti', type: 'danger' });
+    } finally {
+      runInMounted(() => setSendLoading(false));
+    }
+  };
 
   return (
     <>

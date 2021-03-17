@@ -16,6 +16,12 @@ export interface FireAllChat {
   };
 }
 
-export default interface Chat extends FireChat {
+export interface Chat extends FireChat {
   id: string;
+}
+
+export interface ChatHistory {
+  lastChatContent: string;
+  lastChatTimestamp: number;
+  partnerUid: string;
 }

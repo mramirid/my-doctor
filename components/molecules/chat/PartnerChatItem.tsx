@@ -4,7 +4,7 @@ import { View, StyleSheet, Text, ViewStyle, Image } from 'react-native';
 
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
-import Chat from '../../../global-types/chat';
+import { Chat } from '../../../global-types/chatting';
 import AppCard from '../../atoms/AppCard';
 
 interface PartnerChatItemProps {

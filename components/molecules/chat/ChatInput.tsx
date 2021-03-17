@@ -11,7 +11,6 @@ interface ChatInputProps {
   partnerName: string;
   onSend(chatContent: string): void;
   disabled: boolean;
-  styles?: ViewStyle;
 }
 
 const ChatInput: FC<ChatInputProps> = (props) => {
@@ -23,7 +22,7 @@ const ChatInput: FC<ChatInputProps> = (props) => {
   }, [chatContent, props]);
 
   return (
-    <View style={{ ...styles.container, ...(props.styles ?? {}) }}>
+    <View style={styles.container}>
       <AppCard style={styles.inputContainer}>
         <AppTextInput
           style={styles.input}
