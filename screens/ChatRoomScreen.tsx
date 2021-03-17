@@ -95,10 +95,17 @@ const ChatRoomScreen: FC = () => {
             </Text>
           )}
           renderItem={({ item }) => {
-            if (item.senderUid === userAuth.uid) {
+            const isUserChat = item.senderUid === userAuth.uid;
+            if (isUserChat) {
               return <UserChatItem style={styles.chatItem} chat={item} />;
             } else {
-              return <PartnerChatItem style={styles.chatItem} chat={item} />;
+              return (
+                <PartnerChatItem
+                  style={styles.chatItem}
+                  photo={isUserChat ? userAuth.photo : params.doctor.photo}
+                  chat={item}
+                />
+              );
             }
           }}
         />

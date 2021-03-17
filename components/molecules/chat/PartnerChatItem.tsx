@@ -9,6 +9,7 @@ import AppCard from '../../atoms/AppCard';
 
 interface PartnerChatItemProps {
   chat: Chat;
+  photo: string | null;
   style?: ViewStyle;
 }
 
@@ -16,7 +17,11 @@ const PartnerChatItem: FC<PartnerChatItemProps> = (props) => (
   <View style={{ ...styles.container, ...props.style }}>
     <Image
       style={styles.avatar}
-      source={require('../../../assets/illustrations/user-photo-null.png')}
+      source={
+        props.photo
+          ? { uri: props.photo }
+          : require('../../../assets/illustrations/user-photo-null.png')
+      }
     />
     <View>
       <AppCard style={styles.messageCard}>
