@@ -17,7 +17,7 @@ const NewsItem: FC<NewsItemProps> = (props) => (
   <AppBorderedItem style={{ ...styles.container, ...(props.style ?? {}) }} onPress={props.onPress}>
     <View style={styles.newsHeading}>
       <Text style={styles.title}>{props.news.title}</Text>
-      <Text style={styles.date}>{format(new Date(props.news.date), 'eeee')}</Text>
+      <Text style={styles.timestamp}>{format(new Date(props.news.timestamp), 'eeee')}</Text>
     </View>
     <Image style={styles.image} source={{ uri: props.news.imageUrl }} />
   </AppBorderedItem>
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     color: Colors.Dark,
     maxWidth: '90%',
   },
-  date: {
+  timestamp: {
     fontSize: 12,
     fontFamily: Fonts.NunitoRegular,
     color: Colors.Grey2,

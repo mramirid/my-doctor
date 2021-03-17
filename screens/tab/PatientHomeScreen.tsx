@@ -31,7 +31,7 @@ async function fetchNews() {
   const data = await firebase
     .database()
     .ref('news')
-    .orderByChild('date')
+    .orderByChild('timestamp')
     .limitToLast(3)
     .once('value');
   const fetchedNews: FireGetNews | null = data.val();

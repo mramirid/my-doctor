@@ -1,7 +1,7 @@
 export interface FireNews {
   title: string;
   imageUrl: string;
-  date: number;
+  timestamp: number;
   body: string;
 }
 
