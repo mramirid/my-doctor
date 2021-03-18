@@ -27,6 +27,7 @@ const UserProfileScreen: FC = () => {
       showScreenLoading();
       await firebase.auth().signOut();
       dispatch(signOut());
+      navigation.popToTop();
       navigation.replace('GetStartedScreen');
     } catch (error) {
       showMessage({
