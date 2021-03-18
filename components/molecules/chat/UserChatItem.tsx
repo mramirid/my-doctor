@@ -23,10 +23,9 @@ const UserChatItem: FC<UserChatItemProps> = (props) => (
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'flex-end',
+    alignSelf: 'flex-end',
   },
   messageContainer: {
-    maxWidth: '70%',
     padding: 12,
     paddingRight: 18,
     backgroundColor: Colors.Green1,

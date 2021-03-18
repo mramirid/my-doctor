@@ -41,15 +41,17 @@ const ChatRoomScreen: FC = () => {
     const fireAllChat: FireAllChat | null = data.val();
     let chatsByDay: ChatsByDay[] | null = null;
     if (fireAllChat) {
-      chatsByDay = Object.keys(fireAllChat).map((dayDate) => ({
-        title: dayDate,
-        data: Object.keys(fireAllChat[dayDate])
-          .map((chatId) => ({
-            id: chatId,
-            ...fireAllChat[dayDate][chatId],
-          }))
-          .reverse(),
-      }));
+      chatsByDay = Object.keys(fireAllChat)
+        .map((dayDate) => ({
+          title: dayDate,
+          data: Object.keys(fireAllChat[dayDate])
+            .map((chatId) => ({
+              id: chatId,
+              ...fireAllChat[dayDate][chatId],
+            }))
+            .reverse(),
+        }))
+        .reverse();
     }
     setChatsByDay(chatsByDay);
   }, []);
@@ -141,6 +143,7 @@ const styles = StyleSheet.create({
   },
   sectionListContent: {
     flexGrow: 1,
+    width: '100%',
     justifyContent: 'flex-end',
   },
   textEmpty: {
@@ -157,6 +160,7 @@ const styles = StyleSheet.create({
   },
   chatItem: {
     marginBottom: 20,
+    maxWidth: '80%',
   },
 });
 

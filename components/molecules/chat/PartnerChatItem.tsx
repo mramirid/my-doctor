@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'flex-end',
+    alignSelf: 'flex-start',
   },
   avatar: {
     width: 30,
@@ -44,7 +45,6 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   messageCard: {
-    maxWidth: '80%',
     padding: 12,
     paddingLeft: 18,
     backgroundColor: Colors.Green2,
