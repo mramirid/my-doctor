@@ -9,8 +9,12 @@ npm-debug.*
 *.orig.*
 web-build/
 .eslintcache
+
+# Custom configuration
 .env
 app.config.ts
+*.keystore
+google-services.json
 
 # macOS
 .DS_Store
