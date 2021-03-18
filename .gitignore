@@ -13,6 +13,7 @@ web-build/
 # Custom configuration
 .env
 app.config.ts
+keystore-note.txt
 *.keystore
 google-services.json
 
