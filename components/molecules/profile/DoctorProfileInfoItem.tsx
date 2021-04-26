@@ -11,7 +11,7 @@ interface DoctorProfileInfoItemProps {
 }
 
 const DoctorProfileInfoItem: FC<DoctorProfileInfoItemProps> = (props) => (
-  <View style={{ ...styles.container, ...props.style }}>
+  <View style={[styles.container, props.style]}>
     <Text style={styles.label}>{props.label}</Text>
     <Text style={styles.data}>{props.data}</Text>
   </View>

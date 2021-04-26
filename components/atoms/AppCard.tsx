@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
-import { View, StyleSheet, ViewStyle } from 'react-native';
+import { View, StyleSheet, ViewStyle, StyleProp } from 'react-native';
 
 interface AppCardProps {
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
 }
 
 const AppCard: FC<AppCardProps> = (props) => (
-  <View style={{ ...styles.card, ...(props.style ?? {}) }}>{props.children}</View>
+  <View style={[styles.card, props.style]}>{props.children}</View>
 );
 
 const styles = StyleSheet.create({

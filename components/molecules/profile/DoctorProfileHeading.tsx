@@ -16,7 +16,7 @@ interface DoctorProfileHeadingProps {
 }
 
 const DoctorProfileHeading: FC<DoctorProfileHeadingProps> = (props) => (
-  <View style={{ ...styles.container, ...props.style }}>
+  <View style={[styles.container, props.style]}>
     <View style={styles.avatarContainer}>
       <Image
         style={styles.avatar}

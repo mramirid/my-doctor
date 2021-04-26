@@ -7,6 +7,6 @@ interface AppGapProps {
   backgroundColor?: string;
 }
 
-const AppGap: FC<AppGapProps> = (props) => <View style={{ ...props }} />;
+const AppGap: FC<AppGapProps> = (props) => <View style={props} />;
 
 export default memo(AppGap);

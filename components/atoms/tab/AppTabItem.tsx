@@ -22,7 +22,7 @@ interface AppTabItemProps {
 const AppTabItem: FC<AppTabItemProps> = (props) => (
   <TouchableOpacity {...props} style={styles.tabItem}>
     {props.icon}
-    <Text style={{ ...styles.label, color: props.tabItemColor }}>{props.label}</Text>
+    <Text style={[styles.label, { color: props.tabItemColor }]}>{props.label}</Text>
   </TouchableOpacity>
 );
 

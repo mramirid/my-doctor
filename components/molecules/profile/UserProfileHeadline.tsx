@@ -33,7 +33,7 @@ const UserProfileHeadline: FC<ReadonlyProps | EditProps> = (props) => {
   }, [pickPhoto, props]);
 
   return (
-    <View style={{ ...styles.container, ...props.style }}>
+    <View style={[styles.container, props.style]}>
       {props.isEdit ? (
         <View style={styles.avatarContainer}>
           <TouchableOpacity onPress={startPickPhoto}>

@@ -12,7 +12,7 @@ interface AppLinkProps {
 
 const AppLink: FC<AppLinkProps> = (props) => (
   <TouchableOpacity onPress={props.onPress}>
-    <Text style={{ ...styles.textLink, ...(props.style ?? {}) }}>{props.children}</Text>
+    <Text style={[styles.textLink, props.style]}>{props.children}</Text>
   </TouchableOpacity>
 );
 

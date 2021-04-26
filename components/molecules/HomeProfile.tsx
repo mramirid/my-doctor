@@ -14,7 +14,7 @@ interface HomeProfileProps {
 }
 
 const HomeProfile: FC<HomeProfileProps> = (props) => (
-  <TouchableOpacity style={{ ...styles.container, ...props.style }} onPress={props.onPress}>
+  <TouchableOpacity style={[styles.container, props.style]} onPress={props.onPress}>
     <Image
       style={styles.avatar}
       source={

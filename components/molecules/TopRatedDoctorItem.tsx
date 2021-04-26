@@ -19,9 +19,7 @@ const TopRatedDoctorItem: FC<TopRatedDoctorItemProps> = (props) => {
     stars.push(<Ionicons key={i} name="star" size={16} color={Colors.Gold} />);
   }
   return (
-    <TouchableOpacity
-      style={{ ...styles.container, ...(props.style ?? {}) }}
-      onPress={props.onPress}>
+    <TouchableOpacity style={[styles.container, props.style]} onPress={props.onPress}>
       <Image style={styles.avatar} source={{ uri: props.doctor.photo! }} />
       <View style={styles.profile}>
         <Text style={styles.name}>{props.doctor.fullName}</Text>

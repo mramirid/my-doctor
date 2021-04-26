@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
-import { StyleSheet, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Colors from '../../constants/colors';
 
 interface AppBorderedItemProps {
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   onPress(): void;
 }
 
 const AppBorderedItem: FC<AppBorderedItemProps> = (props) => (
-  <TouchableOpacity style={{ ...styles.container, ...(props.style ?? {}) }} onPress={props.onPress}>
+  <TouchableOpacity style={[styles.container, props.style]} onPress={props.onPress}>
     {props.children}
   </TouchableOpacity>
 );

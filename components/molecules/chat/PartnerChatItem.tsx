@@ -14,7 +14,7 @@ interface PartnerChatItemProps {
 }
 
 const PartnerChatItem: FC<PartnerChatItemProps> = (props) => (
-  <View style={{ ...styles.container, ...props.style }}>
+  <View style={[styles.container, props.style]}>
     <Image
       style={styles.avatar}
       source={

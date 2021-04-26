@@ -22,11 +22,11 @@ const Header: FC<HeaderProps> = (props) => {
   };
 
   return (
-    <View style={{ ...styles.container, ...containerStyle }}>
+    <View style={[styles.container, containerStyle]}>
       <TouchableOpacity style={styles.backButton} onPress={props.onBackButtonPressed}>
         <Ionicons name="arrow-back" size={24} color={textColor} />
       </TouchableOpacity>
-      <Text style={{ ...styles.title, color: textColor }}>{props.title}</Text>
+      <Text style={[styles.title, { color: textColor }]}>{props.title}</Text>
       <AppGap width={24} />
     </View>
   );

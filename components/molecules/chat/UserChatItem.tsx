@@ -13,7 +13,7 @@ interface UserChatItemProps {
 }
 
 const UserChatItem: FC<UserChatItemProps> = (props) => (
-  <View style={{ ...styles.container, ...props.style }}>
+  <View style={[styles.container, props.style]}>
     <AppCard style={styles.messageContainer}>
       <Text style={styles.message}>{props.chat.content}</Text>
     </AppCard>

@@ -15,7 +15,7 @@ const SendButton: FC<SendButtonProps> = (props) => {
   const iconColor = !props.disabled ? Colors.White : Colors.Grey2;
   return (
     <TouchableOpacity disabled={props.disabled} onPress={props.onPress}>
-      <AppCard style={{ ...styles.buttonContent, backgroundColor: buttonColor }}>
+      <AppCard style={[styles.buttonContent, { backgroundColor: buttonColor }]}>
         <Svg width={34} height={34} viewBox="0 0 34 34" fill="none">
           <Path
             fillRule="evenodd"

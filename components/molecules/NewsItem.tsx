@@ -14,7 +14,7 @@ interface NewsItemProps {
 }
 
 const NewsItem: FC<NewsItemProps> = (props) => (
-  <AppBorderedItem style={{ ...styles.container, ...(props.style ?? {}) }} onPress={props.onPress}>
+  <AppBorderedItem style={[styles.container, props.style]} onPress={props.onPress}>
     <View style={styles.newsHeading}>
       <Text style={styles.title}>{props.news.title}</Text>
       <Text style={styles.timestamp}>{format(new Date(props.news.timestamp), 'eeee')}</Text>

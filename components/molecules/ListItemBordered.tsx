@@ -1,6 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import React, { FC, ReactNode } from 'react';
-import { View, StyleSheet, Text, ViewStyle } from 'react-native';
+import { StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
@@ -16,7 +16,7 @@ interface ListItemBorderedProps {
 }
 
 const ListItemBordered: FC<ListItemBorderedProps> = (props) => (
-  <AppBorderedItem style={{ ...styles.container, ...props.style }} onPress={props.onPress}>
+  <AppBorderedItem style={[styles.container, props.style]} onPress={props.onPress}>
     <View style={styles.avatarContainer}>{props.avatar}</View>
     <View style={styles.infoText}>
       <Text style={styles.title}>{props.title}</Text>
