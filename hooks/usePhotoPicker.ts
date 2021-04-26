@@ -1,11 +1,10 @@
 import * as ImagePicker from 'expo-image-picker';
-import * as Permissions from 'expo-permissions';
 import { useCallback } from 'react';
 import { Alert } from 'react-native';
 
 export default function usePhotoPicker() {
   const pickPhoto = useCallback(async () => {
-    const permission = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+    const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permission.granted) {
       Alert.alert(
         'Izin Akses Diperlukan',
