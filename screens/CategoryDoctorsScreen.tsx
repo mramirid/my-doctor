@@ -49,9 +49,9 @@ const CategoryDoctorsScreen: FC = () => {
       setFetchLoading(true);
       const doctors = await fetchDoctorsByCategory(params.category.name);
       runInMounted(() => setDoctors(doctors));
-    } catch (error) {
+    } catch (error: any) {
       showMessage({
-        message: error.message || 'Gagal memuat rumah sakit terdekat',
+        message: error.message ?? 'Gagal memuat rumah sakit terdekat',
         type: 'danger',
       });
     } finally {

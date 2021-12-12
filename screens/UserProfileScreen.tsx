@@ -29,9 +29,9 @@ const UserProfileScreen: FC = () => {
       dispatch(signOut());
       navigation.popToTop();
       navigation.replace('GetStartedScreen');
-    } catch (error) {
+    } catch (error: any) {
       showMessage({
-        message: error.message || 'Failed to sign out',
+        message: error.message ?? 'Failed to sign out',
         type: 'danger',
       });
     } finally {

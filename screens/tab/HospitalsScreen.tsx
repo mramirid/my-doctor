@@ -37,9 +37,9 @@ const HospitalsScreen: FC = () => {
       setFetchLoading(true);
       const hospitals = await fetchHospitals();
       runInMounted(() => setHospitals(hospitals));
-    } catch (error) {
+    } catch (error: any) {
       showMessage({
-        message: error.message || 'Gagal memuat rumah sakit terdekat',
+        message: error.message ?? 'Gagal memuat rumah sakit terdekat',
         type: 'danger',
       });
     } finally {

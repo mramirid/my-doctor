@@ -35,9 +35,9 @@ export const signUpPatient = createAsyncThunk<
       uid: user!.uid,
       ...createdPatient,
     };
-  } catch (err) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue({
-      message: err.message || 'Terjadi kesalahan, coba lagi nanti',
+      message: error.message ?? 'Terjadi kesalahan, coba lagi nanti',
     });
   }
 });
@@ -73,9 +73,9 @@ export const signUpDoctor = createAsyncThunk<AuthState, DoctorSignUpFormValues, 
         photo: null,
         isDoctor: true,
       };
-    } catch (err) {
+    } catch (error: any) {
       return thunkAPI.rejectWithValue({
-        message: err.message || 'Terjadi kesalahan, coba lagi nanti',
+        message: error.message ?? 'Terjadi kesalahan, coba lagi nanti',
       });
     }
   }
@@ -96,9 +96,9 @@ export const uploadPhoto = createAsyncThunk<
       const userUID = thunkAPI.getState().auth.uid;
       await firebase.database().ref(`users/${userUID}`).update({ photo: payload.newPhoto });
       return { newPhoto: payload.newPhoto };
-    } catch (err) {
+    } catch (error: any) {
       return thunkAPI.rejectWithValue({
-        message: err.message || 'Terjadi kesalahan, coba lagi nanti',
+        message: error.message ?? 'Terjadi kesalahan, coba lagi nanti',
       });
     }
   },
@@ -157,9 +157,9 @@ export const signIn = createAsyncThunk<AuthState, SignInFormValues, AppThunkAPIC
         occupation: fetchedUser.occupation,
         photo: fetchedUser.photo ?? null,
       };
-    } catch (err) {
+    } catch (error: any) {
       return thunkAPI.rejectWithValue({
-        message: err.message || 'Terjadi kesalahan, coba lagi nanti',
+        message: error.message ?? 'Terjadi kesalahan, coba lagi nanti',
       });
     }
   }
@@ -185,9 +185,9 @@ export const updateProfile = createAsyncThunk<
         .ref(`users/${userUID}`)
         .update({ ...payload });
       return payload;
-    } catch (err) {
+    } catch (error: any) {
       return thunkAPI.rejectWithValue({
-        message: err.message || 'Terjadi kesalahan, coba lagi nanti',
+        message: error.message ?? 'Terjadi kesalahan, coba lagi nanti',
       });
     }
   },

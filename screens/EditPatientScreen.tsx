@@ -70,7 +70,7 @@ const EditPatientScreen: FC = () => {
         reset({ ...data, oldPassword: '', newPassword: '' });
         showMessage({ message: 'Profile berhasil diperbaharui', type: 'success' });
         navigation.goBack();
-      } catch (error) {
+      } catch (error: any) {
         showMessage({
           message: error.message,
           type: 'danger',

@@ -79,9 +79,9 @@ const PatientHomeScreen: FC = () => {
           setTopRatedDoctors({ isFetching: false, data: topRatedDoctors });
           setNews({ isFetching: false, data: news });
         });
-      } catch (error) {
+      } catch (error: any) {
         showMessage({
-          message: error.message || 'Gagal menjangkau server',
+          message: error.message ?? 'Gagal menjangkau server',
           type: 'danger',
         });
       }

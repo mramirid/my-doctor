@@ -92,7 +92,7 @@ const ChatRoomScreen: FC = () => {
           .ref(`messages/${params.partner.uid}/${chatRoomId}`)
           .set(doctorChatHistory),
       ]);
-    } catch (error) {
+    } catch (error: any) {
       showMessage({ message: 'Tidak dapat mengirim pesan, coba lagi nanti', type: 'danger' });
     } finally {
       runInMounted(() => setSendLoading(false));

@@ -43,7 +43,7 @@ const SignInScreen: FC = () => {
         reset();
         navigation.popToTop();
         navigation.replace('HomeTab');
-      } catch (error) {
+      } catch (error: any) {
         showMessage({
           message: error.message,
           type: 'danger',

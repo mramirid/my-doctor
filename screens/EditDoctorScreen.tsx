@@ -49,9 +49,9 @@ const EditDoctorScreen: FC = () => {
         showScreenLoading();
         const fetchedDoctorData = await fetchDoctorData(userAuth.uid!);
         reset({ ...fetchedDoctorData });
-      } catch (error) {
+      } catch (error: any) {
         showMessage({
-          message: error.message || 'Gagal menjangkau server',
+          message: error.message ?? 'Gagal menjangkau server',
           type: 'danger',
         });
       } finally {
@@ -92,7 +92,7 @@ const EditDoctorScreen: FC = () => {
           type: 'success',
         });
         navigation.goBack();
-      } catch (error) {
+      } catch (error: any) {
         showMessage({
           message: error.message,
           type: 'danger',

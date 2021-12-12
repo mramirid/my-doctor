@@ -51,9 +51,9 @@ const DoctorHomeScreen: FC = () => {
       try {
         const news = await fetchNews();
         runInMounted(() => setNews({ isFetching: false, data: news }));
-      } catch (error) {
+      } catch (error: any) {
         showMessage({
-          message: error.message || 'Gagal menjangkau server',
+          message: error.message ?? 'Gagal menjangkau server',
           type: 'danger',
         });
       }

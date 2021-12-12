@@ -40,7 +40,7 @@ const SignUpScreen: FC = () => {
         unwrapResult(await dispatch(signUpPatient(data)));
         reset();
         navigation.navigate('UploadPhotoScreen');
-      } catch (error) {
+      } catch (error: any) {
         console.log(error.message);
         showMessage({
           message: error.message,

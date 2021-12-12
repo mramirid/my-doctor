@@ -1,37 +1,35 @@
 import { Picker } from '@react-native-picker/picker';
-import React, { ClassAttributes, forwardRef } from 'react';
+import { PickerProps } from '@react-native-picker/picker/typings/Picker';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { ReadonlyDeep } from 'type-fest';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import { SelectOption } from '../../global-types/input';
 
-type PickerProps = ConstructorParameters<typeof Picker>[0];
+type Props = ReadonlyDeep<PickerProps & { label?: string; options: SelectOption[] }>;
 
-interface AppPickerInputProps extends PickerProps, ClassAttributes<Picker> {
-  label?: string;
-  options: SelectOption[];
+export default function AppPickerInput(props: Props) {
+  return (
+    <>
+      {props.label && <Text style={styles.label}>{props.label}</Text>}
+      <View style={styles.pickerContainer}>
+        <Picker
+          {...props}
+          mode="dropdown"
+          style={styles.picker}
+          itemStyle={styles.pickerItem}
+          selectedValue={props.selectedValue}
+          onValueChange={props.onValueChange}>
+          {props.options.map(({ key, value }) => (
+            <Picker.Item key={key} label={value} value={value} />
+          ))}
+        </Picker>
+      </View>
+    </>
+  );
 }
-
-const AppPickerInput = forwardRef<Picker, AppPickerInputProps>((props, ref) => (
-  <>
-    {props.label && <Text style={styles.label}>{props.label}</Text>}
-    <View style={styles.pickerContainer}>
-      <Picker
-        {...props}
-        mode="dropdown"
-        style={styles.picker}
-        ref={ref}
-        itemStyle={styles.pickerItem}
-        selectedValue={props.selectedValue}
-        onValueChange={props.onValueChange}>
-        {props.options.map(({ key, value }) => (
-          <Picker.Item key={key} label={value} value={value} />
-        ))}
-      </Picker>
-    </View>
-  </>
-));
 
 const styles = StyleSheet.create({
   label: {
@@ -55,5 +53,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
-export default AppPickerInput;
