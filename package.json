@@ -11,7 +11,8 @@
     "test": "jest --watchAll",
     "prettier": "prettier --config .prettierrc \"**/*.{js,jsx,ts,tsx,css,scss,md}\" --write",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx --max-warnings 0",
-    "lint-and-fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix"
+    "lint-and-fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "type-check": "tsc --pretty --noEmit"
   },
   "eslintConfig": {
     "extends": "universe/native"
@@ -30,7 +31,7 @@
     "@reduxjs/toolkit": "^1.5.0",
     "date-fns": "^2.19.0",
     "expo": "^42.0.0",
-    "expo-app-loading": "1.1.2",
+    "expo-app-loading": "^1.0.1",
     "expo-constants": "~11.0.1",
     "expo-font": "~9.2.1",
     "expo-image-picker": "~10.2.2",
@@ -63,6 +64,6 @@
     "eslint-config-universe": "^7.0.1",
     "jest-expo": "^42.0.0",
     "prettier": "^2.2.1",
-    "typescript": "~4.0.0"
+    "typescript": "~4.4.2"
   }
 }
