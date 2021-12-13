@@ -14,10 +14,7 @@ type Props = Readonly<{
 }>;
 
 export default function AppButton(props: Props) {
-  const buttonStyle = Object.assign<ViewStyle, ViewStyle>(
-    styles.baseButtonStyle,
-    StyleSheet.flatten(props.style)
-  );
+  const buttonStyle = StyleSheet.flatten(StyleSheet.compose(baseButtonStyles, props.style));
   const textStyle: TextStyle = {
     fontSize: 18,
     fontFamily: Fonts.NunitoSemiBold,
@@ -50,13 +47,11 @@ export default function AppButton(props: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  baseButtonStyle: {
-    height: 45,
-    paddingVertical: 10,
-    borderRadius: 10,
-    overflow: 'hidden',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const baseButtonStyles: StyleProp<ViewStyle> = {
+  height: 45,
+  paddingVertical: 10,
+  borderRadius: 10,
+  overflow: 'hidden',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
