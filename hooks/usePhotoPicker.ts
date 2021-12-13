@@ -1,5 +1,4 @@
 import * as ImagePicker from 'expo-image-picker';
-import { useCallback } from 'react';
 import { Alert } from 'react-native';
 
 export default function usePhotoPicker() {

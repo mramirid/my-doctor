@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import React from 'react';
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
 import { Chat } from '../../../types/chat';

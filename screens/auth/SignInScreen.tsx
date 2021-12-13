@@ -2,8 +2,8 @@ import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
-import React, { useCallback, useContext } from 'react';
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import React, { useContext } from 'react';
+import { DeepMap, FieldError, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
@@ -38,27 +38,24 @@ function SignInScreen() {
   });
   const TypedController = useTypedController<SignInFormValues>({ control });
 
-  const onSubmit = useCallback<SubmitHandler<SignInFormValues>>(
-    async (data) => {
-      try {
-        showScreenLoading();
-        unwrapResult(await dispatch(signIn(data)));
-        reset();
-        navigation.popToTop();
-        navigation.replace('HomeTab');
-      } catch (error: any) {
-        showMessage({
-          message: error.message,
-          type: 'danger',
-        });
-      } finally {
-        hideScreenLoading();
-      }
-    },
-    [dispatch, hideScreenLoading, navigation, reset, showScreenLoading]
-  );
+  const onSubmit = async (data: SignInFormValues) => {
+    try {
+      showScreenLoading();
+      unwrapResult(await dispatch(signIn(data)));
+      reset();
+      navigation.popToTop();
+      navigation.replace('HomeTab');
+    } catch (error: any) {
+      showMessage({
+        message: error.message,
+        type: 'danger',
+      });
+    } finally {
+      hideScreenLoading();
+    }
+  };
 
-  const onValidationError = useCallback<SubmitErrorHandler<SignInFormValues>>((errors) => {
+  const onValidationError = (errors: DeepMap<SignInFormValues, FieldError>) => {
     for (const field in errors) {
       if (errors.hasOwnProperty(field)) {
         showMessage({
@@ -68,7 +65,7 @@ function SignInScreen() {
         break;
       }
     }
-  }, []);
+  };
 
   return (
     <ScrollView

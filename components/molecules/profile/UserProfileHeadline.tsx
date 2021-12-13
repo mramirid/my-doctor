@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -25,12 +25,12 @@ type Props = Readonly<(ReadProps | EditProps) & { style?: StyleProp<ViewStyle> }
 export default function UserProfileHeadline(props: Props) {
   const { pickPhoto } = usePhotoPicker();
 
-  const startPickPhoto = useCallback(async () => {
+  const startPickPhoto = async () => {
     if (props.isEdit) {
       const pickedPhoto = await pickPhoto();
       if (pickedPhoto) props.onPhotoTaken(pickedPhoto);
     }
-  }, [pickPhoto, props]);
+  };
 
   return (
     <View style={[styles.container, props.style]}>

@@ -2,8 +2,8 @@ import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
-import React, { useCallback, useContext, useEffect } from 'react';
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import React, { useContext, useEffect } from 'react';
+import { DeepMap, FieldError, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
@@ -60,51 +60,48 @@ function EditDoctorScreen() {
     })();
   }, [hideScreenLoading, reset, showScreenLoading, userAuth.uid]);
 
-  const onSubmit = useCallback<SubmitHandler<FormValues>>(
-    async (data) => {
-      try {
-        showScreenLoading();
-        if (!!data.oldPassword && !!data.newPassword) {
-          const credential = firebase.auth.EmailAuthProvider.credential(
-            userAuth.email!,
-            data.oldPassword
-          );
-          const patient = firebase.auth().currentUser;
-          await patient?.reauthenticateWithCredential(credential);
-          patient?.updatePassword(data.newPassword);
-        }
-        unwrapResult(
-          await dispatch(
-            updateProfile({
-              fullName: data.fullName,
-              occupation: data.occupation,
-              photo: data.photo,
-            })
-          )
+  const onSubmit = async (data: FormValues) => {
+    try {
+      showScreenLoading();
+      if (!!data.oldPassword && !!data.newPassword) {
+        const credential = firebase.auth.EmailAuthProvider.credential(
+          userAuth.email!,
+          data.oldPassword
         );
-        reset({
-          ...data,
-          oldPassword: '',
-          newPassword: '',
-        });
-        showMessage({
-          message: 'Profile berhasil diperbaharui',
-          type: 'success',
-        });
-        navigation.goBack();
-      } catch (error: any) {
-        showMessage({
-          message: error.message,
-          type: 'danger',
-        });
-      } finally {
-        hideScreenLoading();
+        const patient = firebase.auth().currentUser;
+        await patient?.reauthenticateWithCredential(credential);
+        patient?.updatePassword(data.newPassword);
       }
-    },
-    [dispatch, hideScreenLoading, navigation, reset, showScreenLoading, userAuth.email]
-  );
+      unwrapResult(
+        await dispatch(
+          updateProfile({
+            fullName: data.fullName,
+            occupation: data.occupation,
+            photo: data.photo,
+          })
+        )
+      );
+      reset({
+        ...data,
+        oldPassword: '',
+        newPassword: '',
+      });
+      showMessage({
+        message: 'Profile berhasil diperbaharui',
+        type: 'success',
+      });
+      navigation.goBack();
+    } catch (error: any) {
+      showMessage({
+        message: error.message,
+        type: 'danger',
+      });
+    } finally {
+      hideScreenLoading();
+    }
+  };
 
-  const onValidationError = useCallback<SubmitErrorHandler<FormValues>>((errors) => {
+  const onValidationError = (errors: DeepMap<FormValues, FieldError>) => {
     for (const field in errors) {
       if (errors.hasOwnProperty(field)) {
         showMessage({
@@ -114,7 +111,7 @@ function EditDoctorScreen() {
         break;
       }
     }
-  }, []);
+  };
 
   return (
     <View style={styles.screen}>

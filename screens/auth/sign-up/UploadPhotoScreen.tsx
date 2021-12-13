@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
@@ -32,7 +32,7 @@ function UploadPhotoScreen() {
   const userAuth = useAppSelector(selectUserAuth);
   const [pickedPhoto, setPickedPhoto] = useState<string | null>(null);
 
-  const startPickPhoto = useCallback(async () => setPickedPhoto(await pickPhoto()), [pickPhoto]);
+  const startPickPhoto = async () => setPickedPhoto(await pickPhoto());
 
   const uploadNewPhoto = async () => {
     try {

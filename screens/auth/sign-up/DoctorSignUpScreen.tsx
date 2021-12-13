@@ -2,8 +2,8 @@ import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
-import React, { useCallback, useContext } from 'react';
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import React, { useContext } from 'react';
+import { DeepMap, FieldError, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
@@ -47,26 +47,23 @@ function DoctorSignUpScreen() {
   });
   const TypedController = useTypedController<DoctorSignUpFormValues>({ control });
 
-  const onSubmit = useCallback<SubmitHandler<DoctorSignUpFormValues>>(
-    async (data) => {
-      try {
-        showScreenLoading();
-        unwrapResult(await dispatch(signUpDoctor(data)));
-        reset();
-        navigation.navigate('UploadPhotoScreen');
-      } catch (error: any) {
-        showMessage({
-          message: error.message,
-          type: 'danger',
-        });
-      } finally {
-        hideScreenLoading();
-      }
-    },
-    [dispatch, hideScreenLoading, navigation, reset, showScreenLoading]
-  );
+  const onSubmit = async (data: DoctorSignUpFormValues) => {
+    try {
+      showScreenLoading();
+      unwrapResult(await dispatch(signUpDoctor(data)));
+      reset();
+      navigation.navigate('UploadPhotoScreen');
+    } catch (error: any) {
+      showMessage({
+        message: error.message,
+        type: 'danger',
+      });
+    } finally {
+      hideScreenLoading();
+    }
+  };
 
-  const onValidationError = useCallback<SubmitErrorHandler<DoctorSignUpFormValues>>((errors) => {
+  const onValidationError = (errors: DeepMap<DoctorSignUpFormValues, FieldError>) => {
     for (const field in errors) {
       if (errors.hasOwnProperty(field)) {
         showMessage({
@@ -76,7 +73,7 @@ function DoctorSignUpScreen() {
         break;
       }
     }
-  }, []);
+  };
 
   return (
     <View style={styles.screen}>

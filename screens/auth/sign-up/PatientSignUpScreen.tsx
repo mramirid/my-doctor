@@ -2,8 +2,8 @@ import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
-import React, { useCallback, useContext } from 'react';
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import React, { useContext } from 'react';
+import { DeepMap, FieldError, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
@@ -36,27 +36,24 @@ function SignUpScreen() {
   });
   const TypedController = useTypedController<PatientSignUpFormValues>({ control });
 
-  const onSubmit = useCallback<SubmitHandler<PatientSignUpFormValues>>(
-    async (data) => {
-      try {
-        showScreenLoading();
-        unwrapResult(await dispatch(signUpPatient(data)));
-        reset();
-        navigation.navigate('UploadPhotoScreen');
-      } catch (error: any) {
-        console.log(error.message);
-        showMessage({
-          message: error.message,
-          type: 'danger',
-        });
-      } finally {
-        hideScreenLoading();
-      }
-    },
-    [dispatch, hideScreenLoading, navigation, reset, showScreenLoading]
-  );
+  const onSubmit = async (data: PatientSignUpFormValues) => {
+    try {
+      showScreenLoading();
+      unwrapResult(await dispatch(signUpPatient(data)));
+      reset();
+      navigation.navigate('UploadPhotoScreen');
+    } catch (error: any) {
+      console.log(error.message);
+      showMessage({
+        message: error.message,
+        type: 'danger',
+      });
+    } finally {
+      hideScreenLoading();
+    }
+  };
 
-  const onValidationError = useCallback<SubmitErrorHandler<PatientSignUpFormValues>>((errors) => {
+  const onValidationError = (errors: DeepMap<PatientSignUpFormValues, FieldError>) => {
     for (const field in errors) {
       if (errors.hasOwnProperty(field)) {
         showMessage({
@@ -66,7 +63,7 @@ function SignUpScreen() {
         break;
       }
     }
-  }, []);
+  };
 
   return (
     <View style={styles.screen}>
