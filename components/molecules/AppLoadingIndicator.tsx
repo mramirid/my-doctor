@@ -1,15 +1,17 @@
-import React, { FC } from 'react';
-import { View, StyleSheet, Text, ActivityIndicator } from 'react-native';
+import React from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
-const AppLoadingIndicator: FC = () => (
-  <View style={styles.container}>
-    <ActivityIndicator size="large" color={Colors.Green2} />
-    <Text style={styles.text}>Mohon Tunggu...</Text>
-  </View>
-);
+export default function AppLoadingIndicator() {
+  return (
+    <View style={styles.container}>
+      <ActivityIndicator size="large" color={Colors.Green2} />
+      <Text style={styles.text}>Mohon Tunggu...</Text>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -28,5 +30,3 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
-
-export default AppLoadingIndicator;

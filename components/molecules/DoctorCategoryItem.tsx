@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import GeneralPractitioner from '../../assets/icons/doctor-categories/GeneralPractitioner';
@@ -15,7 +15,7 @@ type Props = Readonly<{
   onPress(): void;
 }>;
 
-const DoctorCategoryItem: FC<Props> = (props) => {
+export default function DoctorCategoryItem(props: Props) {
   let icon: JSX.Element;
   switch (props.category) {
     case DoctorSpecialist.GeneralPractitioner:
@@ -47,7 +47,7 @@ const DoctorCategoryItem: FC<Props> = (props) => {
       </TouchableOpacity>
     </AppCard>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -75,5 +75,3 @@ const styles = StyleSheet.create({
     color: Colors.Dark,
   },
 });
-
-export default memo(DoctorCategoryItem);

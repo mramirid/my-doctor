@@ -2,7 +2,7 @@ import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
-import React, { FC, useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -15,7 +15,7 @@ import Header from '../components/molecules/header/Header';
 import UserProfileHeadline from '../components/molecules/profile/UserProfileHeadline';
 import firebase from '../config/firebase';
 import Colors from '../constants/colors';
-import { specialistOptions, Gender, genderOptions, DoctorSpecialist } from '../constants/user';
+import { DoctorSpecialist, Gender, genderOptions, specialistOptions } from '../constants/user';
 import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
 import withStatusBar from '../hoc/withStatusBar';
 import { AppStackParamList } from '../navigation/AppStack';
@@ -34,7 +34,7 @@ async function fetchDoctorData(uid: string) {
   return fetchedDoctor;
 }
 
-const EditDoctorScreen: FC = () => {
+function EditDoctorScreen() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<EditDoctorScreenNavProp>();
   const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
@@ -271,7 +271,7 @@ const EditDoctorScreen: FC = () => {
       </ScrollView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   screen: {

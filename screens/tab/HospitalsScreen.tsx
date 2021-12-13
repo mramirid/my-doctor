@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
@@ -26,7 +26,7 @@ async function fetchHospitals() {
   return hospitals;
 }
 
-const HospitalsScreen: FC = () => {
+export default function HospitalsScreen() {
   const { runInMounted } = useMounted();
 
   const [fetchLoading, setFetchLoading] = useState(false);
@@ -73,7 +73,7 @@ const HospitalsScreen: FC = () => {
       <StatusBar backgroundColor="transparent" />
     </AppTabScreen>
   );
-};
+}
 
 const styles = StyleSheet.create({
   screen: {
@@ -114,5 +114,3 @@ const styles = StyleSheet.create({
     color: Colors.Dark,
   },
 });
-
-export default HospitalsScreen;

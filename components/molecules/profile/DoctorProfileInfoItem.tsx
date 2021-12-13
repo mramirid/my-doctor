@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { View, StyleSheet, Text, ViewStyle, StyleProp } from 'react-native';
+import React from 'react';
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
@@ -10,12 +10,14 @@ type Props = Readonly<{
   style?: StyleProp<ViewStyle>;
 }>;
 
-const DoctorProfileInfoItem: FC<Props> = (props) => (
-  <View style={[styles.container, props.style]}>
-    <Text style={styles.label}>{props.label}</Text>
-    <Text style={styles.data}>{props.data}</Text>
-  </View>
-);
+export default function DoctorProfileInfoItem(props: Props) {
+  return (
+    <View style={[styles.container, props.style]}>
+      <Text style={styles.label}>{props.label}</Text>
+      <Text style={styles.data}>{props.data}</Text>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -35,5 +37,3 @@ const styles = StyleSheet.create({
     color: Colors.Dark,
   },
 });
-
-export default DoctorProfileInfoItem;

@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { Alert } from 'react-native';
 
 export default function usePhotoPicker() {
-  const pickPhoto = useCallback(async () => {
+  const pickPhoto = async () => {
     const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permission.granted) {
       Alert.alert(
@@ -26,7 +26,7 @@ export default function usePhotoPicker() {
     } else {
       return null;
     }
-  }, []);
+  };
 
   return { pickPhoto };
 }

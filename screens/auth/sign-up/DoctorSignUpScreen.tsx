@@ -2,7 +2,7 @@ import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
-import React, { FC, useCallback, useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -15,9 +15,9 @@ import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
 import {
   DoctorSpecialist,
-  specialistOptions,
   Gender,
   genderOptions,
+  specialistOptions,
 } from '../../../constants/user';
 import { AppLoadingIndicatorContext } from '../../../contexts/app-loading-indicator';
 import withStatusBar from '../../../hoc/withStatusBar';
@@ -28,7 +28,7 @@ import { DoctorSignUpFormValues } from '../../../types/user';
 
 type DoctorSignUpScreenNavProp = StackNavigationProp<AppStackParamList, 'DoctorSignUpScreen'>;
 
-const DoctorSignUpScreen: FC = () => {
+function DoctorSignUpScreen() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<DoctorSignUpScreenNavProp>();
   const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
@@ -207,7 +207,7 @@ const DoctorSignUpScreen: FC = () => {
       </ScrollView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   screen: {

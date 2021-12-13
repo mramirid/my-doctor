@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { FC } from 'react';
-import { View, StyleSheet, Text, Image, ViewStyle, StyleProp } from 'react-native';
+import React from 'react';
+import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Colors from '../../constants/colors';
@@ -13,7 +13,7 @@ type Props = Readonly<{
   onPress(): void;
 }>;
 
-const TopRatedDoctorItem: FC<Props> = (props) => {
+export default function TopRatedDoctorItem(props: Props) {
   const stars: JSX.Element[] = [];
   for (let i = 0; i < props.doctor.rating; i++) {
     stars.push(<Ionicons key={i} name="star" size={16} color={Colors.Gold} />);
@@ -28,7 +28,7 @@ const TopRatedDoctorItem: FC<Props> = (props) => {
       <View style={styles.rating}>{stars}</View>
     </TouchableOpacity>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -60,5 +60,3 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
-
-export default TopRatedDoctorItem;

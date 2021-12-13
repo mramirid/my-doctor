@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React, { FC } from 'react';
+import React from 'react';
 import { ReadonlyDeep } from 'type-fest';
 
 import AppBottomTabBar from '../components/molecules/AppTabBar';
@@ -22,8 +22,9 @@ export type HomeTabParamList = ReadonlyDeep<{
 
 const Tab = createBottomTabNavigator<HomeTabParamList>();
 
-const HomeTab: FC = () => {
+export default function HomeTab() {
   const signInAsDoctor = useAppSelector(selectSignInAsDoctor);
+
   return (
     <Tab.Navigator
       tabBar={AppBottomTabBar}
@@ -81,6 +82,4 @@ const HomeTab: FC = () => {
       />
     </Tab.Navigator>
   );
-};
-
-export default HomeTab;
+}

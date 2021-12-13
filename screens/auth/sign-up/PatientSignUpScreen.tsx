@@ -2,7 +2,7 @@ import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
-import React, { FC, useCallback, useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -21,7 +21,7 @@ import { PatientSignUpFormValues } from '../../../types/user';
 
 type PatientSignUpScreenNavProp = StackNavigationProp<AppStackParamList, 'PatientSignUpScreen'>;
 
-const SignUpScreen: FC = () => {
+function SignUpScreen() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<PatientSignUpScreenNavProp>();
   const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
@@ -147,7 +147,7 @@ const SignUpScreen: FC = () => {
       </ScrollView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   screen: {

@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
-import React, { FC, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { ImageBackground, Platform, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -19,7 +19,7 @@ import { useAppDispatch, useAppSelector } from '../../store/types';
 
 type GetStartedScreenNavProp = StackNavigationProp<AppStackParamList, 'GetStartedScreen'>;
 
-const GetStartedScreen: FC = () => {
+export default function GetStartedScreen() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<GetStartedScreenNavProp>();
 
@@ -72,7 +72,7 @@ const GetStartedScreen: FC = () => {
       <StatusBar style="light" backgroundColor="transparent" />
     </ImageBackground>
   );
-};
+}
 
 const styles = StyleSheet.create({
   screen: {
@@ -96,5 +96,3 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.NunitoSemiBold,
   },
 });
-
-export default GetStartedScreen;

@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React from 'react';
 import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import FemaleSymbol from '../../../assets/icons/FemaleSymbol';
@@ -15,27 +15,29 @@ type Props = Readonly<{
   style?: StyleProp<ViewStyle>;
 }>;
 
-const DoctorProfileHeading: FC<Props> = (props) => (
-  <View style={[styles.container, props.style]}>
-    <View style={styles.avatarContainer}>
-      <Image
-        style={styles.avatar}
-        source={
-          props.photo
-            ? { uri: props.photo }
-            : require('../../../assets/illustrations/user-photo-null.png')
-        }
-      />
-      {props.gender === Gender.Male ? (
-        <MaleSymbol style={styles.genderIcon} />
-      ) : (
-        <FemaleSymbol style={styles.genderIcon} />
-      )}
+export default function DoctorProfileHeading(props: Props) {
+  return (
+    <View style={[styles.container, props.style]}>
+      <View style={styles.avatarContainer}>
+        <Image
+          style={styles.avatar}
+          source={
+            props.photo
+              ? { uri: props.photo }
+              : require('../../../assets/illustrations/user-photo-null.png')
+          }
+        />
+        {props.gender === Gender.Male ? (
+          <MaleSymbol style={styles.genderIcon} />
+        ) : (
+          <FemaleSymbol style={styles.genderIcon} />
+        )}
+      </View>
+      {props.name && <Text style={styles.name}>{props.name}</Text>}
+      {props.occupation && <Text style={styles.occupation}>{props.occupation}</Text>}
     </View>
-    {props.name && <Text style={styles.name}>{props.name}</Text>}
-    {props.occupation && <Text style={styles.occupation}>{props.occupation}</Text>}
-  </View>
-);
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -74,5 +76,3 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
 });
-
-export default memo(DoctorProfileHeading);

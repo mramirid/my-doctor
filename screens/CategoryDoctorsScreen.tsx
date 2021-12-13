@@ -1,6 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
@@ -37,7 +37,7 @@ async function fetchDoctorsByCategory(specialist: DoctorSpecialist | string) {
   return topDoctors;
 }
 
-const CategoryDoctorsScreen: FC = () => {
+function CategoryDoctorsScreen() {
   const navigation = useNavigation<CategoryDoctorsScreenNavProp>();
   const { params } = useRoute<CategoryDoctorsScreenRouteProp>();
   const { runInMounted } = useMounted();
@@ -102,7 +102,7 @@ const CategoryDoctorsScreen: FC = () => {
       />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   screen: {

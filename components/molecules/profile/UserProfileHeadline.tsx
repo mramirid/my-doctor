@@ -1,4 +1,4 @@
-import React, { FC, memo, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -22,7 +22,7 @@ type EditProps = {
 
 type Props = Readonly<(ReadProps | EditProps) & { style?: StyleProp<ViewStyle> }>;
 
-const UserProfileHeadline: FC<Props> = (props) => {
+export default function UserProfileHeadline(props: Props) {
   const { pickPhoto } = usePhotoPicker();
 
   const startPickPhoto = useCallback(async () => {
@@ -66,7 +66,7 @@ const UserProfileHeadline: FC<Props> = (props) => {
       )}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -107,5 +107,3 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
 });
-
-export default memo(UserProfileHeadline);

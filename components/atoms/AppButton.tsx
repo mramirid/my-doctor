@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { StyleProp, StyleSheet, Text, TextStyle, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -13,7 +13,7 @@ type Props = Readonly<{
   onPress(): void;
 }>;
 
-const AppButton: FC<Props> = (props) => {
+export default function AppButton(props: Props) {
   const buttonStyle = Object.assign<ViewStyle, ViewStyle>(
     styles.baseButtonStyle,
     StyleSheet.flatten(props.style)
@@ -48,7 +48,7 @@ const AppButton: FC<Props> = (props) => {
       <Text style={textStyle}>{props.title}</Text>
     </TouchableOpacity>
   );
-};
+}
 
 const styles = StyleSheet.create({
   baseButtonStyle: {
@@ -60,5 +60,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-export default AppButton;

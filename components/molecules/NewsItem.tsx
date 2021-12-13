@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
-import React, { FC } from 'react';
-import { View, StyleSheet, Text, Image, ViewStyle, StyleProp } from 'react-native';
+import React from 'react';
+import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
@@ -13,15 +13,17 @@ type Props = Readonly<{
   onPress(): void;
 }>;
 
-const NewsItem: FC<Props> = (props) => (
-  <AppBorderedItem style={[styles.container, props.style]} onPress={props.onPress}>
-    <View style={styles.newsHeading}>
-      <Text style={styles.title}>{props.news.title}</Text>
-      <Text style={styles.timestamp}>{format(new Date(props.news.timestamp), 'eeee')}</Text>
-    </View>
-    <Image style={styles.image} source={{ uri: props.news.imageUrl }} />
-  </AppBorderedItem>
-);
+export default function NewsItem(props: Props) {
+  return (
+    <AppBorderedItem style={[styles.container, props.style]} onPress={props.onPress}>
+      <View style={styles.newsHeading}>
+        <Text style={styles.title}>{props.news.title}</Text>
+        <Text style={styles.timestamp}>{format(new Date(props.news.timestamp), 'eeee')}</Text>
+      </View>
+      <Image style={styles.image} source={{ uri: props.news.imageUrl }} />
+    </AppBorderedItem>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -49,5 +51,3 @@ const styles = StyleSheet.create({
     borderRadius: 11,
   },
 });
-
-export default NewsItem;

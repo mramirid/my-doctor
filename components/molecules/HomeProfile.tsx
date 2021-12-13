@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { View, StyleSheet, Text, Image, ViewStyle, StyleProp } from 'react-native';
+import React from 'react';
+import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Colors from '../../constants/colors';
@@ -13,22 +13,24 @@ type Props = Readonly<{
   style?: StyleProp<ViewStyle>;
 }>;
 
-const HomeProfile: FC<Props> = (props) => (
-  <TouchableOpacity style={[styles.container, props.style]} onPress={props.onPress}>
-    <Image
-      style={styles.avatar}
-      source={
-        props.photo
-          ? { uri: props.photo }
-          : require('../../assets/illustrations/user-photo-null.png')
-      }
-    />
-    <View>
-      <Text style={styles.name}>{props.fullName}</Text>
-      <Text style={styles.occupation}>{props.occupation}</Text>
-    </View>
-  </TouchableOpacity>
-);
+export default function HomeProfile(props: Props) {
+  return (
+    <TouchableOpacity style={[styles.container, props.style]} onPress={props.onPress}>
+      <Image
+        style={styles.avatar}
+        source={
+          props.photo
+            ? { uri: props.photo }
+            : require('../../assets/illustrations/user-photo-null.png')
+        }
+      />
+      <View>
+        <Text style={styles.name}>{props.fullName}</Text>
+        <Text style={styles.occupation}>{props.occupation}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -51,5 +53,3 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.NunitoSemiBold,
   },
 });
-
-export default HomeProfile;

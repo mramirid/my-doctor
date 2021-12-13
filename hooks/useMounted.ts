@@ -3,13 +3,13 @@ import { useCallback, useEffect, useRef } from 'react';
 export default function useMounted() {
   const isMountedRef = useRef(true);
 
-  const isMounted = useCallback(() => isMountedRef.current, []);
+  const isMounted = () => isMountedRef.current;
 
-  const runInMounted = useCallback((callback: () => void) => {
+  const runInMounted = (callback: () => void) => {
     if (isMountedRef.current) {
       callback();
     }
-  }, []);
+  };
 
   useEffect(() => {
     return () => {

@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC, useContext } from 'react';
+import React, { useContext } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
@@ -18,7 +18,7 @@ import { useAppDispatch, useAppSelector } from '../store/types';
 
 type UserProfileScreenNavProp = StackNavigationProp<AppStackParamList, 'UserProfileScreen'>;
 
-const UserProfileScreen: FC = () => {
+function UserProfileScreen() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<UserProfileScreenNavProp>();
   const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
@@ -100,7 +100,7 @@ const UserProfileScreen: FC = () => {
       </ScrollView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   screen: {

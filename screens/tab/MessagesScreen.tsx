@@ -2,7 +2,7 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import firebase from 'firebase';
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, Image, StyleSheet, Text } from 'react-native';
 
 import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
@@ -15,7 +15,7 @@ import { HomeTabParamList } from '../../navigation/HomeTab';
 import { selectUserAuth } from '../../store/reducers/auth';
 import { useAppSelector } from '../../store/types';
 import { ChatHistories } from '../../types/chat';
-import { Doctor, DoctorData, PatientData, Patient } from '../../types/user';
+import { Doctor, DoctorData, Patient, PatientData } from '../../types/user';
 
 type MessagesScreenNavProp = CompositeNavigationProp<
   BottomTabNavigationProp<HomeTabParamList, 'MessagesScreen'>,
@@ -29,7 +29,7 @@ type ChatHistory = Readonly<{
   partner: Patient | Doctor;
 }>;
 
-const MessagesScreen: FC = () => {
+function MessagesScreen() {
   const navigation = useNavigation<MessagesScreenNavProp>();
 
   const userAuth = useAppSelector(selectUserAuth);
@@ -97,7 +97,7 @@ const MessagesScreen: FC = () => {
       />
     </AppTabScreen>
   );
-};
+}
 
 const styles = StyleSheet.create({
   screen: {

@@ -1,12 +1,12 @@
 import { AntDesign } from '@expo/vector-icons';
 import { BottomTabBarOptions, BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import React, { FC, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Colors from '../../constants/colors';
 import AppTabItem from '../atoms/tab/AppTabItem';
 
-const AppTabBar: FC<BottomTabBarProps<BottomTabBarOptions>> = (props) => {
+export default function AppTabBar(props: BottomTabBarProps<BottomTabBarOptions>) {
   const focusedOptions = props.descriptors[props.state.routes[props.state.index].key].options;
   if (focusedOptions.tabBarVisible === false) {
     return null;
@@ -72,7 +72,7 @@ const AppTabBar: FC<BottomTabBarProps<BottomTabBarOptions>> = (props) => {
       })}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   tabBar: {
@@ -82,5 +82,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export default AppTabBar;

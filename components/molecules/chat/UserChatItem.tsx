@@ -1,7 +1,6 @@
 import { format } from 'date-fns';
-import React, { FC } from 'react';
-import { View, StyleSheet, Text, ViewStyle, StyleProp } from 'react-native';
-
+import React from 'react';
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
 import { Chat } from '../../../types/chat';
@@ -12,14 +11,16 @@ type Props = Readonly<{
   style?: StyleProp<ViewStyle>;
 }>;
 
-const UserChatItem: FC<Props> = (props) => (
-  <View style={[styles.container, props.style]}>
-    <AppCard style={styles.messageContainer}>
-      <Text style={styles.message}>{props.chat.content}</Text>
-    </AppCard>
-    <Text style={styles.timestamp}>{format(props.chat.timestamp, 'hh:mm a')}</Text>
-  </View>
-);
+export default function UserChatItem(props: Props) {
+  return (
+    <View style={[styles.container, props.style]}>
+      <AppCard style={styles.messageContainer}>
+        <Text style={styles.message}>{props.chat.content}</Text>
+      </AppCard>
+      <Text style={styles.timestamp}>{format(props.chat.timestamp, 'hh:mm a')}</Text>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -44,5 +45,3 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
 });
-
-export default UserChatItem;

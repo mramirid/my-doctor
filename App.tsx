@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
-import React, { FC } from 'react';
+import React from 'react';
 import { LogBox } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import { enableScreens } from 'react-native-screens';
@@ -11,13 +11,13 @@ import { PersistGate } from 'redux-persist/integration/react';
 import Fonts from './constants/fonts';
 import { AppLoadingIndicatorContextProvider } from './contexts/app-loading-indicator';
 import AppNavigator from './navigation';
-import { store, persistor } from './store';
+import { persistor, store } from './store';
 
 enableScreens();
 
 LogBox.ignoreLogs(['https://github.com/facebook/react-native/issues/12981']);
 
-const App: FC = () => {
+export default function App() {
   const [isFontsLoaded] = useFonts({
     [Fonts.NunitoBlack]: require('./assets/fonts/Nunito-Black.ttf'),
     [Fonts.NunitoBold]: require('./assets/fonts/Nunito-Bold.ttf'),
@@ -44,6 +44,4 @@ const App: FC = () => {
       <FlashMessage position="top" />
     </>
   );
-};
-
-export default App;
+}

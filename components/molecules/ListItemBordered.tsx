@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import React, { FC, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import Colors from '../../constants/colors';
@@ -15,16 +15,18 @@ type Props = Readonly<{
   onPress(): void;
 }>;
 
-const ListItemBordered: FC<Props> = (props) => (
-  <AppBorderedItem style={[styles.container, props.style]} onPress={props.onPress}>
-    <View style={styles.avatarContainer}>{props.avatar}</View>
-    <View style={styles.infoText}>
-      <Text style={styles.title}>{props.title}</Text>
-      {props.description && <Text style={styles.description}>{props.description}</Text>}
-    </View>
-    {props.withArrowIcon && <MaterialIcons name="navigate-next" size={24} color="black" />}
-  </AppBorderedItem>
-);
+export default function ListItemBordered(props: Props) {
+  return (
+    <AppBorderedItem style={[styles.container, props.style]} onPress={props.onPress}>
+      <View style={styles.avatarContainer}>{props.avatar}</View>
+      <View style={styles.infoText}>
+        <Text style={styles.title}>{props.title}</Text>
+        {props.description && <Text style={styles.description}>{props.description}</Text>}
+      </View>
+      {props.withArrowIcon && <MaterialIcons name="navigate-next" size={24} color="black" />}
+    </AppBorderedItem>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -52,5 +54,3 @@ const styles = StyleSheet.create({
     color: Colors.Grey2,
   },
 });
-
-export default ListItemBordered;

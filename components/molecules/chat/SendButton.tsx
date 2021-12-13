@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
@@ -10,9 +10,10 @@ type Props = Readonly<{
   onPress(): void;
 }>;
 
-const SendButton: FC<Props> = (props) => {
+export default function SendButton(props: Props) {
   const buttonColor = !props.disabled ? Colors.Blue : Colors.Grey1;
   const iconColor = !props.disabled ? Colors.White : Colors.Grey2;
+
   return (
     <TouchableOpacity disabled={props.disabled} onPress={props.onPress}>
       <AppCard style={[styles.buttonContent, { backgroundColor: buttonColor }]}>
@@ -27,7 +28,7 @@ const SendButton: FC<Props> = (props) => {
       </AppCard>
     </TouchableOpacity>
   );
-};
+}
 
 const styles = StyleSheet.create({
   buttonContent: {
@@ -41,5 +42,3 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
   },
 });
-
-export default memo(SendButton);

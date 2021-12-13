@@ -1,7 +1,7 @@
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
@@ -18,7 +18,7 @@ import { AppStackParamList } from '../../navigation/AppStack';
 import { HomeTabParamList } from '../../navigation/HomeTab';
 import { selectUserAuth } from '../../store/reducers/auth';
 import { useAppSelector } from '../../store/types';
-import { News, DBNews } from '../../types/news';
+import { DBNews, News } from '../../types/news';
 
 type DoctorHomeScreenNavProp = CompositeNavigationProp<
   BottomTabNavigationProp<HomeTabParamList, 'DoctorHomeScreen'>,
@@ -40,7 +40,7 @@ async function fetchNews() {
   return news;
 }
 
-const DoctorHomeScreen: FC = () => {
+function DoctorHomeScreen() {
   const navigation = useNavigation<DoctorHomeScreenNavProp>();
   const { runInMounted } = useMounted();
 
@@ -86,7 +86,7 @@ const DoctorHomeScreen: FC = () => {
       )}
     </AppTabScreen>
   );
-};
+}
 
 const styles = StyleSheet.create({
   screen: {

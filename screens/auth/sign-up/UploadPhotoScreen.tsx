@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
-import React, { FC, useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
@@ -23,7 +23,7 @@ import { useAppDispatch, useAppSelector } from '../../../store/types';
 
 type UploadPhotoScreenNavProp = StackNavigationProp<AppStackParamList, 'UploadPhotoScreen'>;
 
-const UploadPhotoScreen: FC = () => {
+function UploadPhotoScreen() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<UploadPhotoScreenNavProp>();
   const { pickPhoto } = usePhotoPicker();
@@ -96,7 +96,7 @@ const UploadPhotoScreen: FC = () => {
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   screen: {

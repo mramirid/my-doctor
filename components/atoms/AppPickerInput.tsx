@@ -7,7 +7,7 @@ import { ReadonlyDeep } from 'type-fest';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
-type Props = ReadonlyDeep<PickerProps & { label?: string; options: string[] }>;
+type Props = ReadonlyDeep<PickerProps & { label: string; options: string[] }>;
 
 export default function AppPickerInput(props: Props) {
   return (

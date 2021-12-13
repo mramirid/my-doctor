@@ -1,8 +1,8 @@
 import { useNavigation, useRoute } from '@react-navigation/core';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import React from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import AppButton from '../components/atoms/AppButton';
 import Header from '../components/molecules/header/Header';
@@ -15,7 +15,7 @@ import { AppStackParamList } from '../navigation/AppStack';
 type DoctorDetailScreenRouteProp = RouteProp<AppStackParamList, 'DoctorDetailScreen'>;
 type DoctorDetailScreenNavProp = StackNavigationProp<AppStackParamList, 'DoctorDetailScreen'>;
 
-const DoctorDetailScreen: FC = () => {
+function DoctorDetailScreen() {
   const navigation = useNavigation<DoctorDetailScreenNavProp>();
   const { params } = useRoute<DoctorDetailScreenRouteProp>();
 
@@ -54,7 +54,7 @@ const DoctorDetailScreen: FC = () => {
       </ScrollView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   screen: {

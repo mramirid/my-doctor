@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { Keyboard, StyleSheet, View } from 'react-native';
 
 import Colors from '../../../constants/colors';
@@ -13,14 +13,14 @@ type Props = Readonly<{
   disabled: boolean;
 }>;
 
-const ChatInput: FC<Props> = (props) => {
+export default function ChatInput(props: Props) {
   const [chatContent, setChatContent] = useState('');
 
-  const onChatSend = useCallback(() => {
+  const onChatSend = () => {
     props.onSend(chatContent);
     setChatContent('');
     Keyboard.dismiss();
-  }, [chatContent, props]);
+  };
 
   return (
     <View style={styles.container}>
@@ -36,7 +36,7 @@ const ChatInput: FC<Props> = (props) => {
       <SendButton disabled={chatContent.length === 0 || props.disabled} onPress={onChatSend} />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -59,5 +59,3 @@ const styles = StyleSheet.create({
     height: 45,
   },
 });
-
-export default ChatInput;

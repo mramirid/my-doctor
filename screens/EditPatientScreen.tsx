@@ -2,7 +2,7 @@ import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
-import React, { FC, useCallback, useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -31,7 +31,7 @@ type FormValues = Readonly<{
   newPassword: string;
 }>;
 
-const EditPatientScreen: FC = () => {
+function EditPatientScreen() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<EditPatientScreenNavProp>();
   const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
@@ -194,7 +194,7 @@ const EditPatientScreen: FC = () => {
       </ScrollView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   screen: {

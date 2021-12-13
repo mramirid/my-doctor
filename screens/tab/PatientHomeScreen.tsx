@@ -1,7 +1,7 @@
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 import { FlatList } from 'react-native-gesture-handler';
@@ -22,7 +22,7 @@ import { AppStackParamList } from '../../navigation/AppStack';
 import { HomeTabParamList } from '../../navigation/HomeTab';
 import { selectUserAuth } from '../../store/reducers/auth';
 import { useAppSelector } from '../../store/types';
-import { News, DBNews } from '../../types/news';
+import { DBNews, News } from '../../types/news';
 import { Doctor, Doctors } from '../../types/user';
 
 type PatientHomeScreenNavProp = CompositeNavigationProp<
@@ -61,7 +61,7 @@ async function fetchTopRatedDoctors() {
   return topDoctors;
 }
 
-const PatientHomeScreen: FC = () => {
+function PatientHomeScreen() {
   const navigation = useNavigation<PatientHomeScreenNavProp>();
   const { runInMounted } = useMounted();
 
@@ -154,7 +154,7 @@ const PatientHomeScreen: FC = () => {
       )}
     </AppTabScreen>
   );
-};
+}
 
 const styles = StyleSheet.create({
   screen: {

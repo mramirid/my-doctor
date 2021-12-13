@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import AppLoading from 'expo-app-loading';
-import React, { FC, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import firebase from '../config/firebase';
 import { AppStackParamList } from '../navigation/AppStack';
@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '../store/types';
 
 type StartupScreenNavProp = StackNavigationProp<AppStackParamList, 'GetStartedScreen'>;
 
-const StartupScreen: FC = () => {
+export default function StartupScreen() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<StartupScreenNavProp>();
 
@@ -27,6 +27,4 @@ const StartupScreen: FC = () => {
   }, [dispatch, isAuth, navigation]);
 
   return <AppLoading />;
-};
-
-export default StartupScreen;
+}

@@ -2,7 +2,7 @@ import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
-import React, { FC, useCallback, useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -24,7 +24,7 @@ import { SignInFormValues } from '../../types/user';
 
 type SignInScreenNavProp = StackNavigationProp<AppStackParamList, 'SignInScreen'>;
 
-const SignInScreen: FC = () => {
+function SignInScreen() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<SignInScreenNavProp>();
   const { showScreenLoading, hideScreenLoading } = useContext(AppLoadingIndicatorContext);
@@ -131,7 +131,7 @@ const SignInScreen: FC = () => {
       <AppGap height={64} />
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   screen: {

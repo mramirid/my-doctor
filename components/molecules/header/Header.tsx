@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { FC, memo } from 'react';
+import React from 'react';
 import { StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import Colors from '../../../constants/colors';
@@ -13,7 +13,7 @@ type Props = Readonly<{
   onBackButtonPressed(): void;
 }>;
 
-const Header: FC<Props> = (props) => {
+export default function Header(props: Props) {
   const textColor = props.type === 'dark' ? Colors.White : Colors.Dark;
   const containerStyle: StyleProp<ViewStyle> = {
     backgroundColor: props.type === 'dark' ? Colors.Dark : Colors.White,
@@ -30,7 +30,7 @@ const Header: FC<Props> = (props) => {
       <AppGap width={24} />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -55,5 +55,3 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
-
-export default memo(Header);
