@@ -30,6 +30,7 @@ export default function GetStartedScreen() {
       message: signInAsDoctor ? 'Mode Dokter' : 'Mode Pasien',
       backgroundColor: signInAsDoctor ? Colors.Red : Colors.Green3,
       titleStyle: styles.flashMessageTitle,
+      statusBarHeight: Constants.statusBarHeight,
     });
   }, [signInAsDoctor]);
 

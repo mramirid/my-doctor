@@ -2,6 +2,7 @@ import { useRoute } from '@react-navigation/core';
 import { RouteProp } from '@react-navigation/native';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
+import Constants from 'expo-constants';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { SectionList, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -100,7 +101,11 @@ function ChatRoomScreen() {
           .set(doctorChatHistory),
       ]);
     } catch (error: any) {
-      showMessage({ message: 'Tidak dapat mengirim pesan, coba lagi nanti', type: 'danger' });
+      showMessage({
+        message: 'Tidak dapat mengirim pesan, coba lagi nanti',
+        type: 'danger',
+        statusBarHeight: Constants.statusBarHeight,
+      });
     } finally {
       runInMounted(() => setSendLoading(false));
     }

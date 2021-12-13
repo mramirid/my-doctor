@@ -1,6 +1,7 @@
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import Constants from 'expo-constants';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -87,6 +88,7 @@ function PatientHomeScreen() {
         showMessage({
           message: error.message ?? 'Gagal menjangkau server',
           type: 'danger',
+          statusBarHeight: Constants.statusBarHeight,
         });
       }
     })();

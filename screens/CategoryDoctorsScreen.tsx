@@ -1,5 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import Constants from 'expo-constants';
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -54,6 +55,7 @@ function CategoryDoctorsScreen() {
       showMessage({
         message: error.message ?? 'Gagal memuat rumah sakit terdekat',
         type: 'danger',
+        statusBarHeight: Constants.statusBarHeight,
       });
     } finally {
       runInMounted(() => setFetchLoading(false));

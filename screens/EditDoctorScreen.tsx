@@ -2,6 +2,7 @@ import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
+import Constants from 'expo-constants';
 import React, { useContext, useEffect } from 'react';
 import { DeepMap, FieldError, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -53,6 +54,7 @@ function EditDoctorScreen() {
         showMessage({
           message: error.message ?? 'Gagal menjangkau server',
           type: 'danger',
+          statusBarHeight: Constants.statusBarHeight,
         });
       } finally {
         hideScreenLoading();
@@ -89,12 +91,14 @@ function EditDoctorScreen() {
       showMessage({
         message: 'Profile berhasil diperbaharui',
         type: 'success',
+        statusBarHeight: Constants.statusBarHeight,
       });
       navigation.goBack();
     } catch (error: any) {
       showMessage({
         message: error.message,
         type: 'danger',
+        statusBarHeight: Constants.statusBarHeight,
       });
     } finally {
       hideScreenLoading();
@@ -107,6 +111,7 @@ function EditDoctorScreen() {
         showMessage({
           message: (errors as any)[field].message,
           type: 'danger',
+          statusBarHeight: Constants.statusBarHeight,
         });
         break;
       }

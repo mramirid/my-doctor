@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
+import Constants from 'expo-constants';
 import React, { useContext, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -44,6 +45,7 @@ function UploadPhotoScreen() {
       showMessage({
         message: error.message,
         type: 'danger',
+        statusBarHeight: Constants.statusBarHeight,
       });
     } finally {
       hideScreenLoading();

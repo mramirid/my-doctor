@@ -1,3 +1,4 @@
+import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, ImageBackground, StyleSheet, Text, View } from 'react-native';
@@ -41,6 +42,7 @@ export default function HospitalsScreen() {
       showMessage({
         message: error.message ?? 'Gagal memuat rumah sakit terdekat',
         type: 'danger',
+        statusBarHeight: Constants.statusBarHeight,
       });
     } finally {
       runInMounted(() => setFetchLoading(false));

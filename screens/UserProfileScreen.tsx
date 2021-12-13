@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
+import Constants from 'expo-constants';
 import React, { useContext } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -36,6 +37,7 @@ function UserProfileScreen() {
       showMessage({
         message: error.message ?? 'Failed to sign out',
         type: 'danger',
+        statusBarHeight: Constants.statusBarHeight,
       });
     } finally {
       hideScreenLoading();

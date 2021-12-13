@@ -2,6 +2,7 @@ import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
+import Constants from 'expo-constants';
 import React, { useContext } from 'react';
 import { DeepMap, FieldError, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -47,6 +48,7 @@ function SignUpScreen() {
       showMessage({
         message: error.message,
         type: 'danger',
+        statusBarHeight: Constants.statusBarHeight,
       });
     } finally {
       hideScreenLoading();
@@ -59,6 +61,7 @@ function SignUpScreen() {
         showMessage({
           message: (errors as any)[field].message,
           type: 'danger',
+          statusBarHeight: Constants.statusBarHeight,
         });
         break;
       }
