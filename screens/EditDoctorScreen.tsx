@@ -151,7 +151,6 @@ const EditDoctorScreen: FC = () => {
           defaultValue={userAuth.occupation!}
           render={(renderProps) => (
             <AppPickerInput
-              {...renderProps}
               label="Kategori"
               selectedValue={renderProps.value}
               onValueChange={renderProps.onChange}
@@ -206,7 +205,6 @@ const EditDoctorScreen: FC = () => {
           defaultValue={Gender.Male}
           render={(renderProps) => (
             <AppPickerInput
-              {...renderProps}
               label="Jenis Kelamin"
               selectedValue={renderProps.value}
               onValueChange={renderProps.onChange}

@@ -47,7 +47,7 @@ const CategoryDoctorsScreen: FC = () => {
   const startFetchHospitals = useCallback(async () => {
     try {
       setFetchLoading(true);
-      const doctors = await fetchDoctorsByCategory(params.category.name);
+      const doctors = await fetchDoctorsByCategory(params.category);
       runInMounted(() => setDoctors(doctors));
     } catch (error: any) {
       showMessage({
@@ -57,7 +57,7 @@ const CategoryDoctorsScreen: FC = () => {
     } finally {
       runInMounted(() => setFetchLoading(false));
     }
-  }, [params.category.name, runInMounted]);
+  }, [params.category, runInMounted]);
 
   useEffect(() => {
     startFetchHospitals();
@@ -66,7 +66,7 @@ const CategoryDoctorsScreen: FC = () => {
   return (
     <View style={styles.screen}>
       <Header
-        title={`Pilih ${params.category.name}`}
+        title={`Pilih ${params.category}`}
         type="dark"
         withBorderRadius
         onBackButtonPressed={navigation.goBack}

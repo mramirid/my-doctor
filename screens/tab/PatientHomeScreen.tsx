@@ -104,23 +104,17 @@ const PatientHomeScreen: FC = () => {
         contentContainerStyle={styles.categoriesContent}
         showsHorizontalScrollIndicator={false}
         data={specialistOptions}
-        renderItem={({ item, index }) => {
-          return (
-            <>
-              <AppGap width={16} />
-              <DoctorCategoryItem
-                key={item.key}
-                category={item.value}
-                onPress={() =>
-                  navigation.navigate('CategoryDoctorsScreen', {
-                    category: { id: item.key, name: item.value },
-                  })
-                }
-              />
-              {index === specialistOptions.length - 1 && <AppGap width={16} />}
-            </>
-          );
-        }}
+        renderItem={({ item, index }) => (
+          <>
+            <AppGap width={16} />
+            <DoctorCategoryItem
+              key={index}
+              category={item.value}
+              onPress={() => navigation.navigate('CategoryDoctorsScreen', { category: item })}
+            />
+            {index === specialistOptions.length - 1 && <AppGap width={16} />}
+          </>
+        )}
       />
       <AppGap height={30} />
       <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
@@ -130,14 +124,17 @@ const PatientHomeScreen: FC = () => {
             <ActivityIndicator size="large" color={Colors.Green3} />
           </View>
         ) : (
-          topRatedDoctors.data.map((doctor) => (
-            <TopRatedDoctorItem
-              key={doctor.uid}
-              style={styles.topRatedDoctor}
-              doctor={doctor}
-              onPress={() => navigation.navigate('DoctorDetailScreen', { doctor })}
-            />
-          ))
+          topRatedDoctors.data.map((doctor) => {
+            // BUG: it still displays patients
+            return (
+              <TopRatedDoctorItem
+                key={doctor.uid}
+                style={styles.topRatedDoctor}
+                doctor={doctor}
+                onPress={() => navigation.navigate('DoctorDetailScreen', { doctor })}
+              />
+            );
+          })
         )}
       </View>
       <AppGap height={30} />

@@ -11,8 +11,7 @@
     "test": "jest --watchAll",
     "prettier": "prettier --config .prettierrc \"**/*.{js,jsx,ts,tsx,css,scss,md}\" --write",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx --max-warnings 0",
-    "lint-and-fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
-    "type-check": "tsc --pretty --noEmit --skipLibCheck"
+    "lint-and-fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix"
   },
   "eslintConfig": {
     "extends": "universe/native"
@@ -50,7 +49,6 @@
     "react-redux": "^7.2.2",
     "redux-persist": "^6.0.0",
     "redux-persist-expo-filesystem": "^2.0.0",
-    "ts-enum-util": "^4.0.2",
     "type-fest": "^2.8.0"
   },
   "devDependencies": {

@@ -55,11 +55,6 @@ export interface Doctor extends FireDoctor {
   uid: string;
 }
 
-export interface DoctorCategory {
-  id: string;
-  name: DoctorSpecialist | string;
-}
-
 /* ---------------- Generic User ---------------- */
 
 export interface SignInFormValues {

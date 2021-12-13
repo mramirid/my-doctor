@@ -6,9 +6,8 @@ import { ReadonlyDeep } from 'type-fest';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
-import { SelectOption } from '../../global-types/input';
 
-type Props = ReadonlyDeep<PickerProps & { label?: string; options: SelectOption[] }>;
+type Props = ReadonlyDeep<PickerProps & { label?: string; options: string[] }>;
 
 export default function AppPickerInput(props: Props) {
   return (
@@ -22,8 +21,8 @@ export default function AppPickerInput(props: Props) {
           itemStyle={styles.pickerItem}
           selectedValue={props.selectedValue}
           onValueChange={props.onValueChange}>
-          {props.options.map(({ key, value }) => (
-            <Picker.Item key={key} label={value} value={value} />
+          {props.options.map((option, i) => (
+            <Picker.Item key={i} label={option} value={option} />
           ))}
         </Picker>
       </View>

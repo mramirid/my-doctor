@@ -96,7 +96,6 @@ const DoctorSignUpScreen: FC = () => {
           name="occupation"
           render={(renderProps) => (
             <AppPickerInput
-              {...renderProps}
               label="Kategori"
               selectedValue={renderProps.value}
               onValueChange={renderProps.onChange}
@@ -147,7 +146,6 @@ const DoctorSignUpScreen: FC = () => {
           name="gender"
           render={(renderProps) => (
             <AppPickerInput
-              {...renderProps}
               label="Jenis Kelamin"
               selectedValue={renderProps.value}
               onValueChange={renderProps.onChange}
