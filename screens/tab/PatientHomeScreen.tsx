@@ -107,6 +107,7 @@ function PatientHomeScreen() {
       </View>
       <FlatList
         horizontal
+        keyExtractor={(item) => item}
         contentContainerStyle={styles.categoriesContent}
         showsHorizontalScrollIndicator={false}
         data={specialistOptions}
@@ -114,8 +115,7 @@ function PatientHomeScreen() {
           <>
             <AppGap width={16} />
             <DoctorCategoryItem
-              key={index}
-              category={item.value}
+              category={item}
               onPress={() => navigation.navigate('CategoryDoctorsScreen', { category: item })}
             />
             {index === specialistOptions.length - 1 && <AppGap width={16} />}
