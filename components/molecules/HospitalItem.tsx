@@ -1,26 +1,28 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
-import Hospital from '../../global-types/hospital';
+import { Hospital } from '../../types/hospital';
 import AppBorderedItem from '../atoms/AppBorderedItem';
 
-interface HospitalItemProps {
+type Props = Readonly<{
   hospital: Hospital;
   onPress(): void;
-}
+}>;
 
-const HospitalItem: FC<HospitalItemProps> = ({ hospital, onPress }) => (
-  <AppBorderedItem style={styles.container} onPress={onPress}>
-    <Image style={styles.image} source={{ uri: hospital.imageUrl }} />
-    <View>
-      <Text style={styles.name}>{hospital.type}</Text>
-      <Text style={styles.name}>{hospital.name}</Text>
-      <Text style={styles.address}>{hospital.address}</Text>
-    </View>
-  </AppBorderedItem>
-);
+export default function HospitalItem(props: Props) {
+  return (
+    <AppBorderedItem style={styles.container} onPress={props.onPress}>
+      <Image style={styles.image} source={{ uri: props.hospital.imageUrl }} />
+      <View>
+        <Text style={styles.name}>{props.hospital.type}</Text>
+        <Text style={styles.name}>{props.hospital.name}</Text>
+        <Text style={styles.address}>{props.hospital.address}</Text>
+      </View>
+    </AppBorderedItem>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -44,5 +46,3 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
 });
-
-export default HospitalItem;

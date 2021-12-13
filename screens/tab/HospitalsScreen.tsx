@@ -8,16 +8,16 @@ import HospitalItem from '../../components/molecules/HospitalItem';
 import firebase from '../../config/firebase';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
-import Hospital, { FireHospitals } from '../../global-types/hospital';
 import useMounted from '../../hooks/useMounted';
+import { Hospital, HospitalData } from '../../types/hospital';
 
-interface FireGetHospitals {
-  [id: string]: FireHospitals;
-}
+type Hospitals = Readonly<{
+  [id: string]: HospitalData;
+}>;
 
 async function fetchHospitals() {
   const data = await firebase.database().ref('hospitals').once('value');
-  const fetchedHospitals: FireGetHospitals | null = data.val();
+  const fetchedHospitals: Hospitals | null = data.val();
   if (!fetchedHospitals) return [];
   const hospitals = Object.keys(fetchedHospitals).map<Hospital>((key) => ({
     id: key,

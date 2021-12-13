@@ -1,5 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useContext } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -10,10 +11,12 @@ import UserProfileHeadline from '../components/molecules/profile/UserProfileHead
 import firebase from '../config/firebase';
 import Colors from '../constants/colors';
 import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
-import { UserProfileScreenNavProp } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
-import { signOut, selectUserAuth } from '../store/reducers/auth';
+import { AppStackParamList } from '../navigation/AppStack';
+import { selectUserAuth, signOut } from '../store/reducers/auth';
 import { useAppDispatch, useAppSelector } from '../store/types';
+
+type UserProfileScreenNavProp = StackNavigationProp<AppStackParamList, 'UserProfileScreen'>;
 
 const UserProfileScreen: FC = () => {
   const dispatch = useAppDispatch();

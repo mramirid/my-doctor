@@ -1,5 +1,6 @@
 import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
 import React, { FC, useCallback, useContext } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
@@ -19,11 +20,13 @@ import {
   genderOptions,
 } from '../../../constants/user';
 import { AppLoadingIndicatorContext } from '../../../contexts/app-loading-indicator';
-import { DoctorSignUpScreenNavProp } from '../../../global-types/navigation';
-import { DoctorSignUpFormValues } from '../../../global-types/user';
 import withStatusBar from '../../../hoc/withStatusBar';
+import { AppStackParamList } from '../../../navigation/AppStack';
 import { signUpDoctor } from '../../../store/thunks/auth';
 import { useAppDispatch } from '../../../store/types';
+import { DoctorSignUpFormValues } from '../../../types/user';
+
+type DoctorSignUpScreenNavProp = StackNavigationProp<AppStackParamList, 'DoctorSignUpScreen'>;
 
 const DoctorSignUpScreen: FC = () => {
   const dispatch = useAppDispatch();

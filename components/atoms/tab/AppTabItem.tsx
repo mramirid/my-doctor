@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import {
   AccessibilityRole,
   AccessibilityState,
@@ -6,8 +6,9 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
+import { ReadonlyDeep } from 'type-fest';
 
-interface AppTabItemProps {
+type Props = ReadonlyDeep<{
   icon: ReactNode;
   label: string | ReactNode;
   tabItemColor: string;
@@ -17,14 +18,16 @@ interface AppTabItemProps {
   testID?: string;
   onPress(): void;
   onLongPress(): void;
-}
+}>;
 
-const AppTabItem: FC<AppTabItemProps> = (props) => (
-  <TouchableOpacity {...props} style={styles.tabItem}>
-    {props.icon}
-    <Text style={[styles.label, { color: props.tabItemColor }]}>{props.label}</Text>
-  </TouchableOpacity>
-);
+export default function AppTabItem(props: Props) {
+  return (
+    <TouchableOpacity {...props} style={styles.tabItem}>
+      {props.icon}
+      <Text style={[styles.label, { color: props.tabItemColor }]}>{props.label}</Text>
+    </TouchableOpacity>
+  );
+}
 
 const styles = StyleSheet.create({
   tabItem: {
@@ -38,5 +41,3 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 });
-
-export default AppTabItem;

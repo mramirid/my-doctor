@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { View, StyleSheet, ViewStyle, StyleProp } from 'react-native';
 
-interface AppCardProps {
-  style?: StyleProp<ViewStyle>;
-}
+type Props = {
+  readonly style?: StyleProp<ViewStyle>;
+};
 
-const AppCard: FC<AppCardProps> = (props) => (
+const AppCard: FC<Props> = (props) => (
   <View style={[styles.card, props.style]}>{props.children}</View>
 );
 

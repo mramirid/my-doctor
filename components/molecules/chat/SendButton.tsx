@@ -5,12 +5,12 @@ import Svg, { Path } from 'react-native-svg';
 import Colors from '../../../constants/colors';
 import AppCard from '../../atoms/AppCard';
 
-interface SendButtonProps {
+type Props = Readonly<{
   disabled?: boolean;
   onPress(): void;
-}
+}>;
 
-const SendButton: FC<SendButtonProps> = (props) => {
+const SendButton: FC<Props> = (props) => {
   const buttonColor = !props.disabled ? Colors.Blue : Colors.Grey1;
   const iconColor = !props.disabled ? Colors.White : Colors.Grey2;
   return (

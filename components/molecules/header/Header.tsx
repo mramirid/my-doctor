@@ -1,21 +1,21 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { FC, memo } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
 import AppGap from '../../atoms/AppGap';
 
-interface HeaderProps {
+type Props = Readonly<{
   title: string;
   type: 'flat' | 'dark';
   withBorderRadius?: boolean;
   onBackButtonPressed(): void;
-}
+}>;
 
-const Header: FC<HeaderProps> = (props) => {
+const Header: FC<Props> = (props) => {
   const textColor = props.type === 'dark' ? Colors.White : Colors.Dark;
-  const containerStyle: ViewStyle = {
+  const containerStyle: StyleProp<ViewStyle> = {
     backgroundColor: props.type === 'dark' ? Colors.Dark : Colors.White,
     borderBottomLeftRadius: props.withBorderRadius ? 20 : 0,
     borderBottomRightRadius: props.withBorderRadius ? 20 : 0,

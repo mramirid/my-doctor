@@ -1,5 +1,6 @@
 import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
 import React, { FC, useCallback, useContext } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
@@ -14,19 +15,21 @@ import UserProfileHeadline from '../components/molecules/profile/UserProfileHead
 import firebase from '../config/firebase';
 import Colors from '../constants/colors';
 import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
-import { EditPatientScreenNavProp } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
+import { AppStackParamList } from '../navigation/AppStack';
 import { selectUserAuth } from '../store/reducers/auth';
 import { updateProfile } from '../store/thunks/auth';
 import { useAppDispatch, useAppSelector } from '../store/types';
 
-interface FormValues {
+type EditPatientScreenNavProp = StackNavigationProp<AppStackParamList, 'EditPatientScreen'>;
+
+type FormValues = Readonly<{
   photo: string | null;
   fullName: string;
   occupation: string;
   oldPassword: string;
   newPassword: string;
-}
+}>;
 
 const EditPatientScreen: FC = () => {
   const dispatch = useAppDispatch();

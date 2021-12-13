@@ -1,4 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -14,17 +16,19 @@ import firebase from '../../config/firebase';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import { specialistOptions } from '../../constants/user';
-import { PatientHomeScreenNavProp } from '../../global-types/navigation';
-import { FireNews, News } from '../../global-types/news';
-import { Doctor, FireGetDoctors } from '../../global-types/user';
 import withStatusBar from '../../hoc/withStatusBar';
 import useMounted from '../../hooks/useMounted';
+import { AppStackParamList } from '../../navigation/AppStack';
+import { HomeTabParamList } from '../../navigation/HomeTab';
 import { selectUserAuth } from '../../store/reducers/auth';
 import { useAppSelector } from '../../store/types';
+import { News, DBNews } from '../../types/news';
+import { Doctor, Doctors } from '../../types/user';
 
-interface FireGetNews {
-  [id: string]: FireNews;
-}
+type PatientHomeScreenNavProp = CompositeNavigationProp<
+  BottomTabNavigationProp<HomeTabParamList, 'PatientHomeScreen'>,
+  StackNavigationProp<AppStackParamList>
+>;
 
 async function fetchNews() {
   const data = await firebase
@@ -33,7 +37,7 @@ async function fetchNews() {
     .orderByChild('timestamp')
     .limitToLast(3)
     .once('value');
-  const fetchedNews: FireGetNews | null = data.val();
+  const fetchedNews: DBNews | null = data.val();
   if (!fetchedNews) return [];
   const news = Object.keys(fetchedNews).map<News>((key) => ({ id: key, ...fetchedNews[key] }));
   return news;
@@ -47,7 +51,7 @@ async function fetchTopRatedDoctors() {
     .limitToLast(3)
     .once('value');
 
-  const fetchedTopDoctors: FireGetDoctors | null = data.val();
+  const fetchedTopDoctors: Doctors | null = data.val();
   if (!fetchedTopDoctors) return [];
 
   const topDoctors = Object.keys(fetchedTopDoctors).map<Doctor>((key) => ({

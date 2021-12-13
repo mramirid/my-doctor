@@ -1,7 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { FC } from 'react';
+import { ReadonlyDeep } from 'type-fest';
 
-import { AppStackParamList } from '../global-types/navigation';
+import { DoctorSpecialist } from '../constants/user';
 import CategoryDoctorsScreen from '../screens/CategoryDoctorsScreen';
 import ChatRoomScreen from '../screens/ChatRoomScreen';
 import DoctorDetailScreen from '../screens/DoctorDetailScreen';
@@ -14,7 +15,24 @@ import SignInScreen from '../screens/auth/SignInScreen';
 import DoctorSignUpScreen from '../screens/auth/sign-up/DoctorSignUpScreen';
 import PatientSignUpScreen from '../screens/auth/sign-up/PatientSignUpScreen';
 import UploadPhotoScreen from '../screens/auth/sign-up/UploadPhotoScreen';
+import { Doctor, Patient } from '../types/user';
 import HomeTab from './HomeTab';
+
+export type AppStackParamList = ReadonlyDeep<{
+  StartupScreen: undefined;
+  GetStartedScreen: undefined;
+  SignInScreen: undefined;
+  PatientSignUpScreen: undefined;
+  DoctorSignUpScreen: undefined;
+  UploadPhotoScreen: undefined;
+  HomeTab: undefined;
+  CategoryDoctorsScreen: { category: DoctorSpecialist };
+  ChatRoomScreen: { partner: Patient | Doctor };
+  UserProfileScreen: undefined;
+  EditPatientScreen: undefined;
+  EditDoctorScreen: undefined;
+  DoctorDetailScreen: { doctor: Doctor };
+}>;
 
 const Stack = createStackNavigator<AppStackParamList>();
 

@@ -1,9 +1,11 @@
 import { useRoute } from '@react-navigation/core';
+import { RouteProp } from '@react-navigation/native';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, Text, SectionList } from 'react-native';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { SectionList, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
+import { ReadonlyDeep } from 'type-fest';
 
 import ChatInput from '../components/molecules/chat/ChatInput';
 import PartnerChatItem from '../components/molecules/chat/PartnerChatItem';
@@ -12,25 +14,33 @@ import ProfileHeader from '../components/molecules/header/ProfileHeader';
 import firebase from '../config/firebase';
 import Colors from '../constants/colors';
 import Fonts from '../constants/fonts';
-import { Chat, ChatType, FireAllChat, FireChat, FireChatHistory } from '../global-types/chatting';
-import { ChatRoomScreenRouteProp } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
 import useMounted from '../hooks/useMounted';
+import { AppStackParamList } from '../navigation/AppStack';
 import { selectUserAuth } from '../store/reducers/auth';
 import { useAppSelector } from '../store/types';
+import { Chat, ChatData, ChatHistories, ChatType } from '../types/chat';
 
-interface ChatsByDay {
+type ChatRoomScreenRouteProp = RouteProp<AppStackParamList, 'ChatRoomScreen'>;
+
+type ChatsPerDays = ReadonlyDeep<{
+  [dayDate: string]: {
+    [chatId: string]: ChatData;
+  };
+}>;
+
+type ChatPerDay = ReadonlyDeep<{
   title: string;
   data: Chat[];
-}
+}>;
 
-const ChatRoomScreen: FC = () => {
+function ChatRoomScreen() {
   const { params } = useRoute<ChatRoomScreenRouteProp>();
   const { runInMounted } = useMounted();
 
   const userAuth = useAppSelector(selectUserAuth);
   const [sendLoading, setSendLoading] = useState(false);
-  const [chatsByDay, setChatsByDay] = useState<ChatsByDay[] | null>(null);
+  const [chats, setChats] = useState<ChatPerDay[] | null>(null);
   const { current: chatRoomId } = useRef(
     userAuth.isDoctor
       ? `${params.partner.uid}_${userAuth.uid!}`
@@ -38,22 +48,19 @@ const ChatRoomScreen: FC = () => {
   );
 
   const onAllChatReceived = useCallback((data) => {
-    const fireAllChat: FireAllChat | null = data.val();
-    let chatsByDay: ChatsByDay[] | null = null;
-    if (fireAllChat) {
-      chatsByDay = Object.keys(fireAllChat)
+    const chatsPerDays: ChatsPerDays | null = data.val();
+    let chats: ChatPerDay[] | null = null;
+    if (chatsPerDays !== null) {
+      chats = Object.keys(chatsPerDays)
         .map((dayDate) => ({
           title: dayDate,
-          data: Object.keys(fireAllChat[dayDate])
-            .map((chatId) => ({
-              id: chatId,
-              ...fireAllChat[dayDate][chatId],
-            }))
+          data: Object.keys(chatsPerDays[dayDate])
+            .map((chatId) => ({ id: chatId, ...chatsPerDays[dayDate][chatId] }))
             .reverse(),
         }))
         .reverse();
     }
-    setChatsByDay(chatsByDay);
+    setChats(chats);
   }, []);
 
   useEffect(() => {
@@ -63,18 +70,18 @@ const ChatRoomScreen: FC = () => {
   }, [chatRoomId, onAllChatReceived]);
 
   const sendChat = async (chatContent: string) => {
-    const createdChat: FireChat = {
+    const createdChat: ChatData = {
       senderUid: userAuth.uid!,
       timestamp: new Date().getTime(),
       type: ChatType.Text,
       content: chatContent,
     };
-    const userChatHistory: FireChatHistory = {
+    const userChatHistory: ChatHistories['chatId'] = {
       lastChatContent: createdChat.content,
       lastChatTimestamp: createdChat.timestamp,
       partnerUid: params.partner.uid,
     };
-    const doctorChatHistory: FireChatHistory = {
+    const doctorChatHistory: ChatHistories['chatId'] = {
       lastChatContent: createdChat.content,
       lastChatTimestamp: createdChat.timestamp,
       partnerUid: userAuth.uid!,
@@ -107,7 +114,7 @@ const ChatRoomScreen: FC = () => {
           inverted
           contentContainerStyle={styles.sectionListContent}
           showsVerticalScrollIndicator={false}
-          sections={chatsByDay ?? []}
+          sections={chats ?? []}
           ListEmptyComponent={<Text style={styles.textEmpty}>Mulai chat sekarang</Text>}
           renderSectionFooter={({ section }) => (
             <Text style={styles.dateText}>
@@ -133,7 +140,7 @@ const ChatRoomScreen: FC = () => {
       </View>
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   screen: {

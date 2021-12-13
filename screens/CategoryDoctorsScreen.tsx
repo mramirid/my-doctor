@@ -1,6 +1,7 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
 import AppGap from '../components/atoms/AppGap';
@@ -10,13 +11,13 @@ import firebase from '../config/firebase';
 import Colors from '../constants/colors';
 import Fonts from '../constants/fonts';
 import { DoctorSpecialist } from '../constants/user';
-import {
-  CategoryDoctorsScreenNavProp,
-  CategoryDoctorsScreenRouteProp,
-} from '../global-types/navigation';
-import { Doctor, FireGetDoctors } from '../global-types/user';
 import withStatusBar from '../hoc/withStatusBar';
 import useMounted from '../hooks/useMounted';
+import { AppStackParamList } from '../navigation/AppStack';
+import { Doctor, Doctors } from '../types/user';
+
+type CategoryDoctorsScreenRouteProp = RouteProp<AppStackParamList, 'CategoryDoctorsScreen'>;
+type CategoryDoctorsScreenNavProp = StackNavigationProp<AppStackParamList, 'CategoryDoctorsScreen'>;
 
 async function fetchDoctorsByCategory(specialist: DoctorSpecialist | string) {
   const data = await firebase
@@ -26,7 +27,7 @@ async function fetchDoctorsByCategory(specialist: DoctorSpecialist | string) {
     .equalTo(specialist)
     .once('value');
 
-  const fetchedTopDoctors: FireGetDoctors | null = data.val();
+  const fetchedTopDoctors: Doctors | null = data.val();
   if (!fetchedTopDoctors) return [];
 
   const topDoctors = Object.keys(fetchedTopDoctors).map<Doctor>((key) => ({

@@ -1,36 +1,38 @@
 import { format } from 'date-fns';
-import React, { FC } from 'react';
-import { View, StyleSheet, Text, ViewStyle, Image } from 'react-native';
+import React from 'react';
+import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
-import { Chat } from '../../../global-types/chatting';
+import { Chat } from '../../../types/chat';
 import AppCard from '../../atoms/AppCard';
 
-interface PartnerChatItemProps {
+type Props = Readonly<{
   chat: Chat;
   photo: string | null;
-  style?: ViewStyle;
-}
+  style?: StyleProp<ViewStyle>;
+}>;
 
-const PartnerChatItem: FC<PartnerChatItemProps> = (props) => (
-  <View style={[styles.container, props.style]}>
-    <Image
-      style={styles.avatar}
-      source={
-        props.photo
-          ? { uri: props.photo }
-          : require('../../../assets/illustrations/user-photo-null.png')
-      }
-    />
-    <View>
-      <AppCard style={styles.messageCard}>
-        <Text style={styles.message}>{props.chat.content}</Text>
-      </AppCard>
-      <Text style={styles.timestamp}>{format(props.chat.timestamp, 'hh:mm a')}</Text>
+export default function PartnerChatItem(props: Props) {
+  return (
+    <View style={[styles.container, props.style]}>
+      <Image
+        style={styles.avatar}
+        source={
+          props.photo
+            ? { uri: props.photo }
+            : require('../../../assets/illustrations/user-photo-null.png')
+        }
+      />
+      <View>
+        <AppCard style={styles.messageCard}>
+          <Text style={styles.message}>{props.chat.content}</Text>
+        </AppCard>
+        <Text style={styles.timestamp}>{format(props.chat.timestamp, 'hh:mm a')}</Text>
+      </View>
     </View>
-  </View>
-);
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -62,5 +64,3 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
 });
-
-export default PartnerChatItem;

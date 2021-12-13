@@ -5,12 +5,12 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
-interface AppLinkProps {
+type Props = Readonly<{
   style?: TextStyle;
   onPress(): void;
-}
+}>;
 
-const AppLink: FC<AppLinkProps> = (props) => (
+const AppLink: FC<Props> = (props) => (
   <TouchableOpacity onPress={props.onPress}>
     <Text style={[styles.textLink, props.style]}>{props.children}</Text>
   </TouchableOpacity>

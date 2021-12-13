@@ -5,13 +5,13 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
-import { Doctor, Patient } from '../../../global-types/user';
+import { Doctor, Patient } from '../../../types/user';
 
-interface ProfileHeaderProps {
-  partner: Patient | Doctor;
-}
+type Props = {
+  readonly partner: Patient | Doctor;
+};
 
-const ProfileHeader: FC<ProfileHeaderProps> = ({ partner }) => {
+const ProfileHeader: FC<Props> = ({ partner }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>

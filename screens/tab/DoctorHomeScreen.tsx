@@ -1,4 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC, useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -10,16 +12,18 @@ import NewsItem from '../../components/molecules/NewsItem';
 import firebase from '../../config/firebase';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
-import { DoctorHomeScreenNavProp } from '../../global-types/navigation';
-import { FireNews, News } from '../../global-types/news';
 import withStatusBar from '../../hoc/withStatusBar';
 import useMounted from '../../hooks/useMounted';
+import { AppStackParamList } from '../../navigation/AppStack';
+import { HomeTabParamList } from '../../navigation/HomeTab';
 import { selectUserAuth } from '../../store/reducers/auth';
 import { useAppSelector } from '../../store/types';
+import { News, DBNews } from '../../types/news';
 
-interface FireGetNews {
-  [id: string]: FireNews;
-}
+type DoctorHomeScreenNavProp = CompositeNavigationProp<
+  BottomTabNavigationProp<HomeTabParamList, 'DoctorHomeScreen'>,
+  StackNavigationProp<AppStackParamList>
+>;
 
 async function fetchNews() {
   const data = await firebase
@@ -29,7 +33,7 @@ async function fetchNews() {
     .limitToLast(3)
     .once('value');
 
-  const fetchedNews: FireGetNews | null = data.val();
+  const fetchedNews: DBNews | null = data.val();
   if (!fetchedNews) return [];
 
   const news = Object.keys(fetchedNews).map<News>((key) => ({ id: key, ...fetchedNews[key] }));

@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { Image, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import FemaleSymbol from '../../../assets/icons/FemaleSymbol';
 import MaleSymbol from '../../../assets/icons/MaleSymbol';
@@ -7,15 +7,15 @@ import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
 import { Gender } from '../../../constants/user';
 
-interface DoctorProfileHeadingProps {
+type Props = Readonly<{
   name: string;
   occupation: string;
   gender: Gender;
   photo: string | null;
-  style?: ViewStyle;
-}
+  style?: StyleProp<ViewStyle>;
+}>;
 
-const DoctorProfileHeading: FC<DoctorProfileHeadingProps> = (props) => (
+const DoctorProfileHeading: FC<Props> = (props) => (
   <View style={[styles.container, props.style]}>
     <View style={styles.avatarContainer}>
       <Image

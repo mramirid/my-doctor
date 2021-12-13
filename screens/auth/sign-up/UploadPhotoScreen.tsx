@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
 import React, { FC, useCallback, useContext, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -13,12 +14,14 @@ import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
 import { AppLoadingIndicatorContext } from '../../../contexts/app-loading-indicator';
-import { UploadPhotoScreenNavProp } from '../../../global-types/navigation';
 import withStatusBar from '../../../hoc/withStatusBar';
 import usePhotoPicker from '../../../hooks/usePhotoPicker';
+import { AppStackParamList } from '../../../navigation/AppStack';
 import { selectUserAuth } from '../../../store/reducers/auth';
 import { uploadPhoto } from '../../../store/thunks/auth';
 import { useAppDispatch, useAppSelector } from '../../../store/types';
+
+type UploadPhotoScreenNavProp = StackNavigationProp<AppStackParamList, 'UploadPhotoScreen'>;
 
 const UploadPhotoScreen: FC = () => {
   const dispatch = useAppDispatch();

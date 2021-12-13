@@ -14,13 +14,13 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action<string>
 >;
 
-export interface AppThunkAPIConfig {
+export type AppThunkAPIConfig = {
   state: RootState;
   dispatch: AppDispatch;
   extra: unknown;
   rejectValue: { message: string };
   serializedErrorType: SerializedError;
-}
+};
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const useAppDispatch = () => useDispatch<AppDispatch>();

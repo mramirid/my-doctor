@@ -1,5 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
 import React, { FC, useEffect } from 'react';
@@ -12,9 +13,11 @@ import AppButton from '../../components/atoms/AppButton';
 import AppGap from '../../components/atoms/AppGap';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
-import { GetStartedScreenNavProp } from '../../global-types/navigation';
+import { AppStackParamList } from '../../navigation/AppStack';
 import { selectSignInAsDoctor, toggleUserMode } from '../../store/reducers/user-mode';
 import { useAppDispatch, useAppSelector } from '../../store/types';
+
+type GetStartedScreenNavProp = StackNavigationProp<AppStackParamList, 'GetStartedScreen'>;
 
 const GetStartedScreen: FC = () => {
   const dispatch = useAppDispatch();

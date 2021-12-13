@@ -28,7 +28,5 @@ export default function usePhotoPicker() {
     }
   }, []);
 
-  return {
-    pickPhoto,
-  };
+  return { pickPhoto };
 }

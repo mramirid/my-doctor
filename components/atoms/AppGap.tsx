@@ -1,12 +1,8 @@
 import React, { FC, memo } from 'react';
-import { View } from 'react-native';
+import { View, ViewStyle } from 'react-native';
 
-interface AppGapProps {
-  height?: number | string;
-  width?: number | string;
-  backgroundColor?: string;
-}
+type Props = Pick<ViewStyle, 'width' | 'height' | 'backgroundColor'>;
 
-const AppGap: FC<AppGapProps> = (props) => <View style={props} />;
+const AppGap: FC<Props> = (props) => <View style={props} />;
 
 export default memo(AppGap);

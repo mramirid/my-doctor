@@ -1,5 +1,6 @@
 import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
 import React, { FC, useCallback, useContext } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
@@ -12,11 +13,13 @@ import AppTextInput from '../../../components/atoms/AppTextInput';
 import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
 import { AppLoadingIndicatorContext } from '../../../contexts/app-loading-indicator';
-import { PatientSignUpScreenNavProp } from '../../../global-types/navigation';
-import { PatientSignUpFormValues } from '../../../global-types/user';
 import withStatusBar from '../../../hoc/withStatusBar';
+import { AppStackParamList } from '../../../navigation/AppStack';
 import { signUpPatient } from '../../../store/thunks/auth';
 import { useAppDispatch } from '../../../store/types';
+import { PatientSignUpFormValues } from '../../../types/user';
+
+type PatientSignUpScreenNavProp = StackNavigationProp<AppStackParamList, 'PatientSignUpScreen'>;
 
 const SignUpScreen: FC = () => {
   const dispatch = useAppDispatch();

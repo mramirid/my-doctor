@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { AuthState } from '../../global-types/user';
+import { AuthState } from '../../types/user';
 import { signIn, signUpDoctor, signUpPatient, updateProfile, uploadPhoto } from '../thunks/auth';
 import { RootState } from '../types';
 
@@ -9,8 +9,8 @@ const initialState: AuthState = {
   fullName: null,
   occupation: null,
   email: null,
-  isDoctor: false,
   photo: null,
+  isDoctor: false,
 };
 
 const authSlice = createSlice({

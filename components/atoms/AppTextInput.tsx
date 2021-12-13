@@ -1,22 +1,20 @@
-import React, { ClassAttributes, forwardRef, useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import {
-  StyleSheet,
-  TextInput,
-  TextInputProps,
-  Text,
   NativeSyntheticEvent,
+  StyleSheet,
+  Text,
+  TextInput,
   TextInputFocusEventData,
+  TextInputProps,
   TextStyle,
 } from 'react-native';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
-interface AppTextInputProps extends TextInputProps, ClassAttributes<TextInput> {
-  label?: string;
-}
+type Props = Readonly<TextInputProps & { label?: string }>;
 
-const AppTextInput = forwardRef<TextInput, AppTextInputProps>((props, ref) => {
+const AppTextInput = forwardRef<TextInput, Props>((props, ref) => {
   const [borderColor, setBorderColor] = useState(Colors.Grey2);
 
   const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {

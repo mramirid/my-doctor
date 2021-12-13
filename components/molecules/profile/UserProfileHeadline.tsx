@@ -1,5 +1,5 @@
 import React, { FC, memo, useCallback } from 'react';
-import { Image, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import RemovePhoto from '../../../assets/icons/RemovePhoto';
@@ -7,22 +7,22 @@ import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
 import usePhotoPicker from '../../../hooks/usePhotoPicker';
 
-interface ReadonlyProps {
+type ReadProps = {
+  isEdit: false;
   fullName: string;
   occupation: string;
   photo: string | null;
-  isEdit: false;
-  style?: ViewStyle;
-}
+};
 
-interface EditProps {
+type EditProps = {
   isEdit: true;
   photo: string | null;
-  onPhotoTaken(pickedPhoto: string | null): void;
-  style?: ViewStyle;
-}
+  onPhotoTaken(pickedPhoto: EditProps['photo']): void;
+};
 
-const UserProfileHeadline: FC<ReadonlyProps | EditProps> = (props) => {
+type Props = Readonly<(ReadProps | EditProps) & { style?: StyleProp<ViewStyle> }>;
+
+const UserProfileHeadline: FC<Props> = (props) => {
   const { pickPhoto } = usePhotoPicker();
 
   const startPickPhoto = useCallback(async () => {

@@ -4,11 +4,11 @@ import firebase from '../../config/firebase';
 import {
   AuthState,
   DoctorSignUpFormValues,
-  FireDoctor,
-  FirePatient,
+  DoctorData,
+  PatientData,
   PatientSignUpFormValues,
   SignInFormValues,
-} from '../../global-types/user';
+} from '../../types/user';
 import { AppThunkAPIConfig } from '../types';
 
 export const signUpPatient = createAsyncThunk<
@@ -22,7 +22,7 @@ export const signUpPatient = createAsyncThunk<
       .createUserWithEmailAndPassword(payload.email, payload.password);
 
     const user = userCredential.user;
-    const createdPatient: FirePatient = {
+    const createdPatient: PatientData = {
       fullName: payload.fullName,
       occupation: payload.occupation,
       email: payload.email,
@@ -51,7 +51,7 @@ export const signUpDoctor = createAsyncThunk<AuthState, DoctorSignUpFormValues, 
         .createUserWithEmailAndPassword(payload.email, payload.password);
 
       const user = userCredential.user;
-      const createdDoctor: FireDoctor = {
+      const createdDoctor: DoctorData = {
         fullName: payload.fullName,
         occupation: payload.occupation,
         almamater: payload.almamater,
@@ -81,9 +81,9 @@ export const signUpDoctor = createAsyncThunk<AuthState, DoctorSignUpFormValues, 
   }
 );
 
-interface UploadPhotoPayload {
-  newPhoto: string;
-}
+type UploadPhotoPayload = {
+  readonly newPhoto: string;
+};
 
 export const uploadPhoto = createAsyncThunk<
   UploadPhotoPayload,
@@ -110,14 +110,14 @@ export const uploadPhoto = createAsyncThunk<
   }
 );
 
-interface SignInResponse {
+type SignInResponse = Readonly<{
   fullName: string;
   email: string;
   occupation: string;
   password: string;
   isDoctor: boolean;
   photo?: string;
-}
+}>;
 
 export const signIn = createAsyncThunk<AuthState, SignInFormValues, AppThunkAPIConfig>(
   'auth/signIn',
@@ -165,11 +165,11 @@ export const signIn = createAsyncThunk<AuthState, SignInFormValues, AppThunkAPIC
   }
 );
 
-interface UpdateProfilePayload {
+type UpdateProfilePayload = Readonly<{
   fullName: string;
   occupation: string;
   photo: string | null;
-}
+}>;
 
 export const updateProfile = createAsyncThunk<
   UpdateProfilePayload,

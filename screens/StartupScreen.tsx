@@ -1,11 +1,14 @@
 import { useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
 import AppLoading from 'expo-app-loading';
 import React, { FC, useEffect } from 'react';
 
 import firebase from '../config/firebase';
-import { StartupScreenNavProp } from '../global-types/navigation';
+import { AppStackParamList } from '../navigation/AppStack';
 import { selectIsAuth } from '../store/reducers/auth';
 import { useAppDispatch, useAppSelector } from '../store/types';
+
+type StartupScreenNavProp = StackNavigationProp<AppStackParamList, 'GetStartedScreen'>;
 
 const StartupScreen: FC = () => {
   const dispatch = useAppDispatch();

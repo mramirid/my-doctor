@@ -1,5 +1,6 @@
 import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
 import React, { FC, useCallback, useContext, useEffect } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
@@ -14,23 +15,22 @@ import Header from '../components/molecules/header/Header';
 import UserProfileHeadline from '../components/molecules/profile/UserProfileHeadline';
 import firebase from '../config/firebase';
 import Colors from '../constants/colors';
-import { specialistOptions, Gender, genderOptions } from '../constants/user';
+import { specialistOptions, Gender, genderOptions, DoctorSpecialist } from '../constants/user';
 import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
-import { EditDoctorScreenNavProp } from '../global-types/navigation';
-import { FireDoctor } from '../global-types/user';
 import withStatusBar from '../hoc/withStatusBar';
+import { AppStackParamList } from '../navigation/AppStack';
 import { selectUserAuth } from '../store/reducers/auth';
 import { updateProfile } from '../store/thunks/auth';
 import { useAppDispatch, useAppSelector } from '../store/types';
+import { DoctorData } from '../types/user';
 
-interface FormValues extends FireDoctor {
-  oldPassword: string;
-  newPassword: string;
-}
+type EditDoctorScreenNavProp = StackNavigationProp<AppStackParamList, 'EditDoctorScreen'>;
+
+type FormValues = DoctorData & Readonly<{ oldPassword: string; newPassword: string }>;
 
 async function fetchDoctorData(uid: string) {
   const data = await firebase.database().ref(`users/${uid}`).once('value');
-  const fetchedDoctor: FireDoctor = data.val();
+  const fetchedDoctor: DoctorData = data.val();
   return fetchedDoctor;
 }
 
@@ -148,7 +148,7 @@ const EditDoctorScreen: FC = () => {
         <AppGap height={24} />
         <TypedController
           name="occupation"
-          defaultValue={userAuth.occupation!}
+          defaultValue={(userAuth.occupation ?? undefined) as DoctorSpecialist}
           render={(renderProps) => (
             <AppPickerInput
               label="Kategori"

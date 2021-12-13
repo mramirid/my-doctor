@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
-import { View, StyleSheet, Text, ViewStyle } from 'react-native';
+import { View, StyleSheet, Text, ViewStyle, StyleProp } from 'react-native';
 
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
 
-interface DoctorProfileInfoItemProps {
+type Props = Readonly<{
   label: string;
   data: string;
-  style?: ViewStyle;
-}
+  style?: StyleProp<ViewStyle>;
+}>;
 
-const DoctorProfileInfoItem: FC<DoctorProfileInfoItemProps> = (props) => (
+const DoctorProfileInfoItem: FC<Props> = (props) => (
   <View style={[styles.container, props.style]}>
     <Text style={styles.label}>{props.label}</Text>
     <Text style={styles.data}>{props.data}</Text>

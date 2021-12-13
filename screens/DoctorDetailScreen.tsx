@@ -1,4 +1,6 @@
 import { useNavigation, useRoute } from '@react-navigation/core';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 
@@ -7,8 +9,11 @@ import Header from '../components/molecules/header/Header';
 import DoctorProfileHeading from '../components/molecules/profile/DoctorProfileHeading';
 import DoctorProfileInfoItem from '../components/molecules/profile/DoctorProfileInfoItem';
 import Colors from '../constants/colors';
-import { DoctorDetailScreenNavProp, DoctorDetailScreenRouteProp } from '../global-types/navigation';
 import withStatusBar from '../hoc/withStatusBar';
+import { AppStackParamList } from '../navigation/AppStack';
+
+type DoctorDetailScreenRouteProp = RouteProp<AppStackParamList, 'DoctorDetailScreen'>;
+type DoctorDetailScreenNavProp = StackNavigationProp<AppStackParamList, 'DoctorDetailScreen'>;
 
 const DoctorDetailScreen: FC = () => {
   const navigation = useNavigation<DoctorDetailScreenNavProp>();

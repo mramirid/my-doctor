@@ -3,9 +3,7 @@ import Svg, { Ellipse, Path, Rect, SvgProps } from 'react-native-svg';
 
 import Colors from '../../constants/colors';
 
-interface AppLogoProps extends SvgProps {
-  color: Colors;
-}
+type AppLogoProps = Readonly<SvgProps & { color: Colors }>;
 
 const AppLogo: FC<AppLogoProps> = (props) => (
   <Svg width={86} height={75} viewBox="0 0 86 75" fill="none" {...props}>

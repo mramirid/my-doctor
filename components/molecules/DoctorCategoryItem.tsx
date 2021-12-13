@@ -10,12 +10,12 @@ import Fonts from '../../constants/fonts';
 import { DoctorSpecialist } from '../../constants/user';
 import AppCard from '../atoms/AppCard';
 
-interface DoctorCategoryItemProps {
+type Props = Readonly<{
   category: DoctorSpecialist | string;
   onPress(): void;
-}
+}>;
 
-const DoctorCategoryItem: FC<DoctorCategoryItemProps> = (props) => {
+const DoctorCategoryItem: FC<Props> = (props) => {
   let icon: JSX.Element;
   switch (props.category) {
     case DoctorSpecialist.GeneralPractitioner:

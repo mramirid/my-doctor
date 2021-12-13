@@ -1,4 +1,4 @@
-enum Colors {
+const enum Colors {
   Dark = '#112340',
   Green1 = '#EDFCFD',
   Green2 = '#0BCAD4',

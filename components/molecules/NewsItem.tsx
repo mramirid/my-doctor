@@ -1,19 +1,19 @@
 import { format } from 'date-fns';
 import React, { FC } from 'react';
-import { View, StyleSheet, Text, Image, ViewStyle } from 'react-native';
+import { View, StyleSheet, Text, Image, ViewStyle, StyleProp } from 'react-native';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
-import { News } from '../../global-types/news';
+import { News } from '../../types/news';
 import AppBorderedItem from '../atoms/AppBorderedItem';
 
-interface NewsItemProps {
-  style?: ViewStyle;
+type Props = Readonly<{
+  style?: StyleProp<ViewStyle>;
   news: News;
   onPress(): void;
-}
+}>;
 
-const NewsItem: FC<NewsItemProps> = (props) => (
+const NewsItem: FC<Props> = (props) => (
   <AppBorderedItem style={[styles.container, props.style]} onPress={props.onPress}>
     <View style={styles.newsHeading}>
       <Text style={styles.title}>{props.news.title}</Text>

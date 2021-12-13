@@ -1,18 +1,33 @@
-import { useNavigation } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import firebase from 'firebase';
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { StyleSheet, Text, Image, FlatList } from 'react-native';
+import { FlatList, Image, StyleSheet, Text } from 'react-native';
 
 import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
 import ListItemBordered from '../../components/molecules/ListItemBordered';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
-import { ChatHistory, FireChatHistories } from '../../global-types/chatting';
-import { MessagesScreenNavProp } from '../../global-types/navigation';
-import { Doctor, FireDoctor, FirePatient, Patient } from '../../global-types/user';
 import withStatusBar from '../../hoc/withStatusBar';
+import { AppStackParamList } from '../../navigation/AppStack';
+import { HomeTabParamList } from '../../navigation/HomeTab';
 import { selectUserAuth } from '../../store/reducers/auth';
 import { useAppSelector } from '../../store/types';
+import { ChatHistories } from '../../types/chat';
+import { Doctor, DoctorData, PatientData, Patient } from '../../types/user';
+
+type MessagesScreenNavProp = CompositeNavigationProp<
+  BottomTabNavigationProp<HomeTabParamList, 'MessagesScreen'>,
+  StackNavigationProp<AppStackParamList>
+>;
+
+type ChatHistory = Readonly<{
+  chatId: string;
+  lastChatContent: string;
+  lastChatTimestamp: number;
+  partner: Patient | Doctor;
+}>;
 
 const MessagesScreen: FC = () => {
   const navigation = useNavigation<MessagesScreenNavProp>();
@@ -21,30 +36,30 @@ const MessagesScreen: FC = () => {
   const [chatHistories, setChatHistories] = useState<ChatHistory[]>([]);
 
   const onChatHistoriesReceived = useCallback(async (data: firebase.database.DataSnapshot) => {
-    const fireChatHistories: FireChatHistories | null = data.val();
-    let chatHistories: ChatHistory[] = [];
-    if (fireChatHistories) {
-      chatHistories = await Promise.all(
-        Object.keys(fireChatHistories).map<Promise<ChatHistory>>(async (chatRoomId) => {
+    const chatHistories: ChatHistories | null = data.val();
+    let formattedChatHistories: ChatHistory[] = [];
+    if (chatHistories !== null) {
+      formattedChatHistories = await Promise.all(
+        Object.keys(chatHistories).map<Promise<ChatHistory>>(async (chatRoomId) => {
           const data = await firebase
             .database()
-            .ref(`users/${fireChatHistories[chatRoomId].partnerUid}`)
+            .ref(`users/${chatHistories[chatRoomId].partnerUid}`)
             .once('value');
-          const fireUser: FirePatient | FireDoctor = data.val();
+          const fireUser: PatientData | DoctorData = data.val();
           const partner: Patient | Doctor = {
-            uid: fireChatHistories[chatRoomId].partnerUid,
+            uid: chatHistories[chatRoomId].partnerUid,
             ...fireUser,
           };
           return {
             chatId: chatRoomId,
-            lastChatContent: fireChatHistories[chatRoomId].lastChatContent,
-            lastChatTimestamp: fireChatHistories[chatRoomId].lastChatTimestamp,
+            lastChatContent: chatHistories[chatRoomId].lastChatContent,
+            lastChatTimestamp: chatHistories[chatRoomId].lastChatTimestamp,
             partner,
           };
         })
       );
     }
-    setChatHistories(chatHistories);
+    setChatHistories(formattedChatHistories);
   }, []);
 
   useEffect(() => {

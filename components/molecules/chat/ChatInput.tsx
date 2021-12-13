@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState } from 'react';
-import { Keyboard, StyleSheet, View, ViewStyle } from 'react-native';
+import { Keyboard, StyleSheet, View } from 'react-native';
 
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
@@ -7,13 +7,13 @@ import AppCard from '../../atoms/AppCard';
 import AppTextInput from '../../atoms/AppTextInput';
 import SendButton from './SendButton';
 
-interface ChatInputProps {
+type Props = Readonly<{
   partnerName: string;
   onSend(chatContent: string): void;
   disabled: boolean;
-}
+}>;
 
-const ChatInput: FC<ChatInputProps> = (props) => {
+const ChatInput: FC<Props> = (props) => {
   const [chatContent, setChatContent] = useState('');
 
   const onChatSend = useCallback(() => {

@@ -1,17 +1,24 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { FC } from 'react';
+import { ReadonlyDeep } from 'type-fest';
 
 import AppBottomTabBar from '../components/molecules/AppTabBar';
 import Colors from '../constants/colors';
 import Fonts from '../constants/fonts';
-import { HomeTabParamList } from '../global-types/navigation';
 import DoctorHomeScreen from '../screens/tab/DoctorHomeScreen';
 import HospitalsScreen from '../screens/tab/HospitalsScreen';
 import MessagesScreen from '../screens/tab/MessagesScreen';
 import PatientHomeScreen from '../screens/tab/PatientHomeScreen';
 import { selectSignInAsDoctor } from '../store/reducers/user-mode';
 import { useAppSelector } from '../store/types';
+
+export type HomeTabParamList = ReadonlyDeep<{
+  PatientHomeScreen: undefined;
+  DoctorHomeScreen: undefined;
+  MessagesScreen: undefined;
+  HospitalsScreen: undefined;
+}>;
 
 const Tab = createBottomTabNavigator<HomeTabParamList>();
 

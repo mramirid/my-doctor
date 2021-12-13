@@ -1,18 +1,18 @@
 import { format } from 'date-fns';
 import React, { FC } from 'react';
-import { View, StyleSheet, Text, ViewStyle } from 'react-native';
+import { View, StyleSheet, Text, ViewStyle, StyleProp } from 'react-native';
 
 import Colors from '../../../constants/colors';
 import Fonts from '../../../constants/fonts';
-import { Chat } from '../../../global-types/chatting';
+import { Chat } from '../../../types/chat';
 import AppCard from '../../atoms/AppCard';
 
-interface UserChatItemProps {
+type Props = Readonly<{
   chat: Chat;
-  style?: ViewStyle;
-}
+  style?: StyleProp<ViewStyle>;
+}>;
 
-const UserChatItem: FC<UserChatItemProps> = (props) => (
+const UserChatItem: FC<Props> = (props) => (
   <View style={[styles.container, props.style]}>
     <AppCard style={styles.messageContainer}>
       <Text style={styles.message}>{props.chat.content}</Text>

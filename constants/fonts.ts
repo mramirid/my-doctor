@@ -1,4 +1,4 @@
-enum Fonts {
+const enum Fonts {
   /* 200 */ NunitoExtraLight = 'Nunito-ExtraLight',
   /* 300 */ NunitoLight = 'Nunito-Light',
   /* 400 */ NunitoRegular = 'Nunito-Regular',

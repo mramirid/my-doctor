@@ -1,19 +1,19 @@
 import React, { FC } from 'react';
-import { View, StyleSheet, Text, Image, ViewStyle } from 'react-native';
+import { View, StyleSheet, Text, Image, ViewStyle, StyleProp } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 
-interface HomeProfileProps {
+type Props = Readonly<{
   fullName: string;
   occupation: string;
-  photo?: string | null;
+  photo: string | null;
   onPress(): void;
-  style?: ViewStyle;
-}
+  style?: StyleProp<ViewStyle>;
+}>;
 
-const HomeProfile: FC<HomeProfileProps> = (props) => (
+const HomeProfile: FC<Props> = (props) => (
   <TouchableOpacity style={[styles.container, props.style]} onPress={props.onPress}>
     <Image
       style={styles.avatar}

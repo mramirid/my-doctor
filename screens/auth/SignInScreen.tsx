@@ -1,5 +1,6 @@
 import { useTypedController } from '@hookform/strictly-typed';
 import { useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
 import React, { FC, useCallback, useContext } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
@@ -14,12 +15,14 @@ import AppTextInput from '../../components/atoms/AppTextInput';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
-import { SignInScreenNavProp } from '../../global-types/navigation';
-import { SignInFormValues } from '../../global-types/user';
 import withStatusBar from '../../hoc/withStatusBar';
+import { AppStackParamList } from '../../navigation/AppStack';
 import { selectSignInAsDoctor } from '../../store/reducers/user-mode';
 import { signIn } from '../../store/thunks/auth';
 import { useAppDispatch, useAppSelector } from '../../store/types';
+import { SignInFormValues } from '../../types/user';
+
+type SignInScreenNavProp = StackNavigationProp<AppStackParamList, 'SignInScreen'>;
 
 const SignInScreen: FC = () => {
   const dispatch = useAppDispatch();
