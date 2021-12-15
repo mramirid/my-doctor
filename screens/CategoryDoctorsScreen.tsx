@@ -8,7 +8,7 @@ import { showMessage } from 'react-native-flash-message';
 import AppGap from '../components/atoms/AppGap';
 import ListItemBordered from '../components/molecules/ListItemBordered';
 import Header from '../components/molecules/header/Header';
-import firebase from '../config/firebase';
+import fireApp from '../config/firebase';
 import Colors from '../constants/colors';
 import Fonts from '../constants/fonts';
 import { DoctorSpecialist } from '../constants/user';
@@ -21,7 +21,7 @@ type CategoryDoctorsScreenRouteProp = RouteProp<AppStackParamList, 'CategoryDoct
 type CategoryDoctorsScreenNavProp = StackNavigationProp<AppStackParamList, 'CategoryDoctorsScreen'>;
 
 async function fetchDoctorsByCategory(specialist: DoctorSpecialist | string) {
-  const data = await firebase
+  const data = await fireApp
     .database()
     .ref('users')
     .orderByChild('occupation')

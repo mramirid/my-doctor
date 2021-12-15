@@ -1,7 +1,7 @@
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import firebase from 'firebase';
+import fireApp from 'firebase';
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, Image, StyleSheet, Text } from 'react-native';
 
@@ -35,13 +35,13 @@ function MessagesScreen() {
   const userAuth = useAppSelector(selectUserAuth);
   const [chatHistories, setChatHistories] = useState<ChatHistory[]>([]);
 
-  const onChatHistoriesReceived = useCallback(async (data: firebase.database.DataSnapshot) => {
+  const onChatHistoriesReceived = useCallback(async (data: fireApp.database.DataSnapshot) => {
     const chatHistories: ChatHistories | null = data.val();
     let formattedChatHistories: ChatHistory[] = [];
     if (chatHistories !== null) {
       formattedChatHistories = await Promise.all(
         Object.keys(chatHistories).map<Promise<ChatHistory>>(async (chatRoomId) => {
-          const data = await firebase
+          const data = await fireApp
             .database()
             .ref(`users/${chatHistories[chatRoomId].partnerUid}`)
             .once('value');
@@ -63,7 +63,7 @@ function MessagesScreen() {
   }, []);
 
   useEffect(() => {
-    const userMessagesRef = firebase.database().ref(`messages/${userAuth.uid}`);
+    const userMessagesRef = fireApp.database().ref(`messages/${userAuth.uid}`);
     userMessagesRef.on('value', onChatHistoriesReceived);
     return () => userMessagesRef.off('value', onChatHistoriesReceived);
   }, [onChatHistoriesReceived, userAuth.uid]);

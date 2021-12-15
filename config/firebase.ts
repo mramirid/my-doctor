@@ -1,17 +1,23 @@
+import Constants from 'expo-constants';
 import firebase from 'firebase';
+import 'firebase/functions';
 
 /*
  * Initialize Firebase
  */
-firebase.initializeApp({
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  databaseURL: process.env.DATABASE_URL,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCKET,
-  messagingSenderId: process.env.MESSAGING_SENDER_ID,
-  appId: process.env.APP_ID,
-  measurementId: process.env.MEASUREMENT_ID,
-});
+let fireApp: firebase.app.App;
+if (firebase.apps.length === 0) {
+  fireApp = firebase.initializeApp({
+    apiKey: Constants.manifest!.extra!.apiKey,
+    authDomain: Constants.manifest!.extra!.authDomain,
+    databaseURL: Constants.manifest!.extra!.databaseURL,
+    projectId: Constants.manifest!.extra!.projectId,
+    storageBucket: Constants.manifest!.extra!.storageBucket,
+    messagingSenderId: Constants.manifest!.extra!.messagingSenderId,
+    appId: Constants.manifest!.extra!.appId,
+  });
+} else {
+  fireApp = firebase.app();
+}
 
-export default firebase;
+export default fireApp;

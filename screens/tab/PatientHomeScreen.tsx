@@ -13,7 +13,7 @@ import DoctorCategoryItem from '../../components/molecules/DoctorCategoryItem';
 import HomeProfile from '../../components/molecules/HomeProfile';
 import NewsItem from '../../components/molecules/NewsItem';
 import TopRatedDoctorItem from '../../components/molecules/TopRatedDoctorItem';
-import firebase from '../../config/firebase';
+import fireApp from '../../config/firebase';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import { specialistOptions } from '../../constants/user';
@@ -32,7 +32,7 @@ type PatientHomeScreenNavProp = CompositeNavigationProp<
 >;
 
 async function fetchNews() {
-  const data = await firebase
+  const data = await fireApp
     .database()
     .ref('news')
     .orderByChild('timestamp')
@@ -45,7 +45,7 @@ async function fetchNews() {
 }
 
 async function fetchTopRatedDoctors() {
-  const data = await firebase
+  const data = await fireApp
     .database()
     .ref('users')
     .orderByChild('rating')

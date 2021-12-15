@@ -9,7 +9,7 @@ import { showMessage } from 'react-native-flash-message';
 import ListItemBordered from '../components/molecules/ListItemBordered';
 import Header from '../components/molecules/header/Header';
 import UserProfileHeadline from '../components/molecules/profile/UserProfileHeadline';
-import firebase from '../config/firebase';
+import fireApp from '../config/firebase';
 import Colors from '../constants/colors';
 import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
 import withStatusBar from '../hoc/withStatusBar';
@@ -29,7 +29,7 @@ function UserProfileScreen() {
   const startSignOut = async () => {
     try {
       showScreenLoading();
-      await firebase.auth().signOut();
+      await fireApp.auth().signOut();
       dispatch(signOut());
       navigation.popToTop();
       navigation.replace('GetStartedScreen');

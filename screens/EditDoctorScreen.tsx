@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
 import Constants from 'expo-constants';
+import firebase from 'firebase';
 import React, { useContext, useEffect } from 'react';
 import { DeepMap, FieldError, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -14,7 +15,7 @@ import AppPickerInput from '../components/atoms/AppPickerInput';
 import AppTextInput from '../components/atoms/AppTextInput';
 import Header from '../components/molecules/header/Header';
 import UserProfileHeadline from '../components/molecules/profile/UserProfileHeadline';
-import firebase from '../config/firebase';
+import fireApp from '../config/firebase';
 import Colors from '../constants/colors';
 import { DoctorSpecialist, Gender, genderOptions, specialistOptions } from '../constants/user';
 import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
@@ -30,7 +31,7 @@ type EditDoctorScreenNavProp = StackNavigationProp<AppStackParamList, 'EditDocto
 type FormValues = DoctorData & Readonly<{ oldPassword: string; newPassword: string }>;
 
 async function fetchDoctorData(uid: string) {
-  const data = await firebase.database().ref(`users/${uid}`).once('value');
+  const data = await fireApp.database().ref(`users/${uid}`).once('value');
   const fetchedDoctor: DoctorData = data.val();
   return fetchedDoctor;
 }
@@ -70,7 +71,7 @@ function EditDoctorScreen() {
           userAuth.email!,
           data.oldPassword
         );
-        const patient = firebase.auth().currentUser;
+        const patient = fireApp.auth().currentUser;
         await patient?.reauthenticateWithCredential(credential);
         patient?.updatePassword(data.newPassword);
       }

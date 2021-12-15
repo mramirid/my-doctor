@@ -10,7 +10,7 @@ import AppGap from '../../components/atoms/AppGap';
 import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
 import HomeProfile from '../../components/molecules/HomeProfile';
 import NewsItem from '../../components/molecules/NewsItem';
-import firebase from '../../config/firebase';
+import fireApp from '../../config/firebase';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import withStatusBar from '../../hoc/withStatusBar';
@@ -27,7 +27,7 @@ type DoctorHomeScreenNavProp = CompositeNavigationProp<
 >;
 
 async function fetchNews() {
-  const data = await firebase
+  const data = await fireApp
     .database()
     .ref('news')
     .orderByChild('timestamp')

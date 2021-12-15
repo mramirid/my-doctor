@@ -6,7 +6,7 @@ import { showMessage } from 'react-native-flash-message';
 
 import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
 import HospitalItem from '../../components/molecules/HospitalItem';
-import firebase from '../../config/firebase';
+import fireApp from '../../config/firebase';
 import Colors from '../../constants/colors';
 import Fonts from '../../constants/fonts';
 import useMounted from '../../hooks/useMounted';
@@ -17,7 +17,7 @@ type Hospitals = Readonly<{
 }>;
 
 async function fetchHospitals() {
-  const data = await firebase.database().ref('hospitals').once('value');
+  const data = await fireApp.database().ref('hospitals').once('value');
   const fetchedHospitals: Hospitals | null = data.val();
   if (!fetchedHospitals) return [];
   const hospitals = Object.keys(fetchedHospitals).map<Hospital>((key) => ({

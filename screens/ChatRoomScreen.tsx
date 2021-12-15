@@ -12,7 +12,7 @@ import ChatInput from '../components/molecules/chat/ChatInput';
 import PartnerChatItem from '../components/molecules/chat/PartnerChatItem';
 import UserChatItem from '../components/molecules/chat/UserChatItem';
 import ProfileHeader from '../components/molecules/header/ProfileHeader';
-import firebase from '../config/firebase';
+import fireApp from '../config/firebase';
 import Colors from '../constants/colors';
 import Fonts from '../constants/fonts';
 import withStatusBar from '../hoc/withStatusBar';
@@ -65,7 +65,7 @@ function ChatRoomScreen() {
   }, []);
 
   useEffect(() => {
-    const roomChatRef = firebase.database().ref(`chats/${chatRoomId}/allChat`);
+    const roomChatRef = fireApp.database().ref(`chats/${chatRoomId}/allChat`);
     roomChatRef.on('value', onAllChatReceived);
     return () => roomChatRef.off('value', onAllChatReceived);
   }, [chatRoomId, onAllChatReceived]);
@@ -90,12 +90,12 @@ function ChatRoomScreen() {
     try {
       setSendLoading(true);
       await Promise.all([
-        firebase
+        fireApp
           .database()
           .ref(`chats/${chatRoomId}/allChat/${format(createdChat.timestamp, 'yyyy-MM-dd')}`)
           .push(createdChat),
-        firebase.database().ref(`messages/${userAuth.uid}/${chatRoomId}`).set(userChatHistory),
-        firebase
+        fireApp.database().ref(`messages/${userAuth.uid}/${chatRoomId}`).set(userChatHistory),
+        fireApp
           .database()
           .ref(`messages/${params.partner.uid}/${chatRoomId}`)
           .set(doctorChatHistory),

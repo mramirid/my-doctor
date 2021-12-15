@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
 import Constants from 'expo-constants';
+import firebase from 'firebase';
 import React, { useContext } from 'react';
 import { DeepMap, FieldError, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -13,7 +14,7 @@ import AppGap from '../components/atoms/AppGap';
 import AppTextInput from '../components/atoms/AppTextInput';
 import Header from '../components/molecules/header/Header';
 import UserProfileHeadline from '../components/molecules/profile/UserProfileHeadline';
-import firebase from '../config/firebase';
+import fireApp from '../config/firebase';
 import Colors from '../constants/colors';
 import { AppLoadingIndicatorContext } from '../contexts/app-loading-indicator';
 import withStatusBar from '../hoc/withStatusBar';
@@ -57,7 +58,7 @@ function EditPatientScreen() {
           userAuth.email!,
           data.oldPassword
         );
-        const patient = firebase.auth().currentUser;
+        const patient = fireApp.auth().currentUser;
         await patient?.reauthenticateWithCredential(credential);
         patient?.updatePassword(data.newPassword);
       }
