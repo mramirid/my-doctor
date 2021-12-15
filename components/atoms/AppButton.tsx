@@ -3,7 +3,6 @@ import { StyleProp, StyleSheet, Text, TextStyle, ViewStyle } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
 
 type Props = Readonly<{
   title: string;
@@ -17,7 +16,7 @@ export default function AppButton(props: Props) {
   const buttonStyle = StyleSheet.flatten(StyleSheet.compose(baseButtonStyles, props.style));
   const textStyle: TextStyle = {
     fontSize: 18,
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
   };
 
   if (props.disabled) {

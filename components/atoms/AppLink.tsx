@@ -3,7 +3,6 @@ import { StyleSheet, Text, TextStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
 
 type Props = Readonly<{
   style?: TextStyle;
@@ -19,7 +18,7 @@ const AppLink: FC<Props> = (props) => (
 const styles = StyleSheet.create({
   textLink: {
     fontSize: 12,
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     color: Colors.Grey2,
     textDecorationLine: 'underline',
   },

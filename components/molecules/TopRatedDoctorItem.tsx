@@ -4,7 +4,6 @@ import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-nativ
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
 import { Doctor } from '../../types/user';
 
 type Props = Readonly<{
@@ -47,12 +46,12 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
     color: Colors.Dark,
   },
   occupation: {
     fontSize: 12,
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     color: Colors.Grey2,
     marginTop: 2,
   },

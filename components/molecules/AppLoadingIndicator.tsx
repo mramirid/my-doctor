@@ -2,7 +2,6 @@ import React from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
 import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
 
 export default function AppLoadingIndicator() {
   return (
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     color: Colors.Green2,
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
     marginTop: 10,
   },
 });

@@ -13,7 +13,6 @@ import AppGap from '../../../components/atoms/AppGap';
 import AppLink from '../../../components/atoms/AppLink';
 import Header from '../../../components/molecules/header/Header';
 import Colors from '../../../constants/colors';
-import Fonts from '../../../constants/fonts';
 import { AppLoadingIndicatorContext } from '../../../contexts/app-loading-indicator';
 import withStatusBar from '../../../hoc/withStatusBar';
 import usePhotoPicker from '../../../hooks/usePhotoPicker';
@@ -137,14 +136,14 @@ const styles = StyleSheet.create({
   fullName: {
     fontSize: 24,
     color: Colors.Dark,
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
     textAlign: 'center',
     textTransform: 'capitalize',
   },
   occupation: {
     fontSize: 18,
     color: Colors.Grey2,
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     textAlign: 'center',
     textTransform: 'capitalize',
     marginTop: 4,

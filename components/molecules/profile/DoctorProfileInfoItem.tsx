@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import Colors from '../../../constants/colors';
-import Fonts from '../../../constants/fonts';
 
 type Props = Readonly<{
   label: string;
@@ -27,13 +26,13 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     color: Colors.Grey2,
     marginBottom: 6,
   },
   data: {
     fontSize: 14,
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     color: Colors.Dark,
   },
 });

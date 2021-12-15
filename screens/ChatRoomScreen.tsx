@@ -14,7 +14,6 @@ import UserChatItem from '../components/molecules/chat/UserChatItem';
 import ProfileHeader from '../components/molecules/header/ProfileHeader';
 import fireApp from '../config/firebase';
 import Colors from '../constants/colors';
-import Fonts from '../constants/fonts';
 import withStatusBar from '../hoc/withStatusBar';
 import useMounted from '../hooks/useMounted';
 import { AppStackParamList } from '../navigation/AppStack';
@@ -160,13 +159,13 @@ const styles = StyleSheet.create({
   },
   textEmpty: {
     textAlign: 'center',
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     color: Colors.Dark,
   },
   dateText: {
     textAlign: 'center',
     marginBottom: 20,
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     fontSize: 11,
     color: Colors.Grey2,
   },

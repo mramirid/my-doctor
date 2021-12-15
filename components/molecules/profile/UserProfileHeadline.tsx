@@ -4,7 +4,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import RemovePhoto from '../../../assets/icons/RemovePhoto';
 import Colors from '../../../constants/colors';
-import Fonts from '../../../constants/fonts';
 import usePhotoPicker from '../../../hooks/usePhotoPicker';
 
 type ReadProps = {
@@ -94,14 +93,14 @@ const styles = StyleSheet.create({
   },
   fullName: {
     fontSize: 20,
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
     color: Colors.Dark,
     textTransform: 'capitalize',
     marginTop: 16,
   },
   occupation: {
     fontSize: 16,
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     color: Colors.Grey2,
     textTransform: 'capitalize',
     marginTop: 2,

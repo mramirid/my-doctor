@@ -3,7 +3,6 @@ import React from 'react';
 import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
 import { News } from '../../types/news';
 import AppBorderedItem from '../atoms/AppBorderedItem';
 
@@ -35,13 +34,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
     color: Colors.Dark,
     maxWidth: '90%',
   },
   timestamp: {
     fontSize: 12,
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     color: Colors.Grey2,
     marginTop: 4,
   },

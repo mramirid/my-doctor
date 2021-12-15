@@ -6,7 +6,6 @@ import Medicine from '../../assets/icons/doctor-categories/Medicine';
 import Pediatrician from '../../assets/icons/doctor-categories/Pediatrician';
 import Psychiatrist from '../../assets/icons/doctor-categories/Psychiatrist';
 import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
 import { DoctorSpecialist } from '../../constants/user';
 import AppCard from '../atoms/AppCard';
 
@@ -66,12 +65,12 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    fontFamily: Fonts.NunitoLight,
+    fontFamily: 'Nunito_300Light',
     color: Colors.Dark,
   },
   name: {
     fontSize: 12,
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
     color: Colors.Dark,
   },
 });

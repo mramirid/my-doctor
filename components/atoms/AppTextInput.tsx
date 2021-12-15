@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 
 import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
 
 type Props = Readonly<TextInputProps & { label?: string }>;
 
@@ -47,7 +46,7 @@ const AppTextInput = forwardRef<TextInput, Props>((props, ref) => {
 
 const styles = StyleSheet.create({
   label: {
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     fontSize: 16,
     marginBottom: 6,
     lineHeight: 22,
@@ -58,7 +57,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderWidth: 1,
     borderRadius: 10,
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     fontSize: 16,
   },
 });

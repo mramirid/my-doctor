@@ -3,7 +3,6 @@ import React from 'react';
 import { StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import Colors from '../../../constants/colors';
-import Fonts from '../../../constants/fonts';
 import AppGap from '../../atoms/AppGap';
 
 type Props = Readonly<{
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     textAlign: 'center',
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
     fontSize: 20,
   },
 });

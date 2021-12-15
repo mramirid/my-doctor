@@ -8,7 +8,6 @@ import { FlatList, Image, StyleSheet, Text } from 'react-native';
 import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
 import ListItemBordered from '../../components/molecules/ListItemBordered';
 import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
 import withStatusBar from '../../hoc/withStatusBar';
 import { AppStackParamList } from '../../navigation/AppStack';
 import { HomeTabParamList } from '../../navigation/HomeTab';
@@ -106,7 +105,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
     color: Colors.Dark,
     marginHorizontal: 16,
     marginBottom: 16,
@@ -123,7 +122,7 @@ const styles = StyleSheet.create({
   textEmpty: {
     marginTop: 20,
     textAlign: 'center',
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     color: Colors.Dark,
   },
   messageItem: {

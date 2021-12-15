@@ -5,7 +5,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import { ReadonlyDeep } from 'type-fest';
 
 import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
 
 type Props = ReadonlyDeep<PickerProps & { label: string; options: string[] }>;
 
@@ -32,7 +31,7 @@ export default function AppPickerInput(props: Props) {
 
 const styles = StyleSheet.create({
   label: {
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     fontSize: 16,
     marginBottom: 6,
     lineHeight: 22,
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
     height: 45,
   },
   pickerItem: {
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     fontSize: 16,
   },
 });

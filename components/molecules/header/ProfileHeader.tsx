@@ -4,7 +4,6 @@ import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import Colors from '../../../constants/colors';
-import Fonts from '../../../constants/fonts';
 import { Doctor, Patient } from '../../../types/user';
 
 type Props = {
@@ -52,12 +51,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   name: {
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
     color: Colors.White,
     fontSize: 20,
   },
   occupation: {
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     color: Colors.Grey4,
     fontSize: 14,
     marginTop: 6,

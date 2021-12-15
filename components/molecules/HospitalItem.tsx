@@ -2,7 +2,6 @@ import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
 import { Hospital } from '../../types/hospital';
 import AppBorderedItem from '../atoms/AppBorderedItem';
 
@@ -36,12 +35,12 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     color: Colors.Dark,
   },
   address: {
     fontSize: 12,
-    fontFamily: Fonts.NunitoLight,
+    fontFamily: 'Nunito_300Light',
     color: Colors.Grey2,
     marginTop: 6,
   },

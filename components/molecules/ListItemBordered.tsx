@@ -3,7 +3,6 @@ import React, { ReactNode } from 'react';
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
 import AppBorderedItem from '../atoms/AppBorderedItem';
 
 type Props = Readonly<{
@@ -45,12 +44,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     color: Colors.Dark,
   },
   description: {
     fontSize: 12,
-    fontFamily: Fonts.NunitoLight,
+    fontFamily: 'Nunito_300Light',
     color: Colors.Grey2,
   },
 });

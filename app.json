@@ -3,7 +3,7 @@
     "name": "My Doctor",
     "slug": "my-doctor",
     "description": "Aplikasi untuk melakukan konsultasi online dengan dokter serta pencarian rumah sakit terdekat",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "owner": "mramirid",
     "githubUrl": "https://github.com/mramirid/my-doctor",
     "platforms": [

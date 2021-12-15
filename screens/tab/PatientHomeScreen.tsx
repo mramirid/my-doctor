@@ -15,7 +15,6 @@ import NewsItem from '../../components/molecules/NewsItem';
 import TopRatedDoctorItem from '../../components/molecules/TopRatedDoctorItem';
 import fireApp from '../../config/firebase';
 import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
 import { specialistOptions } from '../../constants/user';
 import withStatusBar from '../../hoc/withStatusBar';
 import useMounted from '../../hooks/useMounted';
@@ -168,7 +167,7 @@ const styles = StyleSheet.create({
   welcomeText: {
     maxWidth: 209,
     fontSize: 20,
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
     color: Colors.Dark,
     marginTop: 30,
     marginBottom: 16,
@@ -179,7 +178,7 @@ const styles = StyleSheet.create({
   sectionLabel: {
     marginHorizontal: 16,
     fontSize: 16,
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
     color: Colors.Dark,
   },
   fetchLoadingContainer: {

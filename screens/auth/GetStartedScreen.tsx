@@ -12,7 +12,6 @@ import AppLogo from '../../assets/icons/AppLogo';
 import AppButton from '../../components/atoms/AppButton';
 import AppGap from '../../components/atoms/AppGap';
 import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
 import { AppStackParamList } from '../../navigation/AppStack';
 import { selectSignInAsDoctor, toggleUserMode } from '../../store/reducers/user-mode';
 import { useAppDispatch, useAppSelector } from '../../store/types';
@@ -86,7 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
     fontSize: 28,
     color: Colors.White,
     marginTop: 90,
@@ -94,6 +93,6 @@ const styles = StyleSheet.create({
   flashMessageTitle: {
     fontSize: 18,
     textAlign: 'center',
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
   },
 });

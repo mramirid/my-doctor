@@ -8,7 +8,6 @@ import AppTabScreen from '../../components/atoms/tab/AppTabScreen';
 import HospitalItem from '../../components/molecules/HospitalItem';
 import fireApp from '../../config/firebase';
 import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
 import useMounted from '../../hooks/useMounted';
 import { Hospital, HospitalData } from '../../types/hospital';
 
@@ -94,13 +93,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
     color: Colors.White,
     textAlign: 'center',
   },
   total: {
     fontSize: 14,
-    fontFamily: Fonts.NunitoLight,
+    fontFamily: 'Nunito_300Light',
     color: Colors.White,
     marginTop: 6,
     textAlign: 'center',
@@ -112,7 +111,7 @@ const styles = StyleSheet.create({
   textEmpty: {
     marginTop: 14,
     textAlign: 'center',
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     color: Colors.Dark,
   },
 });

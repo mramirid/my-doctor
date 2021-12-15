@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Keyboard, StyleSheet, View } from 'react-native';
 
 import Colors from '../../../constants/colors';
-import Fonts from '../../../constants/fonts';
 import AppCard from '../../atoms/AppCard';
 import AppTextInput from '../../atoms/AppTextInput';
 import SendButton from './SendButton';
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 0,
     color: Colors.Grey2,
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     fontSize: 14,
     height: 45,
   },

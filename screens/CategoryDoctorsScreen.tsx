@@ -10,7 +10,6 @@ import ListItemBordered from '../components/molecules/ListItemBordered';
 import Header from '../components/molecules/header/Header';
 import fireApp from '../config/firebase';
 import Colors from '../constants/colors';
-import Fonts from '../constants/fonts';
 import { DoctorSpecialist } from '../constants/user';
 import withStatusBar from '../hoc/withStatusBar';
 import useMounted from '../hooks/useMounted';
@@ -112,7 +111,7 @@ const styles = StyleSheet.create({
   },
   textEmpty: {
     textAlign: 'center',
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     color: Colors.Dark,
   },
   listContent: {

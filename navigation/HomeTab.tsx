@@ -5,7 +5,6 @@ import { ReadonlyDeep } from 'type-fest';
 
 import AppBottomTabBar from '../components/molecules/AppTabBar';
 import Colors from '../constants/colors';
-import Fonts from '../constants/fonts';
 import DoctorHomeScreen from '../screens/tab/DoctorHomeScreen';
 import HospitalsScreen from '../screens/tab/HospitalsScreen';
 import MessagesScreen from '../screens/tab/MessagesScreen';
@@ -31,7 +30,7 @@ export default function HomeTab() {
       tabBarOptions={{
         activeTintColor: Colors.Green2,
         inactiveTintColor: Colors.Grey4,
-        labelStyle: { fontFamily: Fonts.NunitoSemiBold },
+        labelStyle: { fontFamily: 'Nunito_600SemiBold' },
       }}>
       {signInAsDoctor ? (
         <Tab.Screen

@@ -14,7 +14,6 @@ import AppGap from '../../components/atoms/AppGap';
 import AppLink from '../../components/atoms/AppLink';
 import AppTextInput from '../../components/atoms/AppTextInput';
 import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
 import { AppLoadingIndicatorContext } from '../../contexts/app-loading-indicator';
 import withStatusBar from '../../hoc/withStatusBar';
 import { AppStackParamList } from '../../navigation/AppStack';
@@ -145,7 +144,7 @@ const styles = StyleSheet.create({
     marginVertical: 40,
     maxWidth: 155,
     fontSize: 20,
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
     color: Colors.Dark,
   },
   signInButton: {

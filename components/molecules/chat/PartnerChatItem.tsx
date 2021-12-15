@@ -3,7 +3,6 @@ import React from 'react';
 import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import Colors from '../../../constants/colors';
-import Fonts from '../../../constants/fonts';
 import { Chat } from '../../../types/chat';
 import AppCard from '../../atoms/AppCard';
 
@@ -54,12 +53,12 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 14,
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     color: Colors.White,
   },
   timestamp: {
     fontSize: 11,
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     color: Colors.Grey2,
     marginTop: 8,
   },

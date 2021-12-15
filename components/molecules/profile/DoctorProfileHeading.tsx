@@ -4,7 +4,6 @@ import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-nativ
 import FemaleSymbol from '../../../assets/icons/FemaleSymbol';
 import MaleSymbol from '../../../assets/icons/MaleSymbol';
 import Colors from '../../../constants/colors';
-import Fonts from '../../../constants/fonts';
 import { Gender } from '../../../constants/user';
 
 type Props = Readonly<{
@@ -65,13 +64,13 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 20,
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
     color: Colors.Dark,
     marginTop: 16,
   },
   occupation: {
     fontSize: 16,
-    fontFamily: Fonts.NunitoRegular,
+    fontFamily: 'Nunito_400Regular',
     color: Colors.Grey2,
     marginTop: 2,
   },

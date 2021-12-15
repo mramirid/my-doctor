@@ -3,7 +3,6 @@ import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-nativ
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Colors from '../../constants/colors';
-import Fonts from '../../constants/fonts';
 
 type Props = Readonly<{
   fullName: string;
@@ -45,11 +44,11 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
   },
   occupation: {
     fontSize: 12,
     color: Colors.Grey2,
-    fontFamily: Fonts.NunitoSemiBold,
+    fontFamily: 'Nunito_600SemiBold',
   },
 });
