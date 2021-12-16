@@ -4,9 +4,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import { ImageBackground, Platform, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import AppLogo from '../../assets/icons/AppLogo';
 import AppButton from '../../components/atoms/AppButton';
