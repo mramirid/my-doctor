@@ -1,6 +1,6 @@
 import { AntDesign } from '@expo/vector-icons';
 import { BottomTabBarOptions, BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Colors from '../../constants/colors';

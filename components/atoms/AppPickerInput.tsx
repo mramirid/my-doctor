@@ -1,6 +1,5 @@
 import { Picker } from '@react-native-picker/picker';
 import { PickerProps } from '@react-native-picker/picker/typings/Picker';
-import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { ReadonlyDeep } from 'type-fest';
 
@@ -42,6 +41,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.Grey2,
     borderWidth: 1,
     borderRadius: 10,
+    justifyContent: 'center',
   },
   picker: {
     height: 45,

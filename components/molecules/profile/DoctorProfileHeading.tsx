@@ -1,4 +1,3 @@
-import React from 'react';
 import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import FemaleSymbol from '../../../assets/icons/FemaleSymbol';

@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
 import Constants from 'expo-constants';
 import firebase from 'firebase';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { DeepMap, FieldError, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';

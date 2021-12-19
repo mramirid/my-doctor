@@ -1,6 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react';
 import { ReadonlyDeep } from 'type-fest';
 
 import AppBottomTabBar from '../components/molecules/AppTabBar';

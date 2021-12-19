@@ -1,4 +1,3 @@
-import React from 'react';
 import Svg, { Circle, Ellipse, G, Mask, Path, SvgProps } from 'react-native-svg';
 
 import { EMaskUnits } from '../types';

@@ -1,6 +1,6 @@
 import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Platform, StyleProp, View, ViewStyle } from 'react-native';
 
 import Colors from '../constants/colors';

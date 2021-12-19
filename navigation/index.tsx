@@ -1,6 +1,5 @@
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import produce from 'immer';
-import React from 'react';
 
 import Colors from '../constants/colors';
 import AppStack from './AppStack';

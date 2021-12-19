@@ -1,6 +1,6 @@
 import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FlatList, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 

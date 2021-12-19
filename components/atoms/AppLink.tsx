@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { StyleSheet, Text, TextStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 

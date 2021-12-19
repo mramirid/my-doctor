@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import AppLoading from 'expo-app-loading';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import fireApp from '../config/firebase';
 import { AppStackParamList } from '../navigation/AppStack';

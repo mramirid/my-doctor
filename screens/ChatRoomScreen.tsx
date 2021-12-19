@@ -3,7 +3,7 @@ import { RouteProp } from '@react-navigation/native';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
 import Constants from 'expo-constants';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { SectionList, StyleSheet, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 import { ReadonlyDeep } from 'type-fest';

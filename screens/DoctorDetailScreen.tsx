@@ -1,7 +1,6 @@
 import { useNavigation, useRoute } from '@react-navigation/core';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import AppButton from '../components/atoms/AppButton';

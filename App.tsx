@@ -6,7 +6,6 @@ import {
   Nunito_600SemiBold,
 } from '@expo-google-fonts/nunito';
 import AppLoading from 'expo-app-loading';
-import React from 'react';
 import { LogBox } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import { enableScreens } from 'react-native-screens';

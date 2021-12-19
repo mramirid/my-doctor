@@ -1,4 +1,3 @@
-import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import GeneralPractitioner from '../../assets/icons/doctor-categories/GeneralPractitioner';

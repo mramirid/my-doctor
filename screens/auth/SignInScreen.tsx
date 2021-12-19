@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { unwrapResult } from '@reduxjs/toolkit';
 import Constants from 'expo-constants';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { DeepMap, FieldError, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import { showMessage } from 'react-native-flash-message';

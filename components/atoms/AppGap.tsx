@@ -1,4 +1,3 @@
-import React from 'react';
 import { View, ViewStyle } from 'react-native';
 
 type Props = Pick<ViewStyle, 'width' | 'height' | 'backgroundColor'>;

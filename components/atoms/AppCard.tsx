@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { View, StyleSheet, ViewStyle, StyleProp } from 'react-native';
 
 type Props = {
