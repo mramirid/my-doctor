@@ -17,12 +17,12 @@ const AppTextInput = forwardRef<TextInput, Props>((props, ref) => {
   const [borderColor, setBorderColor] = useState(Colors.Grey2);
 
   const onFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-    if (props.onFocus) props.onFocus(e);
+    props.onFocus?.(e);
     setBorderColor(Colors.Blue);
   };
 
   const onBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-    if (props.onBlur) props.onBlur(e);
+    props.onBlur?.(e);
     setBorderColor(Colors.Grey2);
   };
 
