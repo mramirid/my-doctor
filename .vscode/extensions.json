@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "vivaxy.vscode-conventional-commits",
+    "dbaeumer.vscode-eslint",
+    "bycedric.vscode-expo",
+    "esbenp.prettier-vscode",
+    "me-dutour-mathieu.vscode-firebase"
+  ]
+}
