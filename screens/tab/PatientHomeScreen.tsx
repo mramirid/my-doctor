@@ -38,7 +38,7 @@ async function fetchNews() {
     .once('value');
   const fetchedNews: DBNews | null = data.val();
   if (!fetchedNews) return [];
-  const news = Object.keys(fetchedNews).map<News>((key) => ({ id: key, ...fetchedNews[key] }));
+  const news = Object.entries(fetchedNews).map<News>(([id, newsData]) => ({ id, ...newsData }));
   return news;
 }
 
@@ -53,9 +53,9 @@ async function fetchTopRatedDoctors() {
   const fetchedTopDoctors: Doctors | null = data.val();
   if (!fetchedTopDoctors) return [];
 
-  const topDoctors = Object.keys(fetchedTopDoctors).map<Doctor>((key) => ({
-    uid: key,
-    ...fetchedTopDoctors[key],
+  const topDoctors = Object.entries(fetchedTopDoctors).map<Doctor>(([id, doctorData]) => ({
+    uid: id,
+    ...doctorData,
   }));
   return topDoctors;
 }

@@ -30,9 +30,9 @@ async function fetchDoctorsByCategory(specialist: DoctorSpecialist | string) {
   const fetchedTopDoctors: Doctors | null = data.val();
   if (!fetchedTopDoctors) return [];
 
-  const topDoctors = Object.keys(fetchedTopDoctors).map<Doctor>((key) => ({
-    uid: key,
-    ...fetchedTopDoctors[key],
+  const topDoctors = Object.entries(fetchedTopDoctors).map<Doctor>(([id, doctorData]) => ({
+    uid: id,
+    ...doctorData,
   }));
   return topDoctors;
 }

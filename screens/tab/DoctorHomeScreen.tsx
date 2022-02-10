@@ -36,7 +36,7 @@ async function fetchNews() {
   const fetchedNews: DBNews | null = data.val();
   if (!fetchedNews) return [];
 
-  const news = Object.keys(fetchedNews).map<News>((key) => ({ id: key, ...fetchedNews[key] }));
+  const news = Object.entries(fetchedNews).map<News>(([id, newsData]) => ({ id, ...newsData }));
   return news;
 }
 

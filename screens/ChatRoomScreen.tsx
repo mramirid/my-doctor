@@ -51,11 +51,11 @@ function ChatRoomScreen() {
     const chatsPerDays: ChatsPerDays | null = data.val();
     let chats: ChatPerDay[] | null = null;
     if (chatsPerDays !== null) {
-      chats = Object.keys(chatsPerDays)
-        .map((dayDate) => ({
+      chats = Object.entries(chatsPerDays)
+        .map(([dayDate, chatsInADay]) => ({
           title: dayDate,
-          data: Object.keys(chatsPerDays[dayDate])
-            .map((chatId) => ({ id: chatId, ...chatsPerDays[dayDate][chatId] }))
+          data: Object.entries(chatsInADay)
+            .map(([chatId, chatData]) => ({ id: chatId, ...chatData }))
             .reverse(),
         }))
         .reverse();

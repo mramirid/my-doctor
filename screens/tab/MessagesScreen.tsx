@@ -39,23 +39,25 @@ function MessagesScreen() {
     let formattedChatHistories: ChatHistory[] = [];
     if (chatHistories !== null) {
       formattedChatHistories = await Promise.all(
-        Object.keys(chatHistories).map<Promise<ChatHistory>>(async (chatRoomId) => {
-          const data = await fireApp
-            .database()
-            .ref(`users/${chatHistories[chatRoomId].partnerUid}`)
-            .once('value');
-          const fireUser: PatientData | DoctorData = data.val();
-          const partner: Patient | Doctor = {
-            uid: chatHistories[chatRoomId].partnerUid,
-            ...fireUser,
-          };
-          return {
-            chatId: chatRoomId,
-            lastChatContent: chatHistories[chatRoomId].lastChatContent,
-            lastChatTimestamp: chatHistories[chatRoomId].lastChatTimestamp,
-            partner,
-          };
-        })
+        Object.entries(chatHistories).map<Promise<ChatHistory>>(
+          async ([chatRoomId, chatHistory]) => {
+            const data = await fireApp
+              .database()
+              .ref(`users/${chatHistory.partnerUid}`)
+              .once('value');
+            const fireUser: PatientData | DoctorData = data.val();
+            const partner: Patient | Doctor = {
+              uid: chatHistory.partnerUid,
+              ...fireUser,
+            };
+            return {
+              chatId: chatRoomId,
+              lastChatContent: chatHistory.lastChatContent,
+              lastChatTimestamp: chatHistory.lastChatTimestamp,
+              partner,
+            };
+          }
+        )
       );
     }
     setChatHistories(formattedChatHistories);

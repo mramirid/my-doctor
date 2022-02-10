@@ -19,9 +19,9 @@ async function fetchHospitals() {
   const data = await fireApp.database().ref('hospitals').once('value');
   const fetchedHospitals: Hospitals | null = data.val();
   if (!fetchedHospitals) return [];
-  const hospitals = Object.keys(fetchedHospitals).map<Hospital>((key) => ({
-    id: key,
-    ...fetchedHospitals[key],
+  const hospitals = Object.entries(fetchedHospitals).map<Hospital>(([id, hospitalData]) => ({
+    id,
+    ...hospitalData,
   }));
   return hospitals;
 }
