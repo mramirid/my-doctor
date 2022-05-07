@@ -16,7 +16,7 @@ $ expo build:ios
 $ expo fetch:android:keystore
 ```
 
-<br />
+## Screenshots
 
 <p float="left">
   <img src="https://i.ibb.co/2hqbt5s/Screenshot-20210318-133124-My-Doctor.jpg" alt="Getting Started Screen" height="450" border="0">
