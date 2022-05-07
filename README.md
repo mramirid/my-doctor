@@ -2,6 +2,8 @@
 
 Aplikasi untuk melakukan konsultasi online dengan dokter
 
+> Proyek kursus [BWA Full-Stack React Native Developer](https://buildwithangga.com/kelas/full-stack-react-native-developer)
+
 ## Build setup
 
 ```bash
