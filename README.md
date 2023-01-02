@@ -1,6 +1,6 @@
 # My Doctor App
 
-Aplikasi untuk melakukan konsultasi online dengan dokter
+Aplikasi mobile untuk konsultasi dengan dokter secara online.
 
 > Proyek kursus [BWA Full-Stack React Native Developer](https://buildwithangga.com/kelas/full-stack-react-native-developer)
 
